@@ -1,42 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
-  <title>海事英語通信チャット</title>
+  <title>Maritime Chat</title>
+  <!-- 外部CSSを読み込む -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>模擬通信シナリオ</h2>
-  <p id="question"></p>
+  <h2>シンプルチャット</h2>
+  
+  <!-- チャット表示領域 -->
+  <div id="chatWindow">
+    <div class="message other">VTS: Report your position. Over</div>
+    <div class="message user">My position is 35°40'N, 139°46'E</div>
+  </div>
 
-  <input id="userInput" placeholder="回答を入力してください">
-  <button onclick="checkAnswer()">送信</button>
-
-  <p id="response"></p>
+  <!-- 入力欄と送信ボタン -->
+  <div id="inputArea">
+    <input type="text" id="userInput" placeholder="メッセージを入力">
+    <button onclick="sendMessage()">送信</button>
+  </div>
 
   <script>
-    let currentScenario = [];
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const text = input.value.trim();
+      if (text !== "") {
+        // 自分のメッセージを追加
+        const chatWindow = document.getElementById("chatWindow");
+        const userMsg = document.createElement("div");
+        userMsg.className = "message user";
+        userMsg.textContent = text;
+        chatWindow.appendChild(userMsg);
 
-    // JSONファイルを読み込む
-    fetch("scenarios.json")
-      .then(response => response.json())
-      .then(data => {
-        // ここでシナリオを選択（例: VTS）
-        currentScenario = data.vts;
+        // 入力欄をクリア
+        input.value = "";
 
-        // 最初の質問を表示
-        document.getElementById("question").innerText = "VTS: " + currentScenario[0].question;
-      });
+        // 相手の返答（仮の例）
+        const otherMsg = document.createElement("div");
+        otherMsg.className = "message other";
+        otherMsg.textContent = "Roger, message received.";
+        chatWindow.appendChild(otherMsg);
 
-    function checkAnswer() {
-      const input = document.getElementById("userInput").value.trim();
-      const answer = currentScenario[0].answer;
-      const responseText = currentScenario[0].response;
-
-      if (input.toLowerCase() === answer.toLowerCase()) {
-        document.getElementById("response").innerText = "VTS: " + responseText;
-      } else {
-        document.getElementById("response").innerText = "VTS: Sorry, I don't understand.";
+        // スクロールを一番下に
+        chatWindow.scrollTop = chatWindow.scrollHeight;
       }
     }
   </script>
