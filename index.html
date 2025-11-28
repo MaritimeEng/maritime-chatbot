@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>模擬通信チャット</title>
+</head>
+<body>
+  <h2>模擬通信シナリオ</h2>
+  <p id="question"></p>
+
+  <input id="userInput" placeholder="回答を入力してください">
+  <button onclick="checkAnswer()">送信</button>
+
+  <p id="response"></p>
+
+  <script>
+    let currentScenario = [];
+
+    // JSONファイルを読み込む
+    fetch("scenarios.json")
+      .then(response => response.json())
+      .then(data => {
+        // ここでシナリオを選択（例: VTS）
+        currentScenario = data.vts;
+
+        // 最初の質問を表示
+        document.getElementById("question").innerText = "VTS: " + currentScenario[0].question;
+      });
+
+    function checkAnswer() {
+      const input = document.getElementById("userInput").value.trim();
+      const answer = currentScenario[0].answer;
+      const responseText = currentScenario[0].response;
+
+      if (input.toLowerCase() === answer.toLowerCase()) {
+        document.getElementById("response").innerText = "VTS: " + responseText;
+      } else {
+        document.getElementById("response").innerText = "VTS: Sorry, I don't understand.";
+      }
+    }
+  </script>
+</body>
+</html>
