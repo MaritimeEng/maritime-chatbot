@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Maritime Chat</title>
-  <!-- 外部CSSを読み込む -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>シンプルチャット</h2>
+  <h2>シナリオチャット</h2>
   
   <!-- チャット表示領域 -->
-  <div id="chatWindow">
-    <div class="message other">VTS: Report your position. Over</div>
-    <div class="message user">My position is 35°40'N, 139°46'E</div>
-  </div>
+  <div id="chatWindow"></div>
 
   <!-- 入力欄と送信ボタン -->
   <div id="inputArea">
@@ -22,28 +18,60 @@
   </div>
 
   <script>
+    let scenarios = {};
+    let currentScenario = [];
+    let step = 0;
+
+    // JSONを読み込む
+    fetch("scenarios.json")
+      .then(response => response.json())
+      .then(data => {
+        scenarios = data;
+        // 初期シナリオを船同士に設定
+        loadScenario("shipToShip");
+      });
+
+    // シナリオ切り替え
+    function loadScenario(type) {
+      currentScenario = scenarios[type];
+      step = 0;
+      document.getElementById("chatWindow").innerHTML = "";
+      showMessage("other", currentScenario[step].question);
+    }
+
+    // 吹き出しを追加
+    function showMessage(role, text) {
+      const chatWindow = document.getElementById("chatWindow");
+      const msg = document.createElement("div");
+      msg.className = "message " + role;
+      msg.textContent = text;
+      chatWindow.appendChild(msg);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    // 送信処理
     function sendMessage() {
       const input = document.getElementById("userInput");
       const text = input.value.trim();
       if (text !== "") {
-        // 自分のメッセージを追加
-        const chatWindow = document.getElementById("chatWindow");
-        const userMsg = document.createElement("div");
-        userMsg.className = "message user";
-        userMsg.textContent = text;
-        chatWindow.appendChild(userMsg);
-
-        // 入力欄をクリア
+        showMessage("user", text);
         input.value = "";
 
-        // 相手の返答（仮の例）
-        const otherMsg = document.createElement("div");
-        otherMsg.className = "message other";
-        otherMsg.textContent = "Roger, message received.";
-        chatWindow.appendChild(otherMsg);
+        // 模範解答と比較（簡易版）
+        const expected = currentScenario[step].answer;
+        if (text === expected) {
+          showMessage("other", "Correct: " + expected);
+        } else {
+          showMessage("other", "Expected: " + expected);
+        }
 
-        // スクロールを一番下に
-        chatWindow.scrollTop = chatWindow.scrollHeight;
+        // 次のステップへ
+        step++;
+        if (step < currentScenario.length) {
+          showMessage("other", currentScenario[step].question);
+        } else {
+          showMessage("other", "シナリオ終了");
+        }
       }
     }
   </script>
