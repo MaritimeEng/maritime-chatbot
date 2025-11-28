@@ -1,0 +1,31 @@
+#chatWindow {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 400px;
+  height: 300px;
+  overflow-y: scroll;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.message {
+  display: inline-block;
+  margin: 8px;
+  padding: 10px;
+  border-radius: 15px;
+  max-width: 70%;
+  word-wrap: break-word;
+  color: black;
+}
+
+.other {
+  background-color: white;
+  text-align: left;
+  margin-right: auto;
+}
+
+.user {
+  background-color: #9fe88d; /* LINE風の緑 */
+  text-align: right;
+  margin-left: auto;
+}
