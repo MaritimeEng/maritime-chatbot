@@ -13,7 +13,8 @@
 
   <!-- 入力欄と送信ボタン -->
   <div id="inputArea">
-    <input type="text" id="userInput" placeholder="メッセージを入力">
+    <!-- input を textarea に変更 -->
+    <textarea id="userInput" placeholder="メッセージを入力"></textarea>
     <button onclick="sendMessage()">送信</button>
   </div>
 
@@ -74,6 +75,13 @@
         }
       }
     }
+
+    // 入力欄の高さを自動調整
+    const textarea = document.getElementById("userInput");
+    textarea.addEventListener("input", () => {
+      textarea.style.height = "8mm"; // 初期高さに戻す
+      textarea.style.height = textarea.scrollHeight + "px"; // 内容に合わせて伸ばす
+    });
   </script>
 </body>
 </html>

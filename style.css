@@ -4,28 +4,49 @@
   width: 400px;
   height: 300px;
   overflow-y: scroll;
-  background-color: #f0f0f0;
+  background-color: #e5ddd5; /* LINE風背景 */
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column; /* 縦に積み重ねる */
 }
 
 .message {
-  display: inline-block;
   margin: 8px;
   padding: 10px;
   border-radius: 15px;
   max-width: 70%;
   word-wrap: break-word;
   color: black;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
 .other {
   background-color: white;
-  text-align: left;
-  margin-right: auto;
+  align-self: flex-start; /* 左寄せ */
 }
 
 .user {
-  background-color: #9fe88d; /* LINE風の緑 */
-  text-align: right;
-  margin-left: auto;
+  background-color: #9fe88d;
+  align-self: flex-end; /* 右寄せ */
+}
+
+#userInput {
+  width: 10cm;
+  height: 8mm;
+  border-radius: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  resize: none; /* 手動リサイズ禁止 */
+}
+
+button {
+  border-radius: 20px;
+  background-color: #00c300;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #009900;
 }
