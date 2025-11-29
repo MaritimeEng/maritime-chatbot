@@ -7,13 +7,18 @@
 </head>
 <body>
   <h2>シナリオチャット</h2>
+
+  <!-- 切り替えボタン -->
+  <div id="scenarioButtons">
+    <button onclick="loadScenario('shipToShip')">船舶</button>
+    <button onclick="loadScenario('vts')">VTS</button>
+  </div>
   
   <!-- チャット表示領域 -->
   <div id="chatWindow"></div>
 
   <!-- 入力欄と送信ボタン -->
   <div id="inputArea">
-    <!-- input を textarea に変更 -->
     <textarea id="userInput" placeholder="メッセージを入力"></textarea>
     <button onclick="sendMessage()">送信</button>
   </div>
@@ -28,8 +33,7 @@
       .then(response => response.json())
       .then(data => {
         scenarios = data;
-        // 初期シナリオを船同士に設定
-        loadScenario("shipToShip");
+        loadScenario("shipToShip"); // 初期表示は船舶
       });
 
     // シナリオ切り替え
@@ -58,7 +62,6 @@
         showMessage("user", text);
         input.value = "";
 
-        // 模範解答と比較（簡易版）
         const expected = currentScenario[step].answer;
         if (text === expected) {
           showMessage("other", "Correct: " + expected);
@@ -66,7 +69,6 @@
           showMessage("other", "Expected: " + expected);
         }
 
-        // 次のステップへ
         step++;
         if (step < currentScenario.length) {
           showMessage("other", currentScenario[step].question);
@@ -79,8 +81,8 @@
     // 入力欄の高さを自動調整
     const textarea = document.getElementById("userInput");
     textarea.addEventListener("input", () => {
-      textarea.style.height = "8mm"; // 初期高さに戻す
-      textarea.style.height = textarea.scrollHeight + "px"; // 内容に合わせて伸ばす
+      textarea.style.height = "8mm";
+      textarea.style.height = textarea.scrollHeight + "px";
     });
   </script>
 </body>

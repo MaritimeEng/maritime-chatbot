@@ -50,3 +50,20 @@ button {
 button:hover {
   background-color: #009900;
 }
+#scenarioButtons {
+  margin-bottom: 10px;
+}
+
+#scenarioButtons button {
+  background-color: #87cefa; /* 水色 */
+  border: none;
+  border-radius: 15px; /* 角を丸く */
+  padding: 8px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#scenarioButtons button:hover {
+  background-color: #00bfff; /* ホバー時に少し濃い水色 */
+}
