@@ -2,94 +2,144 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Maritime Chat</title>
-  <link rel="stylesheet" href="style.css">
+  <title>海事英語無線練習</title>
+  <style>
+    /* ページ全体の基本設定 */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* チャット全体を中央寄せ */
+    .chat-container {
+      width: 80%;
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    /* タイトル */
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    /* 説明文 */
+    p {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* チャット表示部分 */
+    .chat-box {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      height: 300px;
+      overflow-y: auto;
+      background-color: #fafafa;
+      margin-bottom: 15px;
+    }
+
+    /* 入力欄と送信ボタン */
+    input[type="text"] {
+      width: 70%;
+      padding: 8px;
+      margin-right: 10px;
+    }
+
+    button.send-button {
+      padding: 8px 16px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button.send-button:hover {
+      background-color: #005f99;
+    }
+
+    /* 船舶・VTSボタンの共通スタイル */
+    .role-button {
+      width: 120px;
+      height: 40px;
+      font-size: 16px;
+      margin: 5px;
+      background-color: #e0e0e0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* 選択中のボタンを濃い色に */
+    .role-button.active {
+      background-color: #005f99;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h2>海事英語無線練習</h2>
-  <p>
-  東京海洋大学　高木研究室<br>
-  船舶間通信やVTSとの通信の練習ができます。<br>
-  学籍番号を入力すると、チャットデータが保存されます。<br>
-  収集したデータは卒業研究のためのみに使用し、第三者に公開されることはありません。<br>
-  質問がある場合は高木研究室までお問い合わせください。
-  </p>
+  <div class="chat-container">
+    <h2>海事英語無線練習</h2>
+    <p>
+      東京海洋大学　高木研究室<br>
+      船舶間通信やVTSとの通信の練習ができます。<br>
+      学籍番号を入力すると、チャットデータが保存されます。<br>
+      データは卒業研究のためのみに使用します。
+    </p>
 
-  <!-- 切り替えボタン -->
-  <div id="scenarioButtons">
-    <button onclick="loadScenario('shipToShip')">船舶</button>
-    <button onclick="loadScenario('vts')">VTS</button>
-  </div>
-  
-  <!-- チャット表示領域 -->
-  <div id="chatWindow"></div>
+    <!-- 船舶・VTSボタン -->
+    <button class="role-button" id="ship-button">船舶</button>
+    <button class="role-button" id="vts-button">VTS</button>
 
-  <!-- 入力欄と送信ボタン -->
-  <div id="inputArea">
-    <textarea id="userInput" placeholder="メッセージを入力"></textarea>
-    <button onclick="sendMessage()">送信</button>
+    <!-- チャット表示部分 -->
+    <div class="chat-box" id="chat-box"></div>
+
+    <!-- 入力欄と送信ボタン -->
+    <input type="text" id="message-input" placeholder="メッセージを入力">
+    <button class="send-button" id="send-button">送信</button>
   </div>
 
   <script>
-    let scenarios = {};
-    let currentScenario = [];
-    let step = 0;
+    // 選択中の役割を保持
+    let currentRole = null;
 
-    // JSONを読み込む
-    fetch("scenarios.json")
-      .then(response => response.json())
-      .then(data => {
-        scenarios = data;
-        loadScenario("shipToShip"); // 初期表示は船舶
+    // 船舶・VTSボタンのクリック処理
+    document.querySelectorAll('.role-button').forEach(button => {
+      button.addEventListener('click', () => {
+        // 全ボタンから active を外す
+        document.querySelectorAll('.role-button').forEach(btn => btn.classList.remove('active'));
+        // クリックしたボタンに active を付ける
+        button.classList.add('active');
+        // 現在の役割を更新
+        currentRole = button.textContent;
       });
+    });
 
-    // シナリオ切り替え
-    function loadScenario(type) {
-      currentScenario = scenarios[type];
-      step = 0;
-      document.getElementById("chatWindow").innerHTML = "";
-      showMessage("other", currentScenario[step].question);
-    }
+    // 送信ボタンのクリック処理
+    document.getElementById('send-button').addEventListener('click', () => {
+      const input = document.getElementById('message-input');
+      const message = input.value.trim();
+      if (message === "") return;
 
-    // 吹き出しを追加
-    function showMessage(role, text) {
-      const chatWindow = document.getElementById("chatWindow");
-      const msg = document.createElement("div");
-      msg.className = "message " + role;
-      msg.textContent = text;
-      chatWindow.appendChild(msg);
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
+      const chatBox = document.getElementById('chat-box');
+      const newMessage = document.createElement('div');
+      newMessage.textContent = (currentRole ? currentRole + ": " : "") + message;
+      chatBox.appendChild(newMessage);
 
-    // 送信処理
-    function sendMessage() {
-      const input = document.getElementById("userInput");
-      const text = input.value.trim();
-      if (text !== "") {
-        showMessage("user", text);
-        input.value = "";
-
-        const expected = currentScenario[step].answer;
-        if (text === expected) {
-          showMessage("other", "Correct: " + expected);
-        } else {
-          showMessage("other", "Expected: " + expected);
-        }
-
-        step++;
-        if (step < currentScenario.length) {
-          showMessage("other", currentScenario[step].question);
-        } else {
-          showMessage("other", "シナリオ終了");
-        }
-      }
-    }
-
-    // 入力欄の高さを自動調整
-    const textarea = document.getElementById("userInput");
-    textarea.addEventListener("input", () => {
-      textarea.style.height = "8mm";
-      textarea.style.height = textarea.scrollHeight + "px";
+      // 入力欄をクリア
+      input.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
     });
   </script>
 </body>
