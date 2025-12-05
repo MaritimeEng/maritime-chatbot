@@ -1,0 +1,16 @@
+{
+  "shipToShip": [
+    {
+      "question": "What is your intention? Over",
+      "answer": "I will alter course to starboard and make port to port passing with A",
+      "response": "Okay, you will pass A port to port"
+    }
+  ],
+  "vts": [
+    {
+      "question": "Report your position. Over",
+      "answer": "My position is 35°40'N, 139°46'E",
+      "response": "Roger, position received"
+    }
+  ]
+}
