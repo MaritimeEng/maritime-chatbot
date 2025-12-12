@@ -1,5 +1,4 @@
 {
-  "船舶: Shiojimaru, This is Umitakamaru. My call sign is JPAT. Juliet, Papa, Alfa, Tango. How do you read me, over?": "他の船舶: Umitakamaru, This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. I read you loud and clear. How do you read me, over?",
-
-  "船舶: Tokyo Martis, Tokyo Martis, This is Umitakamaru. My call sign is JPAT. Juliet, Papa, Alfa, Tango. Request traffic information, over.": "VTS: Umitakamaru, This is Tokyo Martis. Roger, your call sign JPAT received. Current traffic: one outbound tanker from Yokohama, call sign 7XYZ, proceeding southbound. Maintain course and report position every 15 minutes, over."
+  "船舶: Shiojimaru, This is Umitakamaru. My call sign is JPAT. Juliet, Papa, Alfa, Tango. How do you read me, over?": "Shiojimaru: Umitakamaru, This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. I read you loud and clear. How do you read me, over?"
+  "船舶: Tokyo Martis, Tokyo Martis, This is Umitakamaru. My call sign is JPAT. Juliet, Papa, Alfa, Tango. Request traffic information, over.": "Tokyo Martis: Umitakamaru, This is Tokyo Martis. Roger, your call sign JPAT received. Current traffic: one outbound tanker from Yokohama, call sign 7XYZ, proceeding southbound. Maintain course and report position every 15 minutes, over."
 }
