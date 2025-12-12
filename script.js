@@ -1,5 +1,6 @@
 let scenario = {};
-let currentRole = null;
+let myRole = "船舶";        // 自分は常に船舶
+let currentOpponent = null; // 相手役（他の船舶 or VTS）
 
 // ページ読み込み時にlocalStorageから学籍番号を復元
 window.addEventListener("load", () => {
@@ -26,12 +27,12 @@ fetch("scenario.json")
     console.error("シナリオの読み込みに失敗しました:", error);
   });
 
-// 船舶・VTSボタンのクリック処理
+// 相手役ボタンのクリック処理
 document.querySelectorAll('.role-button').forEach(button => {
   button.addEventListener('click', () => {
     document.querySelectorAll('.role-button').forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
-    currentRole = button.textContent;
+    currentOpponent = button.textContent === "船舶" ? "他の船舶" : "VTS";
   });
 });
 
@@ -39,35 +40,27 @@ document.querySelectorAll('.role-button').forEach(button => {
 document.getElementById('send-button').addEventListener('click', () => {
   const input = document.getElementById('message-input');
   const message = input.value.trim();
-  if (message === "") return;
+  if (message === "" || !currentOpponent) return;
 
   const chatBox = document.getElementById('chat-box');
-  const studentId = localStorage.getItem("studentId"); // localStorageから取得
-  const scenarioName = currentRole; // 船舶 or VTS
-  const userMessage = (scenarioName ? scenarioName + ": " : "") + message;
+  const studentId = localStorage.getItem("studentId");
+  const userMessage = myRole + ": " + message;
 
-  // ユーザーのメッセージを表示
+  // 自分のメッセージを表示
   const newMessage = document.createElement('div');
   newMessage.textContent = userMessage;
   chatBox.appendChild(newMessage);
 
-  // シナリオに応じた応答を表示
-  const reply = scenario[userMessage];
-  let responseText = "";
-  if (reply) {
-    responseText = reply;
-    const replyMessage = document.createElement('div');
-    replyMessage.textContent = reply;
-    chatBox.appendChild(replyMessage);
-  } else {
-    responseText = "応答例: " + message; // 仮の応答
-    const replyMessage = document.createElement('div');
-    replyMessage.textContent = responseText;
-    chatBox.appendChild(replyMessage);
-  }
+  // シナリオに応じた相手の応答を表示
+  const key = currentOpponent + ": " + message; // シナリオのキー例
+  let responseText = scenario[key] || (currentOpponent + "応答例: " + message);
+
+  const replyMessage = document.createElement('div');
+  replyMessage.textContent = responseText;
+  chatBox.appendChild(replyMessage);
 
   // Googleフォーム送信
-  sendToGoogleForm(studentId, scenarioName, message, responseText);
+  sendToGoogleForm(studentId, currentOpponent, message, responseText);
 
   // 入力欄をクリア
   input.value = "";
@@ -80,7 +73,7 @@ function sendToGoogleForm(studentId, scenarioName, userInput, response) {
 
   const formData = new FormData();
   formData.append("entry.504566204", studentId);      // 学籍番号
-  formData.append("entry.715153589", scenarioName);   // シナリオ名
+  formData.append("entry.715153589", scenarioName);   // 相手役（他の船舶 or VTS）
   formData.append("entry.633984331", userInput);      // ユーザー入力
   formData.append("entry.502434052", response);       // 応答
 
@@ -94,21 +87,3 @@ function sendToGoogleForm(studentId, scenarioName, userInput, response) {
     console.error("送信エラー:", error);
   });
 }
-
-  // ユーザーのメッセージを表示
-  const newMessage = document.createElement('div');
-  newMessage.textContent = userMessage;
-  chatBox.appendChild(newMessage);
-
-  // シナリオに応じた応答を表示
-  const reply = scenario[userMessage];
-  if (reply) {
-    const replyMessage = document.createElement('div');
-    replyMessage.textContent = reply;
-    chatBox.appendChild(replyMessage);
-  }
-
-  // 入力欄をクリア
-  input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
-});

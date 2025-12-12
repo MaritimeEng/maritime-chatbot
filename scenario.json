@@ -1,4 +1,4 @@
 {
-  "船舶: hello": "VTS: Hello, this is Tokyo VTS.",
-  "船舶: We are near buoy 3.": "VTS: Roger. Proceed to anchorage area B."
+  "船舶: Shiojimaru, This is Umitakamaru. My call sign is JPAT. Juliet, Papa, Alfa, Tango. How do you read me, over?": "他の船舶: Umitakamaru, This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. I read you loud and clear. How do you read me, over?",
+  "船舶: Roger, I read you loud and clear.": "他の船舶: Thank you. Communication established."
 }
