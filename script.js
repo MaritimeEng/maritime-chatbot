@@ -1,6 +1,7 @@
 let scenario = {};
-let myRole = "船舶";        // 自分は常に船舶
-let currentOpponent = null; // 相手役（他の船舶 or VTS）
+let myRole = "Shiojimaru";        // 自船は常にShiojimaru
+let myCallSign = "7KJH";          // 自船のコールサイン
+let currentOpponent = null;       // 相手役（Umitakamaru or Tokyo Martis）
 
 // ページ読み込み時にlocalStorageから学籍番号を復元
 window.addEventListener("load", () => {
@@ -32,7 +33,7 @@ document.querySelectorAll('.role-button').forEach(button => {
   button.addEventListener('click', () => {
     document.querySelectorAll('.role-button').forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
-    currentOpponent = button.textContent === "船舶" ? "他の船舶" : "VTS";
+    currentOpponent = button.textContent === "船舶" ? "Umitakamaru" : "Tokyo Martis";
   });
 });
 
@@ -46,25 +47,34 @@ document.getElementById('send-button').addEventListener('click', () => {
   const studentId = localStorage.getItem("studentId");
   const userMessage = myRole + ": " + message;
 
-  // 自分のメッセージを表示
+  // 自船のメッセージを表示
   const newMessage = document.createElement('div');
   newMessage.textContent = userMessage;
   chatBox.appendChild(newMessage);
 
-  // シナリオに応じた相手の応答を表示
-  const key = currentOpponent + ": " + message; // シナリオのキー例
-  let responseText = scenario[key] || (currentOpponent + "応答例: " + message);
+  // 1行あける
+  const spacer = document.createElement('div');
+  spacer.innerHTML = "&nbsp;";
+  chatBox.appendChild(spacer);
 
-  const replyMessage = document.createElement('div');
-  replyMessage.textContent = responseText;
-  chatBox.appendChild(replyMessage);
+  // シナリオに応じた相手の応答を準備
+  const key = userMessage;
+  let responseText = scenario[key] || (currentOpponent + ": 応答例 " + message);
 
-  // Googleフォーム送信
-  sendToGoogleForm(studentId, currentOpponent, message, responseText);
+  // 5秒後に相手の応答を表示
+  setTimeout(() => {
+    const replyMessage = document.createElement('div');
+    replyMessage.textContent = responseText;
+    chatBox.appendChild(replyMessage);
+
+    // Googleフォーム送信
+    sendToGoogleForm(studentId, currentOpponent, message, responseText);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 5000);
 
   // 入力欄をクリア
   input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
 });
 
 // Googleフォーム送信関数
@@ -73,7 +83,7 @@ function sendToGoogleForm(studentId, scenarioName, userInput, response) {
 
   const formData = new FormData();
   formData.append("entry.504566204", studentId);      // 学籍番号
-  formData.append("entry.715153589", scenarioName);   // 相手役（他の船舶 or VTS）
+  formData.append("entry.715153589", scenarioName);   // 相手役（Umitakamaru or Tokyo Martis）
   formData.append("entry.633984331", userInput);      // ユーザー入力
   formData.append("entry.502434052", response);       // 応答
 
