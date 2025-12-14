@@ -47,31 +47,26 @@ document.getElementById('send-button').addEventListener('click', () => {
   const studentId = localStorage.getItem("studentId");
   const userMessage = myRole + ": " + message;
 
-  // 自船のメッセージを表示
+  // 自分のメッセージを表示（黒文字＋太字）
   const newMessage = document.createElement('div');
-  newMessage.textContent = userMessage;
-  chatBox.appendChild(newMessage);
-
-  // 1行あける
-  const spacer = document.createElement('div');
-  spacer.innerHTML = "&nbsp;";
-  chatBox.appendChild(spacer);
+  newMessage.className = "user-message";
+  newMessage.innerHTML = "<strong>" + myRole + ":</strong> " + message;
+  chatBox.appendChild(newMessage);          
 
   // シナリオに応じた相手の応答を準備
   const key = userMessage;
   let responseText = scenario[key] || (currentOpponent + ": 応答例 " + message);
 
-  // 5秒後に相手の応答を表示
+  // 3秒後に相手の応答を表示（青文字＋太字）
   setTimeout(() => {
     const replyMessage = document.createElement('div');
-    replyMessage.textContent = responseText;
+    replyMessage.className = "reply-message";
+    replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;
     chatBox.appendChild(replyMessage);
 
-    // Googleフォーム送信
     sendToGoogleForm(studentId, currentOpponent, message, responseText);
-
     chatBox.scrollTop = chatBox.scrollHeight;
-  }, 5000);
+  }, 3000);
 
   // 入力欄をクリア
   input.value = "";
@@ -83,7 +78,7 @@ function sendToGoogleForm(studentId, scenarioName, userInput, response) {
 
   const formData = new FormData();
   formData.append("entry.504566204", studentId);      // 学籍番号
-  formData.append("entry.715153589", scenarioName);   // 相手役（Umitakamaru or Tokyo Martis）
+  formData.append("entry.715153589", scenarioName);   // 相手役
   formData.append("entry.633984331", userInput);      // ユーザー入力
   formData.append("entry.502434052", response);       // 応答
 
