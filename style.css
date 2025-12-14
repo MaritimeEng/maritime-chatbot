@@ -42,6 +42,29 @@ p {
   margin-bottom: 15px;
 }
 
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+}
+
+/* 自分の発言（黒文字＋太字） */
+.user-message {
+  color: #000000;
+  font-weight: bold;
+  margin: 6px 0;
+}
+
+/* 相手の発言（青文字＋太字） */
+.reply-message {
+  color: #1e88e5;
+  font-weight: bold;
+  margin: 6px 0;
+}
+
 /* 入力欄と送信ボタン */
 input[type="text"] {
   width: 70%;
