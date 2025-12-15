@@ -46,8 +46,7 @@ document.getElementById('send-button').addEventListener('click', () => {
   const chatBox = document.getElementById('chat-box');
   const studentId = localStorage.getItem("studentId");
 
-  // ★ここで自動的にラベルを付ける
-  const userMessage = myRole + ": " + message;
+  const userMessage = message;  // ← ラベルを付けずにそのまま使う
 
   // 自分のメッセージを表示（黒文字＋太字）
   const newMessage = document.createElement('div');
