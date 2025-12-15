@@ -45,37 +45,36 @@ document.getElementById('send-button').addEventListener('click', () => {
 
   const chatBox = document.getElementById('chat-box');
   const studentId = localStorage.getItem("studentId");
-  const userMessage = myRole + ": " + message;
 
-console.log("送信キー:", userMessage);
-console.log("シナリオキー一覧:", Object.keys(scenario));
+  // ★ここで自動的にラベルを付ける
+  const userMessage = myRole + ": " + message;
 
   // 自分のメッセージを表示（黒文字＋太字）
   const newMessage = document.createElement('div');
   newMessage.className = "user-message";
   newMessage.innerHTML = "<strong>" + myRole + ":</strong> " + message;
-  chatBox.appendChild(newMessage);          
+  chatBox.appendChild(newMessage);
 
-// シナリオに応じた相手の応答を準備
-const key = userMessage;
-let responseText = scenario[key];
+  // シナリオに応じた相手の応答を準備
+  const key = userMessage;
+  let responseText = scenario[key];
 
-setTimeout(() => {
-  const replyMessage = document.createElement('div');
-  replyMessage.className = "reply-message";
+  setTimeout(() => {
+    const replyMessage = document.createElement('div');
+    replyMessage.className = "reply-message";
 
-  if (responseText) {
-    // シナリオ一致 → 青文字で通常応答
-    replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;
-  } else {
-    // シナリオ不一致 → 赤文字で "Say again."
-    replyMessage.innerHTML = "<span style='color:red'><strong>" + currentOpponent + ":</strong> Say again.</span>";
-  }
+    if (responseText) {
+      // シナリオ一致 → 青文字で通常応答
+      replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;
+    } else {
+      // シナリオ不一致 → 赤文字で "Say again."
+      replyMessage.innerHTML = "<span style='color:red'><strong>" + currentOpponent + ":</strong> Say again.</span>";
+    }
 
-  chatBox.appendChild(replyMessage);
-  sendToGoogleForm(studentId, currentOpponent, message, responseText || "Say again.");
-  chatBox.scrollTop = chatBox.scrollHeight;
-}, 3000);
+    chatBox.appendChild(replyMessage);
+    sendToGoogleForm(studentId, currentOpponent, message, responseText || "Say again.");
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 3000);
 
   // 入力欄をクリア
   input.value = "";
