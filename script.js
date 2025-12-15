@@ -53,20 +53,26 @@ document.getElementById('send-button').addEventListener('click', () => {
   newMessage.innerHTML = "<strong>" + myRole + ":</strong> " + message;
   chatBox.appendChild(newMessage);          
 
-  // シナリオに応じた相手の応答を準備
-  const key = userMessage;
-  let responseText = scenario[key] || (currentOpponent + ": 応答例 " + message);
+// シナリオに応じた相手の応答を準備
+const key = userMessage;
+let responseText = scenario[key];
 
-  // 3秒後に相手の応答を表示（青文字＋太字）
-  setTimeout(() => {
-    const replyMessage = document.createElement('div');
-    replyMessage.className = "reply-message";
+setTimeout(() => {
+  const replyMessage = document.createElement('div');
+  replyMessage.className = "reply-message";
+
+  if (responseText) {
+    // シナリオ一致 → 青文字で通常応答
     replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;
-    chatBox.appendChild(replyMessage);
+  } else {
+    // シナリオ不一致 → 赤文字で "Say again."
+    replyMessage.innerHTML = "<span style='color:red'><strong>" + currentOpponent + ":</strong> Say again.</span>";
+  }
 
-    sendToGoogleForm(studentId, currentOpponent, message, responseText);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }, 3000);
+  chatBox.appendChild(replyMessage);
+  sendToGoogleForm(studentId, currentOpponent, message, responseText || "Say again.");
+  chatBox.scrollTop = chatBox.scrollHeight;
+}, 3000);
 
   // 入力欄をクリア
   input.value = "";
