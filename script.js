@@ -47,6 +47,9 @@ document.getElementById('send-button').addEventListener('click', () => {
   const studentId = localStorage.getItem("studentId");
   const userMessage = myRole + ": " + message;
 
+console.log("送信キー:", userMessage);
+console.log("シナリオキー一覧:", Object.keys(scenario));
+
   // 自分のメッセージを表示（黒文字＋太字）
   const newMessage = document.createElement('div');
   newMessage.className = "user-message";
