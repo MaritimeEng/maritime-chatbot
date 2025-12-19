@@ -42,17 +42,16 @@ document.querySelectorAll('.role-button').forEach(button => {
 function speak(text) {
   const utterance = new SpeechSynthesisUtterance(text);
 
-  // 利用可能な音声一覧を取得
-  const voices = speechSynthesis.getVoices();
-
-  // 例: 英語（アメリカ）の声を選択
-  const selectedVoice = voices.find(voice => voice.lang === "en-US");
+  let voices = speechSynthesis.getVoices();
+  const selectedVoice = voices.find(voice => voice.name === "Microsoft Aria Online (Natural) - English (United States)");
   if (selectedVoice) {
-    utterance.voice = en-US;
+    utterance.voice = selectedVoice;
   }
 
-  utterance.rate = 1.0;  // 読み上げ速度（0.1〜10.0）
-  utterance.pitch = 1.0; // 声の高さ（0〜2）
+  utterance.lang = "en-US";   // 言語を明示的に指定
+  utterance.rate = 1.3;       // 読み上げ速度（少し速め）
+  utterance.pitch = 1.0;      // 声の高さ
+
   speechSynthesis.speak(utterance);
 }
 
