@@ -38,6 +38,24 @@ document.querySelectorAll('.role-button').forEach(button => {
 });
 
 // 送信ボタンのクリック処理
+// 読み上げ用の関数
+function speak(text) {
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  // 利用可能な音声一覧を取得
+  const voices = speechSynthesis.getVoices();
+
+  // 例: 英語（アメリカ）の声を選択
+  const selectedVoice = voices.find(voice => voice.lang === "en-US");
+  if (selectedVoice) {
+    utterance.voice = selectedVoice;
+  }
+
+  utterance.rate = 1.0;  // 読み上げ速度（0.1〜10.0）
+  utterance.pitch = 1.0; // 声の高さ（0〜2）
+  speechSynthesis.speak(utterance);
+}
+
 document.getElementById('send-button').addEventListener('click', () => {
   const input = document.getElementById('message-input');
   const message = input.value.trim();
@@ -46,15 +64,16 @@ document.getElementById('send-button').addEventListener('click', () => {
   const chatBox = document.getElementById('chat-box');
   const studentId = localStorage.getItem("studentId");
 
-  const userMessage = message;  // ← ラベルを付けずにそのまま使う
+  // JSONキーと一致させるため、ラベルは付けない
+  const userMessage = message;
 
-  // 自分のメッセージを表示（黒文字＋太字）
+  // 自分のメッセージ表示
   const newMessage = document.createElement('div');
   newMessage.className = "user-message";
   newMessage.innerHTML = "<strong>" + myRole + ":</strong> " + message;
   chatBox.appendChild(newMessage);
 
-  // シナリオに応じた相手の応答を準備
+  // シナリオ応答を取得
   const key = userMessage;
   let responseText = scenario[key];
 
@@ -63,11 +82,13 @@ document.getElementById('send-button').addEventListener('click', () => {
     replyMessage.className = "reply-message";
 
     if (responseText) {
-      // シナリオ一致 → 青文字で通常応答
+      // シナリオ一致 → 青字で応答
       replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;
+      speak(responseText); // ★読み上げ
     } else {
-      // シナリオ不一致 → 赤文字で "Say again."
+      // シナリオ不一致 → 赤字で "Say again."
       replyMessage.innerHTML = "<span style='color:red'><strong>" + currentOpponent + ":</strong> Say again.</span>";
+      speak("Say again."); // ★読み上げ
     }
 
     chatBox.appendChild(replyMessage);
