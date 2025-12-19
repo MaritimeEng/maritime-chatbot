@@ -37,24 +37,31 @@ document.querySelectorAll('.role-button').forEach(button => {
   });
 });
 
-// 送信ボタンのクリック処理
-// 読み上げ用の関数
+// ★ グローバル変数と関数をここにまとめる
+let currentVoiceName = "Microsoft Aria Online (Natural) - English (United States)"; // 初期値
+
+function setVoice(voiceName) {
+  currentVoiceName = voiceName;
+  console.log("Voice set to:", voiceName);
+}
+
 function speak(text) {
   const utterance = new SpeechSynthesisUtterance(text);
-
   let voices = speechSynthesis.getVoices();
-  const selectedVoice = voices.find(voice => voice.name === "Microsoft Aria Online (Natural) - English (United States)");
+
+  const selectedVoice = voices.find(voice => voice.name === currentVoiceName);
   if (selectedVoice) {
     utterance.voice = selectedVoice;
+    utterance.lang = selectedVoice.lang;
   }
 
-  utterance.lang = "en-US";   // 言語を明示的に指定
-  utterance.rate = 1.3;       // 読み上げ速度（少し速め）
-  utterance.pitch = 1.0;      // 声の高さ
+  utterance.rate = 1.3;  // 読み上げ速度
+  utterance.pitch = 1.0; // 声の高さ
 
   speechSynthesis.speak(utterance);
 }
 
+// 送信ボタンのクリック処理
 document.getElementById('send-button').addEventListener('click', () => {
   const input = document.getElementById('message-input');
   const message = input.value.trim();
@@ -81,11 +88,9 @@ document.getElementById('send-button').addEventListener('click', () => {
     replyMessage.className = "reply-message";
 
     if (responseText) {
-      // シナリオ一致 → 青字で応答
       replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;
       speak(responseText); // ★読み上げ
     } else {
-      // シナリオ不一致 → 赤字で "Say again."
       replyMessage.innerHTML = "<span style='color:red'><strong>" + currentOpponent + ":</strong> Say again.</span>";
       speak("Say again."); // ★読み上げ
     }
@@ -95,7 +100,6 @@ document.getElementById('send-button').addEventListener('click', () => {
     chatBox.scrollTop = chatBox.scrollHeight;
   }, 3000);
 
-  // 入力欄をクリア
   input.value = "";
 });
 
