@@ -48,7 +48,7 @@ function speak(text) {
   // 例: 英語（アメリカ）の声を選択
   const selectedVoice = voices.find(voice => voice.lang === "en-US");
   if (selectedVoice) {
-    utterance.voice = selectedVoice;
+    utterance.voice = en-US;
   }
 
   utterance.rate = 1.0;  // 読み上げ速度（0.1〜10.0）
