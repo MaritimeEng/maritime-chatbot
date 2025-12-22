@@ -8,43 +8,46 @@
 </head>
 <body>
   <div class="chat-container">
-    <h2>Maritime ChatBot</h2>
-    <p>
-      東京海洋大学　高木研究室<br>
-      船舶間通信やVTSとの通信の練習ができます。<br>
-      学籍番号を入力すると、チャットデータが保存されます。<br>
-      データは卒業研究のためのみに使用します。
-    </p>
+  <h2>Maritime ChatBot</h2>
+  <p>
+    東京海洋大学　高木研究室<br>
+    船舶間通信やVTSとの通信の練習ができます。<br>
+    学籍番号を入力すると、チャットデータが保存されます。<br>
+    データは卒業研究のためのみに使用します。
+  </p>
 
-    <!-- 学籍番号入力欄（初回のみ入力） -->
-    <label>学籍番号: <input type="text" id="student-id" placeholder="学籍番号を入力"></label><br><br>
+  <!-- 学籍番号 -->
+  <label>学籍番号: 
+    <input type="text" id="student-id" placeholder="学籍番号を入力">
+  </label>
+  <br><br>
 
-<div id="intro-text">
-  You can select the accent for speech synthesis (US, UK, Australia, India, Canada).  
-  The default accent is <strong>US English</strong>.
-</div>
-
-<div id="voice-buttons">
-  <button onclick="setVoice('Microsoft Aria Online (Natural) - English (United States)')">US English</button>
-  <button onclick="setVoice('Microsoft Libby Online (Natural) - English (United Kingdom)')">UK English</button>
-  <button onclick="setVoice('Microsoft Hayley Online - English (Australia)')">Australian English</button>
-  <button onclick="setVoice('Microsoft Priya Online - English (India)')">Indian English</button>
-  <button onclick="setVoice('Microsoft Heather Online - English (Canada)')">Canadian English</button>
-</div>
-
-    <!-- 船舶・VTSボタン -->
-    <button class="role-button" id="ship-button">船舶</button>
-    <button class="role-button" id="vts-button">VTS</button>
-
-    <!-- チャット表示部分 -->
-    <div class="chat-box" id="chat-box"></div>
-
-    <!-- 入力欄と送信ボタン -->
-    <input type="text" id="message-input" placeholder="メッセージを入力">
-    <button class="send-button" id="send-button">送信</button>
+  <!-- 訛り説明 -->
+  <div id="intro-text">
+    You can select the accent for speech synthesis (US, UK, Australia, India, Canada).  
+    The default accent is <strong>US English</strong>.
   </div>
 
-  <!-- 外部JavaScriptを読み込み -->
-  <script src="script.js"></script>
-</body>
-</html>
+  <!-- 訛りボタン -->
+  <div id="voice-buttons">
+    <button onclick="setVoice('Microsoft Aria Online (Natural) - English (United States)')">US English</button>
+    <button onclick="setVoice('Microsoft Libby Online (Natural) - English (United Kingdom)')">UK English</button>
+    <button onclick="setVoice('Microsoft Hayley Online - English (Australia)')">Australian English</button>
+    <button onclick="setVoice('Microsoft Priya Online - English (India)')">Indian English</button>
+    <button onclick="setVoice('Microsoft Heather Online - English (Canada)')">Canadian English</button>
+  </div>
+
+  <!-- 入力欄 + Send -->
+  <div id="chat-controls">
+    <input id="message-input" type="text" placeholder="Type your messages">
+    <button id="send-button">Send</button>
+  </div>
+
+  <!-- 船舶・VTSボタン -->
+  <button class="role-button" id="ship-button">船舶</button>
+  <button class="role-button" id="vts-button">VTS</button>
+
+  <!-- ★★★ チャットボックス（これが消えていた） ★★★ -->
+  <div class="chat-box" id="chat-box"></div>
+
+</div>
