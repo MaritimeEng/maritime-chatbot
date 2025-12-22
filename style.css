@@ -38,15 +38,6 @@ p {
 }
 
 /* チャット表示部分 */
-.chat-box {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 10px;
-  height: 300px;
-  overflow-y: auto;
-  background-color: #fafafa;
-  margin-bottom: 15px;
-}
 
 .chat-box {
   display: flex;
