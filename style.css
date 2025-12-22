@@ -64,10 +64,14 @@ p {
 }
 
 /* 入力欄と送信ボタン */
-input[type="text"] {
-  width: 70%;
+#message-input {
+  width: 100%;
+  min-height: 40px;      /* 最低高さ */
+  max-height: 200px;     /* 必要なら上限を設定 */
   padding: 8px;
-  margin-right: 10px;
+  resize: none;          /* 手動リサイズ禁止（任意） */
+  overflow-y: hidden;    /* 自動伸縮のためスクロール非表示 */
+  font-size: 16px;
 }
 
 button.send-button {

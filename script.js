@@ -4,11 +4,19 @@ let myCallSign = "7KJH";          // 自船のコールサイン
 let currentOpponent = null;       // 相手役（Umitakamaru or Tokyo Martis）
 
 // ページ読み込み時にlocalStorageから学籍番号を復元
-window.addEventListener("load", () => {
+window.addEventListener("DOMContentLoaded", () => {
+  // ★ 学籍番号の復元
   const savedId = localStorage.getItem("studentId");
   if (savedId) {
     document.getElementById("student-id").value = savedId;
   }
+
+  // ★ メッセージ入力欄の自動リサイズ
+  const messageInput = document.getElementById("message-input");
+  messageInput.addEventListener("input", () => {
+    messageInput.style.height = "auto";
+    messageInput.style.height = messageInput.scrollHeight + "px";
+  });
 });
 
 // 学籍番号入力欄が変更されたら保存
@@ -131,6 +139,13 @@ document.getElementById('send-button').addEventListener('click', () => {
   }, 3000);
 
   input.value = "";
+});
+
+const messageInput = document.getElementById("message-input");
+
+messageInput.addEventListener("input", () => {
+  messageInput.style.height = "auto";          // 一度リセット
+  messageInput.style.height = messageInput.scrollHeight + "px"; // 内容に合わせて伸ばす
 });
 
 // Googleフォーム送信関数
