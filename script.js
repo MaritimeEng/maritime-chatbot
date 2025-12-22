@@ -36,6 +36,12 @@ fetch("scenario.json")
     console.error("シナリオの読み込みに失敗しました:", error);
   });
 
+// ★ 音声リストが読み込まれたら再取得
+speechSynthesis.onvoiceschanged = () => {
+  speechSynthesis.getVoices();
+  console.log("Voices loaded:", speechSynthesis.getVoices());
+};
+
 // 相手役ボタンのクリック処理
 document.querySelectorAll('.role-button').forEach(button => {
   button.addEventListener('click', () => {
