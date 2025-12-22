@@ -37,6 +37,16 @@ p {
   border: 2px solid #0077b6; /* 枠線を少し濃い青に */
 }
 
+.ship-info {
+  border: 2px solid #1e88e5;   /* 青い枠線 */
+  background-color: #e3f2fd;   /* 薄い青背景 */
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
 /* チャット表示部分 */
 .chat-box {
   border: 1px solid #ddd;
