@@ -38,16 +38,15 @@ p {
 }
 
 /* チャット表示部分 */
-
 .chat-box {
-  display: flex;
-  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   padding: 10px;
-  max-height: 400px;
+  height: 300px;
   overflow-y: auto;
-  background-color: #f5f5f5;
+  background-color: #fafafa;
+  margin-bottom: 15px;
 }
-
 /* 自分の発言（黒文字＋太字） */
 .user-message {
   color: #000000;
