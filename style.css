@@ -31,6 +31,12 @@ p {
   margin-bottom: 20px;
 }
 
+#voice-buttons button.active {
+  background-color: lightblue;
+  color: black;        /* 文字色を黒にして見やすく */
+  border: 2px solid #0077b6; /* 枠線を少し濃い青に */
+}
+
 /* チャット表示部分 */
 .chat-box {
   border: 1px solid #ddd;

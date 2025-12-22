@@ -38,25 +38,55 @@ document.querySelectorAll('.role-button').forEach(button => {
 });
 
 // ★ グローバル変数と関数をここにまとめる
-let currentVoiceName = "Microsoft Aria Online (Natural) - English (United States)"; // 初期値
+// ★ グローバル変数（最初は音声なし）
+let currentVoiceName = null;
 
+// ★ 訛り切り替え関数
 function setVoice(voiceName) {
   currentVoiceName = voiceName;
   console.log("Voice set to:", voiceName);
 }
 
+// ★ 訛りボタンの active 切り替え
+document.querySelectorAll('#voice-buttons button').forEach(button => {
+  button.addEventListener('click', () => {
+
+    // active を全て外す
+    document.querySelectorAll('#voice-buttons button').forEach(btn => btn.classList.remove('active'));
+
+    // 押したボタンに active を付ける
+    button.classList.add('active');
+
+    // onclick の voiceName を取得して setVoice に渡す
+    const voiceName = button.getAttribute('onclick').match(/'(.*)'/)[1];
+    setVoice(voiceName);
+  });
+});
+
+// ★ 読み上げ関数
 function speak(text) {
+
+  // 声が選択されていない場合は読み上げしない
+  if (!currentVoiceName) {
+    console.log("No voice selected. Skipping speech.");
+    return;
+  }
+
   const utterance = new SpeechSynthesisUtterance(text);
   let voices = speechSynthesis.getVoices();
 
   const selectedVoice = voices.find(voice => voice.name === currentVoiceName);
-  if (selectedVoice) {
-    utterance.voice = selectedVoice;
-    utterance.lang = selectedVoice.lang;
+
+  if (!selectedVoice) {
+    console.warn("Selected voice not found:", currentVoiceName);
+    return;
   }
 
-  utterance.rate = 1.3;  // 読み上げ速度
-  utterance.pitch = 1.0; // 声の高さ
+  utterance.voice = selectedVoice;
+  utterance.lang = selectedVoice.lang; // ★ これが重要（日本語読み防止）
+
+  utterance.rate = 1.3;
+  utterance.pitch = 1.0;
 
   speechSynthesis.speak(utterance);
 }
