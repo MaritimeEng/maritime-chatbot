@@ -42,11 +42,13 @@ p {
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 10px;
-  height: 300px;
-  overflow-y: auto;
+  min-height: 200px;   /* 最低限の高さだけ確保 */
+  max-height: none;    /* 上限なし */
+  overflow-y: visible; /* スクロールバーを消す */
   background-color: #fafafa;
   margin-bottom: 15px;
 }
+
 /* 自分の発言（黒文字＋太字） */
 .user-message {
   color: #000000;
