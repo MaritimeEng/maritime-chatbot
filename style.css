@@ -47,6 +47,24 @@ p {
   line-height: 1.6;
 }
 
+#ship-scenario-select {
+  margin-top: 10px;
+}
+
+.ship-scenario {
+  padding: 8px 12px;
+  margin-right: 5px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ship-scenario:hover {
+  background-color: #388e3c;
+}
+
 /* チャット表示部分 */
 .chat-box {
   border: 1px solid #ddd;

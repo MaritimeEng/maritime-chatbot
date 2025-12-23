@@ -46,8 +46,18 @@
   </div>
 
   <!-- 船舶・VTSボタン -->
-  <button class="role-button" id="ship-button">船舶</button>
-  <button class="role-button" id="vts-button">VTS</button>
+  <div id="role-select">
+    <button class="role-button" id="ship-button">船舶</button>
+    <button class="role-button" id="vts-button">VTS</button>
+    <button class="role-button" id="random-button">ランダム</button>
+  </div>
+
+  <div id="ship-scenario-select" style="display:none;">
+    <button class="ship-scenario" data-scenario="meeting">行き会い</button>
+    <button class="ship-scenario" data-scenario="crossing">横切り</button>
+    <button class="ship-scenario" data-scenario="overtaking">追い越し</button>
+    <button class="ship-scenario" data-scenario="other">その他</button>
+  </div>
 
   <!-- ★★★ チャットボックス（これが消えていた） ★★★ -->
   <div class="chat-box" id="chat-box"></div>

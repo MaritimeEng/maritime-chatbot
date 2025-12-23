@@ -154,6 +154,41 @@ messageInput.addEventListener("input", () => {
   messageInput.style.height = messageInput.scrollHeight + "px"; // 内容に合わせて伸ばす
 });
 
+
+let shipScenario = null;   // 船舶のシチュエーション（行き会い・横切りなど）
+document.getElementById("ship-button").addEventListener("click", () => {
+  document.getElementById("ship-scenario-select").style.display = "block";
+});
+
+document.getElementById("vts-button").addEventListener("click", () => {
+  document.getElementById("ship-scenario-select").style.display = "none";
+  shipScenario = null;
+});
+
+document.getElementById("random-button").addEventListener("click", () => {
+  document.getElementById("ship-scenario-select").style.display = "none";
+  shipScenario = null;
+});
+
+document.querySelectorAll(".ship-scenario").forEach(btn => {
+  btn.addEventListener("click", () => {
+    shipScenario = btn.dataset.scenario;
+    console.log("選択されたシチュエーション:", shipScenario);
+  });
+});
+
+document.getElementById("random-button").addEventListener("click", () => {
+  const roles = ["Umitakamaru", "Tokyo Martis"];
+  currentOpponent = roles[Math.floor(Math.random() * roles.length)];
+
+  if (currentOpponent === "Umitakamaru") {
+    const scenarios = ["meeting", "crossing", "overtaking", "other"];
+    shipScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+  }
+
+  console.log("ランダム選択:", currentOpponent, shipScenario);
+});
+
 // Googleフォーム送信関数
 function sendToGoogleForm(studentId, scenarioName, userInput, response) {
   const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSd-VVaYg6OGow30tJb_w9Uzit4v_DDF7_FLIbIASbT_52d2nA/formResponse";
