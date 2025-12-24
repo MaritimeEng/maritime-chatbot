@@ -45,11 +45,27 @@ speechSynthesis.onvoiceschanged = () => {
 // 相手役ボタンのクリック処理
 document.querySelectorAll('.role-button').forEach(button => {
   button.addEventListener('click', () => {
+
+    // active 切り替え
     document.querySelectorAll('.role-button').forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
-    currentOpponent = button.textContent === "船舶" ? "Umitakamaru" : "Tokyo Martis";
+
+    // 役割の設定
+    if (button.id === "ship-button") {
+      currentOpponent = "Umitakamaru";
+      document.getElementById("ship-scenario-select").style.display = "block";  // ★表示
+    } else if (button.id === "vts-button") {
+      currentOpponent = "Tokyo Martis";
+      document.getElementById("ship-scenario-select").style.display = "none";   // ★非表示
+    } else if (button.id === "random-button") {
+      document.getElementById("ship-scenario-select").style.display = "none";   // ★非表示
+      const roles = ["Umitakamaru", "Tokyo Martis"];
+      currentOpponent = roles[Math.floor(Math.random() * roles.length)];
+    }
+
   });
 });
+
 
 // ★ グローバル変数と関数をここにまとめる
 // ★ グローバル変数（最初は音声なし）
@@ -152,22 +168,6 @@ const messageInput = document.getElementById("message-input");
 messageInput.addEventListener("input", () => {
   messageInput.style.height = "auto";          // 一度リセット
   messageInput.style.height = messageInput.scrollHeight + "px"; // 内容に合わせて伸ばす
-});
-
-
-let shipScenario = null;   // 船舶のシチュエーション（行き会い・横切りなど）
-document.getElementById("ship-button").addEventListener("click", () => {
-  document.getElementById("ship-scenario-select").style.display = "block";
-});
-
-document.getElementById("vts-button").addEventListener("click", () => {
-  document.getElementById("ship-scenario-select").style.display = "none";
-  shipScenario = null;
-});
-
-document.getElementById("random-button").addEventListener("click", () => {
-  document.getElementById("ship-scenario-select").style.display = "none";
-  shipScenario = null;
 });
 
 document.querySelectorAll(".ship-scenario").forEach(btn => {
