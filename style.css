@@ -40,8 +40,9 @@ p {
 }
 
 .ship-info {
-  border: 2px solid #1e88e5;   /* 青い枠線 */
-  background-color: #e3f2fd;   /* 薄い青背景 */
+  border: 2px solid #1e88e5;
+  background-color: #2c3e50; /* ダークグレーに変更 */
+  color: #e0e6ed;            /* 明るい文字色に変更 */
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 15px;
@@ -183,4 +184,14 @@ button.send-button:hover {
   .reply-message {
     font-size: 18px;
   }
+}
+
+#student-id {
+  background-color: #1f2d3a;
+  color: #e0e6ed;
+  border: 1px solid #3c4f65;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
 }
