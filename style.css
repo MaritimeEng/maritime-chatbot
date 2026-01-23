@@ -33,10 +33,25 @@ p {
   margin-bottom: 20px;
 }
 
+#voice-buttons button {
+  background-color: #4a5d73; /* 船舶ボタンより少し薄い */
+  color: #e0e6ed;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#voice-buttons button:hover {
+  background-color: #6b7f96;
+}
+
 #voice-buttons button.active {
-  background-color: lightblue;
-  color: black;        /* 文字色を黒にして見やすく */
-  border: 2px solid #0077b6; /* 枠線を少し濃い青に */
+  background-color: #6b7f96;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .ship-info {
@@ -170,6 +185,13 @@ button.send-button:hover {
 
 .vts-scenario:hover {
   background-color: #0d47a1;
+}
+
+.ship-scenario.active,
+.vts-scenario.active {
+  background-color: #5a6f89; /* 選択時の色 */
+  color: #ffffff;
+  font-weight: bold;
 }
 
 /* スマホ（幅600px以下）のときだけ適用 */

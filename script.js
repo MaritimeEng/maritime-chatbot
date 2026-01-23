@@ -184,6 +184,13 @@ messageInput.addEventListener("input", () => {
 
 document.querySelectorAll(".ship-scenario").forEach(btn => {
   btn.addEventListener("click", () => {
+
+    // すべての船舶サブボタンから active を外す
+    document.querySelectorAll(".ship-scenario").forEach(b => b.classList.remove("active"));
+
+    // 今押したボタンに active を付ける
+    btn.classList.add("active");
+
     shipScenario = btn.dataset.scenario;
     console.log("選択されたシチュエーション:", shipScenario);
   });
@@ -225,6 +232,12 @@ function sendToGoogleForm(studentId, scenarioName, userInput, response) {
 // VTS サブ選択ボタンの処理
 document.querySelectorAll(".vts-scenario").forEach(btn => {
   btn.addEventListener("click", () => {
+
+    // すべての VTS サブボタンから active を外す
+    document.querySelectorAll(".vts-scenario").forEach(b => b.classList.remove("active"));
+
+    // 今押したボタンに active を付ける
+    btn.classList.add("active");
 
     const type = btn.dataset.type;   // report / notice / ask
     const num = btn.dataset.num;     // 1〜5
