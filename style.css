@@ -134,16 +134,23 @@ button.send-button:hover {
   height: 40px;
   font-size: 16px;
   margin: 5px;
-  background-color: #e0e0e0;
+  background-color: #3c4f65; /* 青みがかった暗いグレー */
+  color: #e0e6ed;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: 0.2s;
+}
+
+.role-button:hover {
+  background-color: #5a6f89;
 }
 
 /* 選択中のボタンを濃い色に */
 .role-button.active {
-  background-color: #005f99;
-  color: white;
+  background-color: #5a6f89;
+  color: #ffffff;
   font-weight: bold;
 }
 
