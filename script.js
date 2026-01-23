@@ -2,6 +2,7 @@ let scenario = {};
 let myRole = "Shiojimaru";        // 自船は常にShiojimaru
 let myCallSign = "7KJH";          // 自船のコールサイン
 let currentOpponent = null;       // 相手役（Umitakamaru or Tokyo Martis）
+let vtsScenario = null;
 
 // ページ読み込み時にlocalStorageから学籍番号を復元
 window.addEventListener("DOMContentLoaded", () => {
@@ -51,16 +52,19 @@ document.querySelectorAll('.role-button').forEach(button => {
     button.classList.add('active');
 
     // 役割の設定
-    if (button.id === "ship-button") {
+   if (button.id === "ship-button") {
       currentOpponent = "Umitakamaru";
-      document.getElementById("ship-scenario-select").style.display = "block";  // ★表示
-    } else if (button.id === "vts-button") {
+      document.getElementById("ship-scenario-select").style.display = "block";
+      document.getElementById("vts-scenario-select").style.display = "none";
+    }
+    else if (button.id === "vts-button") {
       currentOpponent = "Tokyo Martis";
-      document.getElementById("ship-scenario-select").style.display = "none";   // ★非表示
-    } else if (button.id === "random-button") {
-      document.getElementById("ship-scenario-select").style.display = "none";   // ★非表示
-      const roles = ["Umitakamaru", "Tokyo Martis"];
-      currentOpponent = roles[Math.floor(Math.random() * roles.length)];
+      document.getElementById("ship-scenario-select").style.display = "none";
+      document.getElementById("vts-scenario-select").style.display = "block";   
+    }
+    else if (button.id === "random-button") {
+      document.getElementById("ship-scenario-select").style.display = "none";
+      document.getElementById("vts-scenario-select").style.display = "none";
     }
 
   });
@@ -141,7 +145,15 @@ document.getElementById('send-button').addEventListener('click', () => {
 
   // シナリオ応答を取得
   const key = userMessage;
-  let responseText = scenario[key];
+  let responseText;
+
+if (currentOpponent === "Tokyo Martis" && vtsScenario) {
+  responseText = scenario["vts"][vtsScenario][key];
+} else if (shipScenario) {
+  responseText = scenario["ship"][shipScenario][key];
+} else {
+  responseText = scenario[key];
+}
 
   setTimeout(() => {
     const replyMessage = document.createElement('div');
@@ -209,3 +221,21 @@ function sendToGoogleForm(studentId, scenarioName, userInput, response) {
     console.error("送信エラー:", error);
   });
 }
+
+// VTS サブ選択ボタンの処理
+document.querySelectorAll(".vts-scenario").forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    const type = btn.dataset.type;   // report / notice / ask
+    const num = btn.dataset.num;     // 1〜5
+
+    vtsScenario = `${type}${num}`;
+    console.log("選択されたVTSシナリオ:", vtsScenario);
+
+    // 画像表示（例：report1.png）
+    const img = document.getElementById("scenario-image");
+    if (img) {
+      img.src = `images/${vtsScenario}.png`;
+    }
+  });
+});
