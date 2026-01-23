@@ -1,7 +1,8 @@
 /* ページ全体の基本設定 */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  background-color: #1e2a38; /* 深い青みグレー */
+  color: #e0e6ed;            /* 明るめの文字色 */
   margin: 0;
   padding: 0;
 }
@@ -10,11 +11,12 @@ body {
 .chat-container {
   width: 80%;
   max-width: 800px;
-  margin: 20px auto;   /* 上下20px、左右自動で中央寄せ */
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
+  margin: 20px auto;
+  background-color: #263544; /* 濃いグレー */
+  border: none;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
 /* タイトル */
@@ -54,7 +56,7 @@ p {
 .ship-scenario {
   padding: 8px 12px;
   margin-right: 5px;
-  background-color: #4caf50;
+  background-color: #1976d2;
   color: white;
   border: none;
   border-radius: 4px;
@@ -62,44 +64,54 @@ p {
 }
 
 .ship-scenario:hover {
-  background-color: #388e3c;
+  background-color: #0d47a1;
 }
 
 /* チャット表示部分 */
 .chat-box {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 10px;
-  min-height: 200px;   /* 最低限の高さだけ確保 */
-  max-height: none;    /* 上限なし */
-  overflow-y: visible; /* スクロールバーを消す */
-  background-color: #fafafa;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  min-height: 200px;
+  background-color: #1f2d3a;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
   margin-bottom: 15px;
 }
 
 /* 自分の発言（黒文字＋太字） */
 .user-message {
-  color: #000000;
+  background-color: #2e3e50;
+  color: #e0e6ed;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
   font-weight: bold;
-  margin: 6px 0;
 }
 
 /* 相手の発言（青文字＋太字） */
+
 .reply-message {
-  color: #1e88e5;
+  background-color: #34495e;
+  color: #e0e6ed;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
   font-weight: bold;
-  margin: 6px 0;
 }
 
 /* 入力欄と送信ボタン */
 #message-input {
   width: 100%;
-  min-height: 40px;      /* 最低高さ */
-  max-height: 200px;     /* 必要なら上限を設定 */
-  padding: 8px;
-  resize: none;          /* 手動リサイズ禁止（任意） */
-  overflow-y: hidden;    /* 自動伸縮のためスクロール非表示 */
+  min-height: 40px;
+  max-height: 200px;
+  padding: 10px;
+  resize: none;
+  overflow-y: hidden;
   font-size: 16px;
+  background-color: #1f2d3a;
+  color: #e0e6ed;
+  border: 1px solid #3c4f65;
+  border-radius: 8px;
 }
 
 button.send-button {
