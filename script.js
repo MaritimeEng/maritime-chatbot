@@ -176,7 +176,13 @@ document.getElementById('send-button').addEventListener('click', () => {
 
   setTimeout(() => {
     const replyMessage = document.createElement('div');
-    replyMessage.className = "reply-message";
+    replyMessage.classList.add("reply-message");
+
+    if (currentOpponent === "Umitakamaru") {
+      replyMessage.classList.add("umitaka");
+    } else if (currentOpponent === "Tokyo Martis") {
+      replyMessage.classList.add("vts");
+    }
 
     if (responseText) {
       replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;

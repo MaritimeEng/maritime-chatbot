@@ -115,6 +115,20 @@ p {
   font-weight: bold;
 }
 
+/* Umitakamaru の返信（青系） */
+.reply-message.umitaka {
+  background-color: #2e3e50;
+  border-left: 4px solid #1e88e5;
+  color: #e0e6ed;
+}
+
+/* Tokyo Martis の返信（緑系） */
+.reply-message.vts {
+  background-color: #34495e;
+  border-left: 4px solid #26a69a;
+  color: #e0e6ed;
+}
+
 /* 入力欄と送信ボタン */
 #message-input {
   width: 100%;
