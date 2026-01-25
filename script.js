@@ -146,15 +146,33 @@ document.getElementById('send-button').addEventListener('click', () => {
 
   // シナリオ応答を取得
   const key = userMessage;
-  let responseText;
+  let responseText = null;
 
-if (currentOpponent === "Tokyo Martis" && vtsScenario) {
-  responseText = scenario["vts"][vtsScenario][key];
-} else if (shipScenario) {
-  responseText = scenario["ship"][shipScenario][key];
-} else {
-  responseText = scenario[key];
-}
+  try {
+    if (currentOpponent === "Tokyo Martis" &&
+        vtsScenario &&
+        scenario.vts &&
+        scenario.vts[vtsScenario] &&
+        scenario.vts[vtsScenario][key]) {
+
+      responseText = scenario.vts[vtsScenario][key];
+
+    } else if (currentOpponent === "Umitakamaru" &&
+               shipScenario &&
+               scenario.ship &&
+               scenario.ship[shipScenario] &&
+               scenario.ship[shipScenario][key]) {
+
+      responseText = scenario.ship[shipScenario][key];
+
+    } else if (scenario[key]) {
+      // 旧形式（フラットなJSON）にも一応対応
+      responseText = scenario[key];
+    }
+
+  } catch (e) {
+    console.error("シナリオ取得中にエラー:", e);
+  }
 
   setTimeout(() => {
     const replyMessage = document.createElement('div');
