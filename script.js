@@ -217,8 +217,6 @@ document.getElementById('send-button').addEventListener('click', () => {
   let responseText = null;
 
   try {
-    // ★ 配列方式の応答検索
-  try {
     if (currentOpponent === "Umitakamaru" && shipScenario) {
       responseText = findShipResponse(userMessage);
     } 
@@ -228,6 +226,7 @@ document.getElementById('send-button').addEventListener('click', () => {
   } catch (e) {
     console.error("シナリオ取得中にエラー:", e);
   }
+  
 
   setTimeout(() => {
   const replyMessage = document.createElement('div');
