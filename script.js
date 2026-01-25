@@ -3,6 +3,7 @@ let myRole = "Shiojimaru";        // 自船は常にShiojimaru
 let myCallSign = "7KJH";          // 自船のコールサイン
 let currentOpponent = null;       // 相手役（Umitakamaru or Tokyo Martis）
 let vtsScenario = null;
+let shipScenario = null;
 
 // ページ読み込み時にlocalStorageから学籍番号を復元
 window.addEventListener("DOMContentLoaded", () => {
