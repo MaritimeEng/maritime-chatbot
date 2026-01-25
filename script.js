@@ -71,6 +71,31 @@ document.querySelectorAll('.role-button').forEach(button => {
   });
 });
 
+// ★ 配列方式：船舶シナリオの応答検索
+function findShipResponse(userMessage) {
+  const list = scenario.ship[shipScenario]; // crossing などの配列
+  if (!Array.isArray(list)) return null;
+
+  for (const item of list) {
+    if (item.inputs.includes(userMessage)) {
+      return item.response;
+    }
+  }
+  return null;
+}
+
+// ★ 配列方式：VTS シナリオの応答検索
+function findVtsResponse(userMessage) {
+  const list = scenario.vts[vtsScenario];
+  if (!Array.isArray(list)) return null;
+
+  for (const item of list) {
+    if (item.inputs.includes(userMessage)) {
+      return item.response;
+    }
+  }
+  return null;
+}
 
 // ★ グローバル変数と関数をここにまとめる
 // ★ グローバル変数（最初は音声なし）
@@ -149,27 +174,14 @@ document.getElementById('send-button').addEventListener('click', () => {
   let responseText = null;
 
   try {
-    if (currentOpponent === "Tokyo Martis" &&
-        vtsScenario &&
-        scenario.vts &&
-        scenario.vts[vtsScenario] &&
-        scenario.vts[vtsScenario][key]) {
-
-      responseText = scenario.vts[vtsScenario][key];
-
-    } else if (currentOpponent === "Umitakamaru" &&
-               shipScenario &&
-               scenario.ship &&
-               scenario.ship[shipScenario] &&
-               scenario.ship[shipScenario][key]) {
-
-      responseText = scenario.ship[shipScenario][key];
-
-    } else if (scenario[key]) {
-      // 旧形式（フラットなJSON）にも一応対応
-      responseText = scenario[key];
+    // ★ 配列方式の応答検索
+  try {
+    if (currentOpponent === "Umitakamaru" && shipScenario) {
+      responseText = findShipResponse(userMessage);
+    } 
+    else if (currentOpponent === "Tokyo Martis" && vtsScenario) {
+      responseText = findVtsResponse(userMessage);
     }
-
   } catch (e) {
     console.error("シナリオ取得中にエラー:", e);
   }

@@ -1,38 +1,60 @@
 {
   "ship": {
-    "crossing": {
-      "Umitakamaru, This is Shiojimaru. My call sign is 7KJH. Seven, Kilo, Juliet, Hotel. How do you read me, over?":
-        "Shiojimaru, This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me, over?",
+    "crossing": [
+      {
+        "inputs": [
+          "Umitakamaru, This is Shiojimaru. My call sign is 7KJH. Seven, Kilo, Juliet, Hotel. How do you read me, over?",
+          "Umitakamaru, Umitakamaru, This is Shiojimaru. My call sign is 7KJH. Seven, Kilo, Juliet, Hotel. How do you read me, over?"
+        ],
+        "response": "Shiojimaru, This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me, over?"
+      },
 
-      "Umitakamaru, This is Shiojimaru. I read you loud and clear. I am 5 points on your starboard side, distance 5 miles, speed 8 knots. What is your intension, over.":
-        "Shiojimaru, This is Umitakamaru. You are 5 points on my starboard side, distance 5 miles, speed 8 knots, copy. I will alter course to starboard and pass astern of you, over.",
+      {
+        "inputs": [
+          "Umitakamaru, This is Shiojimaru. I read you loud and clear. I am 5 points on your starboard side, distance 5 miles, speed 8 knots. What is your intension, over.",
+          "Umitakamaru, This is Shiojimaru. I read you loud and clear. I am 5 points on your starboard side, distance 5 miles, speed 8 knots. What is your intention, over.",
+          "Umitakamaru, This is Shiojimaru. I am on your starboard side, distance 5 miles, speed 8 knots. What is your intention, over."
+        ],
+        "response": "Shiojimaru, This is Umitakamaru. You are 5 points on my starboard side, distance 5 miles, speed 8 knots, copy. I will alter course to starboard and pass astern of you, over."
+      },
 
-      "Umitakamaru, you will alter course to starboard and pass astern of me. Thank you for your cooperation. Shiojimaru out.":
-        "Umitakamaru out."
-    }
+      {
+        "inputs": [
+          "Umitakamaru, you will alter course to starboard and pass astern of me. Thank you for your cooperation. Shiojimaru out.",
+          "Umitakamaru, thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ]
   },
 
   "vts": {
-    "report1": {},
-    "report2": {},
-    "report3": {},
-    "report4": {},
-    "report5": {},
+    "report1": [],
+    "report2": [],
+    "report3": [],
+    "report4": [],
+    "report5": [],
 
-    "notice1": {},
-    "notice2": {},
-    "notice3": {},
-    "notice4": {},
-    "notice5": {},
+    "notice1": [],
+    "notice2": [],
+    "notice3": [],
+    "notice4": [],
+    "notice5": [],
 
-    "ask1": {
-      "Tokyo Martis, Tokyo Martis, This is Shiojimaru. My call sign is 7KJH. Request traffic information, over.":
-        "Shiojimaru, This is Tokyo Martis. Roger, your call sign 7KJH received. Current traffic: one outbound tanker from Yokohama, call sign 7XYZ, seven, X-ray, Yankee, Zulu. proceeding southbound. Maintain course and report position every 15 minutes, over."
-    },
+    "ask1": [
+      {
+        "inputs": [
+          "Tokyo Martis, Tokyo Martis, This is Shiojimaru. My call sign is 7KJH. Request traffic information, over.",
+          "Tokyo Martis, This is Shiojimaru. My call sign is 7KJH. Request traffic information, over.",
+          "Tokyo Martis, This is Shiojimaru. Request traffic information, over."
+        ],
+        "response": "Shiojimaru, This is Tokyo Martis. Roger, your call sign 7KJH received. Current traffic: one outbound tanker from Yokohama, call sign 7XYZ, seven, X-ray, Yankee, Zulu. Proceeding southbound. Maintain course and report position every 15 minutes, over."
+      }
+    ],
 
-    "ask2": {},
-    "ask3": {},
-    "ask4": {},
-    "ask5": {}
+    "ask2": [],
+    "ask3": [],
+    "ask4": [],
+    "ask5": []
   }
 }
