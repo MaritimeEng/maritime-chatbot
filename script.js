@@ -152,64 +152,59 @@ function speak(text) {
   speechSynthesis.speak(utterance);
 }
 
-// 送信ボタンのクリック処理
-// ★ 模範解答要求
-if (userMessage.toLowerCase() === "what's the answer?" ||
-    userMessage.toLowerCase() === "whats the answer?") {
-
-  let modelAnswer = null;
-
-  // 船舶シナリオ
-  if (currentOpponent === "Umitakamaru" && shipScenario) {
-    const list = scenario.ship[shipScenario];
-
-    for (let i = 0; i < list.length - 1; i++) {
-      if (list[i].response === lastOpponentMessage) {
-        modelAnswer = list[i + 1].inputs[0]; // 次の発話の最初の例を返す
-        break;
-      }
-    }
-  }
-
-  // VTS シナリオ（必要なら同じ構造）
-  if (currentOpponent === "Tokyo Martis" && vtsScenario) {
-    const list = scenario.vts[vtsScenario];
-
-    for (let i = 0; i < list.length - 1; i++) {
-      if (list[i].response === lastOpponentMessage) {
-        modelAnswer = list[i + 1].inputs[0];
-        break;
-      }
-    }
-  }
-
-  // 表示
-  const replyMessage = document.createElement('div');
-  replyMessage.classList.add("reply-message", "vts");
-
-  if (modelAnswer) {
-    replyMessage.innerHTML = "<strong>Model Answer:</strong> " + modelAnswer;
-  } else {
-    replyMessage.innerHTML = "<strong>Model Answer:</strong> No model answer found.";
-  }
-
-  chatBox.appendChild(replyMessage);
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  input.value = "";
-  return; // ★ 通常処理をスキップ
-}
-
 document.getElementById('send-button').addEventListener('click', () => {
-  const input = document.getElementById('message-input');
-  const message = input.value.trim();
-  if (message === "" || !currentOpponent) return;
+    const input = document.getElementById('message-input');
+    const message = input.value.trim();
+    if (message === "" || !currentOpponent) return;
 
-  const chatBox = document.getElementById('chat-box');
-  const studentId = localStorage.getItem("studentId");
+    const chatBox = document.getElementById('chat-box');
+    const studentId = localStorage.getItem("studentId");
 
-  // JSONキーと一致させるため、ラベルは付けない
-  const userMessage = message;
+    const userMessage = message;
+
+    // ★★★ ここに模範解答の if 文を入れる ★★★
+    if (userMessage.toLowerCase() === "what's the answer?" ||
+        userMessage.toLowerCase() === "whats the answer?") {
+
+        let modelAnswer = null;
+
+        if (currentOpponent === "Umitakamaru" && shipScenario) {
+            const list = scenario.ship[shipScenario];
+            for (let i = 0; i < list.length - 1; i++) {
+                if (list[i].response === lastOpponentMessage) {
+                    modelAnswer = list[i + 1].inputs[0];
+                    break;
+                }
+            }
+        }
+
+        if (currentOpponent === "Tokyo Martis" && vtsScenario) {
+            const list = scenario.vts[vtsScenario];
+            for (let i = 0; i < list.length - 1; i++) {
+                if (list[i].response === lastOpponentMessage) {
+                    modelAnswer = list[i + 1].inputs[0];
+                    break;
+                }
+            }
+        }
+
+        const replyMessage = document.createElement('div');
+        replyMessage.classList.add("reply-message", "vts");
+
+        if (modelAnswer) {
+            replyMessage.innerHTML = "<strong>Model Answer:</strong> " + modelAnswer;
+        } else {
+            replyMessage.innerHTML = "<strong>Model Answer:</strong> No model answer found.";
+        }
+
+        chatBox.appendChild(replyMessage);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        input.value = "";
+        return;
+    }
+
+    // ★★★ ここから通常の処理 ★★★
 
   // 自分のメッセージ表示
   const newMessage = document.createElement('div');
