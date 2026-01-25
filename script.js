@@ -4,6 +4,7 @@ let myCallSign = "7KJH";          // 自船のコールサイン
 let currentOpponent = null;       // 相手役（Umitakamaru or Tokyo Martis）
 let vtsScenario = null;
 let shipScenario = null;
+let lastOpponentMessage = null;
 
 // ページ読み込み時にlocalStorageから学籍番号を復元
 window.addEventListener("DOMContentLoaded", () => {
@@ -152,6 +153,53 @@ function speak(text) {
 }
 
 // 送信ボタンのクリック処理
+// ★ 模範解答要求
+if (userMessage.toLowerCase() === "what's the answer?" ||
+    userMessage.toLowerCase() === "whats the answer?") {
+
+  let modelAnswer = null;
+
+  // 船舶シナリオ
+  if (currentOpponent === "Umitakamaru" && shipScenario) {
+    const list = scenario.ship[shipScenario];
+
+    for (let i = 0; i < list.length - 1; i++) {
+      if (list[i].response === lastOpponentMessage) {
+        modelAnswer = list[i + 1].inputs[0]; // 次の発話の最初の例を返す
+        break;
+      }
+    }
+  }
+
+  // VTS シナリオ（必要なら同じ構造）
+  if (currentOpponent === "Tokyo Martis" && vtsScenario) {
+    const list = scenario.vts[vtsScenario];
+
+    for (let i = 0; i < list.length - 1; i++) {
+      if (list[i].response === lastOpponentMessage) {
+        modelAnswer = list[i + 1].inputs[0];
+        break;
+      }
+    }
+  }
+
+  // 表示
+  const replyMessage = document.createElement('div');
+  replyMessage.classList.add("reply-message", "vts");
+
+  if (modelAnswer) {
+    replyMessage.innerHTML = "<strong>Model Answer:</strong> " + modelAnswer;
+  } else {
+    replyMessage.innerHTML = "<strong>Model Answer:</strong> No model answer found.";
+  }
+
+  chatBox.appendChild(replyMessage);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  input.value = "";
+  return; // ★ 通常処理をスキップ
+}
+
 document.getElementById('send-button').addEventListener('click', () => {
   const input = document.getElementById('message-input');
   const message = input.value.trim();
@@ -187,27 +235,31 @@ document.getElementById('send-button').addEventListener('click', () => {
   }
 
   setTimeout(() => {
-    const replyMessage = document.createElement('div');
-    replyMessage.classList.add("reply-message");
+  const replyMessage = document.createElement('div');
+  replyMessage.classList.add("reply-message");
 
-    if (currentOpponent === "Umitakamaru") {
-      replyMessage.classList.add("umitaka");
-    } else if (currentOpponent === "Tokyo Martis") {
-      replyMessage.classList.add("vts");
-    }
+  if (currentOpponent === "Umitakamaru") {
+    replyMessage.classList.add("umitaka");
+  } else if (currentOpponent === "Tokyo Martis") {
+    replyMessage.classList.add("vts");
+  }
 
-    if (responseText) {
-      replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;
-      speak(responseText); // ★読み上げ
-    } else {
-      replyMessage.innerHTML = "<span style='color:red'><strong>" + currentOpponent + ":</strong> Say again.</span>";
-      speak("Say again."); // ★読み上げ
-    }
+  if (responseText) {
+    replyMessage.innerHTML = "<strong>" + currentOpponent + ":</strong> " + responseText;
 
-    chatBox.appendChild(replyMessage);
-    sendToGoogleForm(studentId, currentOpponent, message, responseText || "Say again.");
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }, 3000);
+    // ★★★ ここで相手の発話を保存する ★★★
+    lastOpponentMessage = responseText;
+
+    speak(responseText);
+  } else {
+    replyMessage.innerHTML = "<span style='color:red'><strong>" + currentOpponent + ":</strong> Say again.</span>";
+    speak("Say again.");
+  }
+
+  chatBox.appendChild(replyMessage);
+  sendToGoogleForm(studentId, currentOpponent, message, responseText || "Say again.");
+  chatBox.scrollTop = chatBox.scrollHeight;
+}, 3000);
 
   input.value = "";
 });
