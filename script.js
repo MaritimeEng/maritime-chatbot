@@ -81,13 +81,17 @@ document.querySelectorAll('.role-button').forEach(button => {
 
         // ランダムに問題を選ぶ
         const list = scenario.listening;
-        currentListeningSentence = list[Math.floor(Math.random() * list.length)];
+        const item = list[Math.floor(Math.random() * list.length)];
+        currentListeningSentence = item.sentence;
 
         // 読み上げ
         speak(currentListeningSentence);
 
         // チャット欄をクリア（任意）
         document.getElementById("chat-box").innerHTML = "";
+    }
+    else if (button.id === "help-button") {
+        window.location.href = "help.html";
     }
   });
 });
