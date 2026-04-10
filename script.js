@@ -5,6 +5,9 @@ let currentOpponent = null;       // 相手役（Umitakamaru or Tokyo Martis）
 let vtsScenario = null;
 let shipScenario = null;
 let lastOpponentMessage = null;
+let isListeningTest = false;
+let currentListeningSentence = "";
+let speakingRate = 1.3;
 
 // ページ読み込み時にlocalStorageから学籍番号を復元
 window.addEventListener("DOMContentLoaded", () => {
@@ -68,7 +71,24 @@ document.querySelectorAll('.role-button').forEach(button => {
       document.getElementById("ship-scenario-select").style.display = "none";
       document.getElementById("vts-scenario-select").style.display = "none";
     }
+    else if (button.id === "listening-button") {
+        currentOpponent = null; // 会話モードではない
+        isListeningTest = true;
+        speakingRate = 1.3;
 
+        document.getElementById("ship-scenario-select").style.display = "none";
+        document.getElementById("vts-scenario-select").style.display = "none";
+
+        // ランダムに問題を選ぶ
+        const list = scenario.listening;
+        currentListeningSentence = list[Math.floor(Math.random() * list.length)];
+
+        // 読み上げ
+        speak(currentListeningSentence);
+
+        // チャット欄をクリア（任意）
+        document.getElementById("chat-box").innerHTML = "";
+    }
   });
 });
 
@@ -202,6 +222,40 @@ document.getElementById('send-button').addEventListener('click', () => {
 
         input.value = "";
         return;
+    }
+
+    // ★★★ リスニングテストモードの処理 ★★★
+    if (isListeningTest) {
+        const userMessage = message.trim().toLowerCase();
+
+        // slower please
+        if (userMessage === "slower please") {
+            speakingRate = Math.max(0.5, speakingRate - 0.3);
+            speak(currentListeningSentence);
+            return;
+        }
+
+        // say again
+        if (userMessage === "say again") {
+            speak(currentListeningSentence);
+            return;
+        }
+
+        // 正誤判定
+        const replyMessage = document.createElement('div');
+        replyMessage.classList.add("reply-message");
+
+        if (userMessage === currentListeningSentence.toLowerCase()) {
+            replyMessage.innerHTML = "<strong>Correct!</strong>";
+            isListeningTest = false; // テスト終了
+        } else {
+            replyMessage.innerHTML = "<strong>Try again.</strong>";
+        }
+
+        chatBox.appendChild(replyMessage);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        input.value = "";
+        return; // ★ 通常のチャット処理を止める
     }
 
     // ★★★ ここから通常の処理 ★★★
