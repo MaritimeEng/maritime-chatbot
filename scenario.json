@@ -56,5 +56,23 @@
     "ask3": [],
     "ask4": [],
     "ask5": []
-  }
+  },
+
+  "listening": [
+    {
+      "sentence": "Shiojimaru, this is Umitakamaru. What is your position?"
+    },
+    {
+      "sentence": "Tokyo Martis, this is Shiojimaru. Request permission to enter port."
+    },
+    {
+      "sentence": "Umitakamaru, this is Shiojimaru. I am altering course to starboard."
+    },
+    {
+      "sentence": "Shiojimaru, maintain your course and speed."
+    },
+    {
+      "sentence": "Tokyo Martis, visibility is poor. Request traffic information."
+    }
+  ]
 }
