@@ -55,11 +55,12 @@ p {
 }
 
 .accent-box {
-  border: 2px solid #4a5d73; /* ボタンと同系色で統一感 */
+  background-color: #2f3b4a;   /* 暗めの青グレー */
+  border: 2px solid #4a5d73;   /* ボタンと同系色で統一 */
   padding: 15px;
   margin: 20px 0;
   border-radius: 10px;
-  background-color: #f3f6fa; /* 少し青みのある薄い背景 */
+  color: #e0e6ed;              /* 文字を明るくして視認性UP */
 }
 
 #accent-title {
@@ -70,6 +71,8 @@ p {
 
 #intro-text {
   margin-bottom: 10px;
+  font-weight: bold;
+  color: #e0e6ed;              /* 白に近い色で読みやすく */
 }
 
 .ship-info {
