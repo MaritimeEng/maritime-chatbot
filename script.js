@@ -49,9 +49,26 @@ speechSynthesis.onvoiceschanged = () => {
   console.log("Voices loaded:", speechSynthesis.getVoices());
 };
 
-// 相手役ボタンのクリック処理
+// ★ サブUIをすべてリセットする関数（共通化）
+function resetSubUIs() {
+  document.getElementById("ship-scenario-select").style.display = "none";
+  document.getElementById("vts-scenario-select").style.display = "none";
+  document.getElementById("listening-level-box").style.display = "none";
+
+  // active を全部消す
+  document.querySelectorAll('.ship-scenario').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.vts-scenario').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.level-button').forEach(b => b.classList.remove('active'));
+
+  // Listening モード解除
+  isListeningTest = false;
+}
+
+// ★ 相手役ボタンのクリック処理（完全書き直し）
 document.querySelectorAll('.role-button').forEach(button => {
   button.addEventListener('click', () => {
+
+    resetSubUIs(); // ← ★ 最初に必ず呼ぶ
 
     // active 切り替え
     document.querySelectorAll('.role-button').forEach(btn => btn.classList.remove('active'));
@@ -61,26 +78,21 @@ document.querySelectorAll('.role-button').forEach(button => {
     if (button.id === "ship-button") {
       currentOpponent = "Umitakamaru";
       document.getElementById("ship-scenario-select").style.display = "block";
-      document.getElementById("vts-scenario-select").style.display = "none";
     }
     else if (button.id === "vts-button") {
       currentOpponent = "Tokyo Martis";
-      document.getElementById("ship-scenario-select").style.display = "none";
-      document.getElementById("vts-scenario-select").style.display = "block";   
+      document.getElementById("vts-scenario-select").style.display = "block";
     }
     else if (button.id === "random-button") {
-      document.getElementById("ship-scenario-select").style.display = "none";
-      document.getElementById("vts-scenario-select").style.display = "none";
+      currentOpponent = ["Umitakamaru", "Tokyo Martis"][Math.floor(Math.random() * 2)];
+      // サブUIは resetSubUIs() で消えているので追加処理不要
     }
     else if (button.id === "listening-button") {
       currentOpponent = null;
       isListeningTest = true;
       speakingRate = 1.3;
 
-      document.getElementById("ship-scenario-select").style.display = "none";
-      document.getElementById("vts-scenario-select").style.display = "none";
-
-      // ★ 難易度ボタンを表示
+      // Listening の UI を表示
       document.getElementById("listening-level-box").style.display = "block";
 
       document.getElementById("chat-box").innerHTML = "";
@@ -89,14 +101,17 @@ document.querySelectorAll('.role-button').forEach(button => {
       window.location.href = "help.html";
     }
 
-  }); // ← addEventListener の終わり
-});   // ← forEach の終わり
+  });
+});
 
-
-// ★★★ ここから外側に置く（重要） ★★★
-
+// ★ Listening の難易度ボタン（active 付き）
 document.querySelectorAll('.level-button').forEach(btn => {
   btn.addEventListener('click', () => {
+
+    // active を付け替える
+    document.querySelectorAll('.level-button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
     listeningLevel = btn.dataset.level;
 
     const list = scenario.listening["level" + listeningLevel];
