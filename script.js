@@ -58,7 +58,7 @@ document.querySelectorAll('.role-button').forEach(button => {
     button.classList.add('active');
 
     // 役割の設定
-   if (button.id === "ship-button") {
+    if (button.id === "ship-button") {
       currentOpponent = "Umitakamaru";
       document.getElementById("ship-scenario-select").style.display = "block";
       document.getElementById("vts-scenario-select").style.display = "none";
@@ -73,42 +73,27 @@ document.querySelectorAll('.role-button').forEach(button => {
       document.getElementById("vts-scenario-select").style.display = "none";
     }
     else if (button.id === "listening-button") {
-        currentOpponent = null;
-        isListeningTest = true;
-        speakingRate = 1.3;
+      currentOpponent = null;
+      isListeningTest = true;
+      speakingRate = 1.3;
 
-        // シナリオ選択を隠す
-        document.getElementById("ship-scenario-select").style.display = "none";
-        document.getElementById("vts-scenario-select").style.display = "none";
+      document.getElementById("ship-scenario-select").style.display = "none";
+      document.getElementById("vts-scenario-select").style.display = "none";
 
-        // ★ 難易度ボタンを表示 ★
-        document.getElementById("listening-level-box").style.display = "block";
+      // ★ 難易度ボタンを表示
+      document.getElementById("listening-level-box").style.display = "block";
 
-        // チャット欄をクリア
-        document.getElementById("chat-box").innerHTML = "";
+      document.getElementById("chat-box").innerHTML = "";
     }
-    let listeningLevel = 1;
-
-    document.querySelectorAll('.level-button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        listeningLevel = btn.dataset.level;
-
-        // ★ レベルに応じて問題を選ぶ
-        const list = scenario.listening["level" + listeningLevel];
-        const item = list[Math.floor(Math.random() * list.length)];
-        currentListeningSentence = item.sentence;
-
-        // 読み上げ
-        speak(currentListeningSentence);
-
-        // チャット欄をクリア
-        document.getElementById("chat-box").innerHTML = "";
-      });
-    });
-
     else if (button.id === "help-button") {
-        window.location.href = "help.html";
+      window.location.href = "help.html";
     }
+
+  }); // ← addEventListener の終わり
+});   // ← forEach の終わり
+
+
+// ★★★ ここから外側に置く（重要） ★★★
 
 let listeningLevel = 1;
 
@@ -116,22 +101,20 @@ document.querySelectorAll('.level-button').forEach(btn => {
   btn.addEventListener('click', () => {
     listeningLevel = btn.dataset.level;
 
-    // ★ レベルに応じて問題を選ぶ
     const list = scenario.listening["level" + listeningLevel];
     const item = list[Math.floor(Math.random() * list.length)];
     currentListeningSentence = item.sentence;
 
-    // 読み上げ
     speak(currentListeningSentence);
 
-    // チャット欄をクリア
     document.getElementById("chat-box").innerHTML = "";
   });
 });
 
+
 // ★ 配列方式：船舶シナリオの応答検索
 function findShipResponse(userMessage) {
-  const list = scenario.ship[shipScenario]; // crossing などの配列
+  const list = scenario.ship[shipScenario];
   if (!Array.isArray(list)) return null;
 
   for (const item of list) {
