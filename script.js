@@ -95,8 +95,6 @@ document.querySelectorAll('.role-button').forEach(button => {
 
 // ★★★ ここから外側に置く（重要） ★★★
 
-let listeningLevel = 1;
-
 document.querySelectorAll('.level-button').forEach(btn => {
   btn.addEventListener('click', () => {
     listeningLevel = btn.dataset.level;
