@@ -60,32 +60,31 @@ function resetSubUIs() {
   document.querySelectorAll('.vts-scenario').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.level-button').forEach(b => b.classList.remove('active'));
 
-  // Listening モード解除
-  isListeningTest = false;
-}
-
-// ★ 相手役ボタンのクリック処理（完全書き直し）
+// ★ 相手役ボタンのクリック処理（完全修正版）
 document.querySelectorAll('.role-button').forEach(button => {
   button.addEventListener('click', () => {
 
-    resetSubUIs(); // ← ★ 最初に必ず呼ぶ
+    // まず UI をリセット
+    resetSubUIs();
 
-    // active 切り替え
+    // role-button の active 切り替え
     document.querySelectorAll('.role-button').forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
 
     // 役割の設定
     if (button.id === "ship-button") {
       currentOpponent = "Umitakamaru";
+      isListeningTest = false;
       document.getElementById("ship-scenario-select").style.display = "block";
     }
     else if (button.id === "vts-button") {
       currentOpponent = "Tokyo Martis";
+      isListeningTest = false;
       document.getElementById("vts-scenario-select").style.display = "block";
     }
     else if (button.id === "random-button") {
       currentOpponent = ["Umitakamaru", "Tokyo Martis"][Math.floor(Math.random() * 2)];
-      // サブUIは resetSubUIs() で消えているので追加処理不要
+      isListeningTest = false;
     }
     else if (button.id === "listening-button") {
       currentOpponent = null;
@@ -95,6 +94,7 @@ document.querySelectorAll('.role-button').forEach(button => {
       // Listening の UI を表示
       document.getElementById("listening-level-box").style.display = "block";
 
+      // チャット欄クリア
       document.getElementById("chat-box").innerHTML = "";
     }
     else if (button.id === "help-button") {
@@ -123,7 +123,6 @@ document.querySelectorAll('.level-button').forEach(btn => {
     document.getElementById("chat-box").innerHTML = "";
   });
 });
-
 
 // ★ 配列方式：船舶シナリオの応答検索
 function findShipResponse(userMessage) {

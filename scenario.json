@@ -62,11 +62,14 @@
   "listening": {
     "level1": [
       { "sentence": "Shiojimaru, this is Umitakamaru. What is your position?" },
-      { "sentence": "Tokyo Martis, this is Shiojimaru. Request permission to enter port." }
+      { "sentence": "Tokyo Martis, this is Shiojimaru. Request permission to enter port." },
+      { "sentence": "I will cross ahead of Umitakamaru and proceed to Tokyo port." }
     ],
+      { "sentence": "I will pass astern of Umitakamaru and proceed to Tokyo port."}
     "level2": [
-      { "sentence": "Shiojimaru, I am altering course to starboard. Maintain safe distance." },
-      { "sentence": "Visibility is poor. Request traffic information and weather update." }
+      { "sentence": "Shiojimaru, This is Umitakamaru. I am altering course to starboard. Maintain safe distance." },
+      { "sentence": "Visibility is poor. Request traffic information and weather update." },
+      { "sentence": "After passing the bridge, I will alter course to starboard and proceed to Nagoya port."}
     ],
     "level3": [
       { "sentence": "Due to heavy traffic in the fairway, alter course to port and reduce speed to minimum maneuvering speed." },
