@@ -8,6 +8,7 @@ let lastOpponentMessage = null;
 let isListeningTest = false;
 let currentListeningSentence = "";
 let speakingRate = 1.3;
+let listeningLevel = 1; // デフォルトはレベル1
 
 // ページ読み込み時にlocalStorageから学籍番号を復元
 window.addEventListener("DOMContentLoaded", () => {
@@ -72,27 +73,59 @@ document.querySelectorAll('.role-button').forEach(button => {
       document.getElementById("vts-scenario-select").style.display = "none";
     }
     else if (button.id === "listening-button") {
-        currentOpponent = null; // 会話モードではない
+        currentOpponent = null;
         isListeningTest = true;
         speakingRate = 1.3;
 
+        // シナリオ選択を隠す
         document.getElementById("ship-scenario-select").style.display = "none";
         document.getElementById("vts-scenario-select").style.display = "none";
 
-        // ランダムに問題を選ぶ
-        const list = scenario.listening;
+        // ★ 難易度ボタンを表示 ★
+        document.getElementById("listening-level-box").style.display = "block";
+
+        // チャット欄をクリア
+        document.getElementById("chat-box").innerHTML = "";
+    }
+    let listeningLevel = 1;
+
+    document.querySelectorAll('.level-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        listeningLevel = btn.dataset.level;
+
+        // ★ レベルに応じて問題を選ぶ
+        const list = scenario.listening["level" + listeningLevel];
         const item = list[Math.floor(Math.random() * list.length)];
         currentListeningSentence = item.sentence;
 
         // 読み上げ
         speak(currentListeningSentence);
 
-        // チャット欄をクリア（任意）
+        // チャット欄をクリア
         document.getElementById("chat-box").innerHTML = "";
-    }
+      });
+    });
+
     else if (button.id === "help-button") {
         window.location.href = "help.html";
     }
+
+let listeningLevel = 1;
+
+document.querySelectorAll('.level-button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    listeningLevel = btn.dataset.level;
+
+    // ★ レベルに応じて問題を選ぶ
+    const list = scenario.listening["level" + listeningLevel];
+    const item = list[Math.floor(Math.random() * list.length)];
+    currentListeningSentence = item.sentence;
+
+    // 読み上げ
+    speak(currentListeningSentence);
+
+    // チャット欄をクリア
+    document.getElementById("chat-box").innerHTML = "";
   });
 });
 

@@ -58,21 +58,19 @@
     "ask5": []
   },
 
-  "listening": [
-    {
-      "sentence": "Shiojimaru, this is Umitakamaru. What is your position?"
-    },
-    {
-      "sentence": "Tokyo Martis, this is Shiojimaru. Request permission to enter port."
-    },
-    {
-      "sentence": "Umitakamaru, this is Shiojimaru. I am altering course to starboard."
-    },
-    {
-      "sentence": "Shiojimaru, maintain your course and speed."
-    },
-    {
-      "sentence": "Tokyo Martis, visibility is poor. Request traffic information."
-    }
-  ]
+{
+  "listening": {
+    "level1": [
+      { "sentence": "Shiojimaru, this is Umitakamaru. What is your position?" },
+      { "sentence": "Tokyo Martis, this is Shiojimaru. Request permission to enter port." }
+    ],
+    "level2": [
+      { "sentence": "Shiojimaru, I am altering course to starboard. Maintain safe distance." },
+      { "sentence": "Visibility is poor. Request traffic information and weather update." }
+    ],
+    "level3": [
+      { "sentence": "Due to heavy traffic in the fairway, alter course to port and reduce speed to minimum maneuvering speed." },
+      { "sentence": "Strong winds from the northwest are expected. Advise your intentions and confirm readiness for restricted visibility procedures." }
+    ]
+  }
 }
