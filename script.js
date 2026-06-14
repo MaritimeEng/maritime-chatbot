@@ -51,6 +51,7 @@ speechSynthesis.onvoiceschanged = () => {
 
 // ★ サブUIをすべてリセットする関数（共通化）
 function resetSubUIs() {
+  // UI を非表示
   document.getElementById("ship-scenario-select").style.display = "none";
   document.getElementById("vts-scenario-select").style.display = "none";
   document.getElementById("listening-level-box").style.display = "none";
@@ -59,6 +60,7 @@ function resetSubUIs() {
   document.querySelectorAll('.ship-scenario').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.vts-scenario').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.level-button').forEach(b => b.classList.remove('active'));
+}
 
 // ★ 相手役ボタンのクリック処理（完全修正版）
 document.querySelectorAll('.role-button').forEach(button => {

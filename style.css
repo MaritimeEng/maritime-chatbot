@@ -63,6 +63,26 @@ p {
   color: #e0e6ed;              /* 文字を明るくして視認性UP */
 }
 
+#listening-level-box {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.level-button {
+  background-color: #4a5d73;
+  color: #e0e6ed;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.level-button:hover {
+  background-color: #6b7f96;
+}
+
 #intro-text {
   margin-bottom: 10px;
   font-weight: bold;
