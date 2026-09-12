@@ -51,15 +51,26 @@ speechSynthesis.onvoiceschanged = () => {
 
 // ★ サブUIをすべてリセットする関数（共通化）
 function resetSubUIs() {
-  // UI を非表示
   document.getElementById("ship-scenario-select").style.display = "none";
   document.getElementById("vts-scenario-select").style.display = "none";
   document.getElementById("listening-level-box").style.display = "none";
 
-  // active を全部消す
+  // active を消す（Listening モードのときは消さない）
+  if (!isListeningTest) {
+    document.querySelectorAll('.level-button').forEach(b => b.classList.remove('active'));
+  }
+
   document.querySelectorAll('.ship-scenario').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.vts-scenario').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.level-button').forEach(b => b.classList.remove('active'));
+}
+
+else if (button.id === "listening-button") {
+  isListeningTest = true;
+  currentOpponent = null;
+  speakingRate = 1.3;
+
+  document.getElementById("listening-level-box").style.display = "block";
+  document.getElementById("chat-box").innerHTML = "";
 }
 
 // ★ 相手役ボタンのクリック処理（完全修正版）
@@ -132,9 +143,18 @@ function findShipResponse(userMessage) {
   if (!Array.isArray(list)) return null;
 
   for (const item of list) {
-    if (item.inputs.includes(userMessage)) {
-      return item.response;
-    }
+
+      const normalizedUser =
+          userMessage.trim().toLowerCase();
+
+      if (
+          item.inputs.some(
+              input =>
+                  input.trim().toLowerCase() === normalizedUser
+          )
+      ) {
+          return item.response;
+      }
   }
   return null;
 }
@@ -145,9 +165,18 @@ function findVtsResponse(userMessage) {
   if (!Array.isArray(list)) return null;
 
   for (const item of list) {
-    if (item.inputs.includes(userMessage)) {
-      return item.response;
-    }
+
+      const normalizedUser =
+          userMessage.trim().toLowerCase();
+
+      if (
+          item.inputs.some(
+              input =>
+                  input.trim().toLowerCase() === normalizedUser
+          )
+      ) {
+         return item.response;
+      }
   }
   return null;
 }
@@ -162,18 +191,13 @@ function setVoice(voiceName) {
   console.log("Voice set to:", voiceName);
 }
 
-// ★ 訛りボタンの active 切り替え
 document.querySelectorAll('#voice-buttons button').forEach(button => {
   button.addEventListener('click', () => {
 
-    // active を全て外す
     document.querySelectorAll('#voice-buttons button').forEach(btn => btn.classList.remove('active'));
-
-    // 押したボタンに active を付ける
     button.classList.add('active');
 
-    // onclick の voiceName を取得して setVoice に渡す
-    const voiceName = button.getAttribute('onclick').match(/'(.*)'/)[1];
+    const voiceName = button.dataset.voice;
     setVoice(voiceName);
   });
 });
@@ -200,7 +224,7 @@ function speak(text) {
   utterance.voice = selectedVoice;
   utterance.lang = selectedVoice.lang; // ★ これが重要（日本語読み防止）
 
-  utterance.rate = 1.3;
+  utterance.rate = speakingRate;
   utterance.pitch = 1.0;
 
   speechSynthesis.speak(utterance);
