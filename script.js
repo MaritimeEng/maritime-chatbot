@@ -240,6 +240,17 @@ document.getElementById('send-button').addEventListener('click', () => {
 
     const userMessage = message;
 
+    if (currentOpponent === "Umitakamaru" && !shipScenario) {
+        alert("Please select a ship scenario first.");
+        return;
+    }
+
+    if (currentOpponent === "Tokyo Martis" && !vtsScenario) {
+        alert("Please select a VTS scenario first.");
+        return;
+    }
+    ``
+
     // ★★★ ここに模範解答の if 文を入れる ★★★
     if (userMessage.toLowerCase() === "what's the answer?" ||
         userMessage.toLowerCase() === "whats the answer?") {
@@ -392,15 +403,44 @@ document.querySelectorAll(".ship-scenario").forEach(btn => {
 });
 
 document.getElementById("random-button").addEventListener("click", () => {
+
   const roles = ["Umitakamaru", "Tokyo Martis"];
   currentOpponent = roles[Math.floor(Math.random() * roles.length)];
 
   if (currentOpponent === "Umitakamaru") {
-    const scenarios = ["meeting", "crossing", "overtaking", "other"];
-    shipScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+
+    const shipScenarios = [
+      "meeting",
+      "crossing",
+      "overtaking",
+      "other"
+    ];
+
+    shipScenario =
+      shipScenarios[Math.floor(Math.random() * shipScenarios.length)];
+
+    vtsScenario = null;
+
+  } else {
+
+    const vtsScenarios = [
+      "report1", "report2", "report3", "report4", "report5",
+      "notice1", "notice2", "notice3", "notice4", "notice5",
+      "ask1", "ask2", "ask3", "ask4", "ask5"
+    ];
+
+    vtsScenario =
+      vtsScenarios[Math.floor(Math.random() * vtsScenarios.length)];
+
+    shipScenario = null;
   }
 
-  console.log("ランダム選択:", currentOpponent, shipScenario);
+  console.log(
+    "ランダム選択:",
+    currentOpponent,
+    shipScenario,
+    vtsScenario
+  );
 });
 
 // Googleフォーム送信関数
