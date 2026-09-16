@@ -64,15 +64,6 @@ function resetSubUIs() {
   document.querySelectorAll('.vts-scenario').forEach(b => b.classList.remove('active'));
 }
 
-else if (button.id === "listening-button") {
-  isListeningTest = true;
-  currentOpponent = null;
-  speakingRate = 1.3;
-
-  document.getElementById("listening-level-box").style.display = "block";
-  document.getElementById("chat-box").innerHTML = "";
-}
-
 // ★ 相手役ボタンのクリック処理（完全修正版）
 document.querySelectorAll('.role-button').forEach(button => {
   button.addEventListener('click', () => {
