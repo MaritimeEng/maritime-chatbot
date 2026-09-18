@@ -51,6 +51,24 @@ input:focus-visible {
   font-weight: bold;
 }
 
+/* 代替音声で再生されるアクセント（本来の訛りが再現できない場合） */
+#voice-buttons button.substitute::after {
+  content: " ⚠";
+}
+
+#voice-buttons button:disabled {
+  background-color: #3a4351;
+  color: #8b96a5;
+  cursor: not-allowed;
+}
+
+#voice-status {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b8c2cf;
+}
+
 .accent-box {
   background-color: #2f3b4a;
   border: 2px solid #4a5d73;

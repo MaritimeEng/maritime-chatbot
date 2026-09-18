@@ -33,7 +33,13 @@ const CONFIG = {
   replyDelayMs: 3000,          // 相手が応答するまでの待ち時間（ミリ秒）
   showHints: true,             // 不正解時に、惜しい入力との違いを表示するか
   hintThreshold: 0.6,          // ヒントを出す類似度のしきい値（0〜1）
-  showRecognitionDiff: true    // 認識結果を修正して送信したとき、元の認識結果を表示するか
+  showRecognitionDiff: true,   // 認識結果を修正して送信したとき、元の認識結果を表示するか
+
+  // 音声（アクセント）の設定
+  allowNativeLanguageFallback: true,  // 英語音声がない場合、その国の言語の音声で代替するか
+                                      // 例: インド英語がない環境ではヒンディー語音声（訛りは強いが誤読が増える）
+  allowGenericFallback: true,         // 上記でも見つからない場合、手持ちの英語音声で代替するか
+  playSampleOnAccentSelect: true      // アクセントを選んだとき、見本の文を読み上げるか
 };
 
 const MY_ROLE = "Shiojimaru";
@@ -68,8 +74,9 @@ let recognizedText = null;    // 直近の音声認識の結果（未修正の�
 let recognitionLang = null;   // そのときの認識言語
 
 let speakingRate = DEFAULT_RATE;
-let currentVoiceName = null;
-let currentVoiceLang = null;
+let currentAccent = null;     // 選択中のアクセント定義
+let currentVoice = null;      // 実際に使用する SpeechSynthesisVoice
+let currentVoiceQuality = ""; // "exact" | "lang" | "native-fallback" | "generic" | "none"
 
 const stats = { attempts: 0, correct: 0 };
 
@@ -203,42 +210,180 @@ function getStudentId() {
 
 // =====================================================
 //  音声読み上げ（Web Speech API / SpeechSynthesis）
+//
+//  ブラウザによって使える音声が異なります。
+//   - Edge  : Microsoft ... Online (Natural) の各国英語音声が使えます
+//   - Chrome: 標準では Google US / UK English のみ。Windows に追加した音声も使えます
+//  そのため音声名を固定せず、候補を優先順に探して自動選択します。
 // =====================================================
+
+const ACCENTS = [
+  {
+    id: "us", label: "US English", short: "米", lang: "en-US",
+    voices: ["Microsoft Aria Online", "Microsoft Ava Online", "Google US English", "Microsoft Zira", "Microsoft David", "Samantha"],
+    nativeFallback: []
+  },
+  {
+    id: "uk", label: "UK English", short: "英", lang: "en-GB",
+    voices: ["Microsoft Libby Online", "Microsoft Sonia Online", "Google UK English Female", "Google UK English Male", "Microsoft Hazel", "Daniel"],
+    nativeFallback: []
+  },
+  {
+    id: "au", label: "Australian English", short: "豪", lang: "en-AU",
+    voices: ["Microsoft Natasha Online", "Microsoft William Online", "Microsoft Catherine", "Microsoft James", "Google Australian", "Karen"],
+    nativeFallback: []
+  },
+  {
+    id: "in", label: "Indian English", short: "印", lang: "en-IN",
+    // 訛りの強い順に並べています（Prabhat / Neerja は Azure のインド英語音声）
+    voices: ["Microsoft Prabhat Online", "Microsoft Neerja Online", "Microsoft Ravi", "Microsoft Heera", "Google Indian", "Rishi", "Veena"],
+    nativeFallback: ["hi-IN"]   // インド英語がない環境では、ヒンディー語音声で代替（訛りは強いが誤読が増えます）
+  },
+  {
+    id: "ph", label: "Philippine English", short: "比", lang: "en-PH",
+    voices: ["Microsoft Rosa Online", "Microsoft Angelo Online", "Google Filipino"],
+    nativeFallback: ["fil-PH", "tl-PH"]   // フィリピン英語がない環境では、フィリピン語音声で代替
+  },
+  {
+    id: "ca", label: "Canadian English", short: "加", lang: "en-CA",
+    voices: ["Microsoft Clara Online", "Microsoft Liam Online", "Microsoft Linda"],
+    nativeFallback: []
+  }
+];
+
 const speechSupported = "speechSynthesis" in window;
 let currentUtterance = null; // Chrome で読み上げが途中で消える問題への対策として参照を保持
 
-function setVoice(voiceName, lang = null) {
-  currentVoiceName = voiceName || null;
-  currentVoiceLang = lang || null;
-  console.log("Voice set to:", currentVoiceName, currentVoiceLang);
+function normalizeLang(lang) {
+  return (lang || "").replace("_", "-").toLowerCase();
 }
 
-function findVoice() {
-  const voices = speechSynthesis.getVoices();
-  if (voices.length === 0) return null;
-  const norm = l => (l || "").replace("_", "-").toLowerCase();
-
-  const byName = voices.find(v => v.name === currentVoiceName);
-  if (byName) return byName;
-
-  if (currentVoiceLang) {
-    const byLang = voices.find(v => norm(v.lang) === norm(currentVoiceLang));
-    if (byLang) return byLang;
+// そのアクセントで使える音声を、優先順位に従って選ぶ
+function resolveVoice(accent, voices) {
+  // 1. 想定している音声名（Edge の各国英語音声、Windows や端末に入っている音声）
+  for (const namePart of accent.voices) {
+    const v = voices.find(v => v.name.toLowerCase().includes(namePart.toLowerCase()));
+    if (v) return { voice: v, quality: "exact" };
   }
-  return voices.find(v => norm(v.lang).startsWith("en")) || null;
+
+  // 2. 同じ言語コードの英語音声（名前は違っても地域が一致するもの）
+  const byLang = voices.find(v => normalizeLang(v.lang) === normalizeLang(accent.lang));
+  if (byLang) return { voice: byLang, quality: "lang" };
+
+  // 3. その国の言語の音声（英語を読ませると訛りは強くなりますが、誤読が増えます）
+  if (CONFIG.allowNativeLanguageFallback) {
+    for (const alt of accent.nativeFallback) {
+      const v = voices.find(v => normalizeLang(v.lang) === normalizeLang(alt));
+      if (v) return { voice: v, quality: "native-fallback" };
+    }
+  }
+
+  // 4. 手持ちの英語音声（アクセントは再現できません）
+  if (CONFIG.allowGenericFallback) {
+    const anyEnglish = voices.find(v => normalizeLang(v.lang).startsWith("en"));
+    if (anyEnglish) return { voice: anyEnglish, quality: "generic" };
+  }
+
+  return { voice: null, quality: "none" };
+}
+
+function qualityNote(accent, result) {
+  switch (result.quality) {
+    case "exact":
+    case "lang":
+      return "";
+    case "native-fallback":
+      return `⚠ ${accent.label} の音声がないため、${result.voice.lang} の音声で代替しています（訛りは強めですが、英単語を読み誤る場合があります）。`;
+    case "generic":
+      return `⚠ ${accent.label} の音声がこのブラウザにないため、標準の英語音声で代替しています。訛りは再現されません。`;
+    default:
+      return `⚠ ${accent.label} の音声が見つかりません。`;
+  }
+}
+
+// アクセント選択ボタンを、実際に使える音声に合わせて作り直す
+function buildAccentButtons() {
+  const container = document.getElementById("voice-buttons");
+  if (!container) return;
+
+  const voices = speechSupported ? speechSynthesis.getVoices() : [];
+  container.textContent = "";
+
+  ACCENTS.forEach(accent => {
+    const result = resolveVoice(accent, voices);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.accent = accent.id;
+    button.textContent = accent.label;
+
+    if (result.quality === "none") {
+      button.disabled = true;
+      button.title = "この環境では利用できる音声がありません";
+    } else {
+      if (result.quality === "native-fallback" || result.quality === "generic") {
+        button.classList.add("substitute");
+        button.title = qualityNote(accent, result);
+      } else {
+        button.title = result.voice.name;
+      }
+      button.addEventListener("click", () => selectAccent(accent.id));
+    }
+
+    if (currentAccent && currentAccent.id === accent.id) button.classList.add("active");
+    container.appendChild(button);
+  });
+
+  // 選択済みのアクセントがあれば、音声を選び直す（音声リストの遅延読み込みに対応）
+  if (currentAccent) applyAccent(currentAccent, { silent: true });
+}
+
+function applyAccent(accent, { silent = false } = {}) {
+  const voices = speechSupported ? speechSynthesis.getVoices() : [];
+  const result = resolveVoice(accent, voices);
+
+  currentAccent = accent;
+  currentVoice = result.voice;
+  currentVoiceQuality = result.quality;
+
+  const status = document.getElementById("voice-status");
+  if (status) {
+    status.textContent = result.voice
+      ? `使用中の音声: ${accent.label} — ${result.voice.name}（${result.voice.lang}）${qualityNote(accent, result) ? "　" + qualityNote(accent, result) : ""}`
+      : `${accent.label} の音声が見つかりません。`;
+  }
+
+  if (!silent) console.log("アクセント選択:", accent.id, result.voice?.name, result.quality);
+  return result;
+}
+
+function selectAccent(accentId) {
+  const accent = ACCENTS.find(a => a.id === accentId);
+  if (!accent) return;
+
+  document.querySelectorAll("#voice-buttons button").forEach(b => b.classList.remove("active"));
+  const button = document.querySelector(`#voice-buttons button[data-accent="${accentId}"]`);
+  if (button) button.classList.add("active");
+
+  applyAccent(accent);
+
+  // 選んだアクセントをすぐ確認できるよう、見本を読み上げる
+  if (CONFIG.playSampleOnAccentSelect && !isListeningTest) {
+    speak("This is Shiojimaru. How do you read me, over?");
+  }
 }
 
 // 戻り値: "ok" | "unsupported" | "no-voice-selected" | "voice-unavailable"
 function speak(text) {
   if (!speechSupported) return "unsupported";
-  if (!currentVoiceName && !currentVoiceLang) return "no-voice-selected";
+  if (!currentAccent) return "no-voice-selected";
 
-  const voice = findVoice();
-  if (!voice) return "voice-unavailable";
+  // 音声リストが後から読み込まれる場合に備え、都度選び直す
+  if (!currentVoice) applyAccent(currentAccent, { silent: true });
+  if (!currentVoice) return "voice-unavailable";
 
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.voice = voice;
-  utterance.lang = voice.lang;   // 日本語読みになるのを防ぐ
+  utterance.voice = currentVoice;
+  utterance.lang = currentVoice.lang;   // 日本語読みになるのを防ぐ
   utterance.rate = speakingRate;
   utterance.pitch = 1.0;
   currentUtterance = utterance;
@@ -256,7 +401,7 @@ function speak(text) {
 function explainSpeakFailure(result) {
   const messages = {
     "unsupported": "このブラウザは音声読み上げに対応していません。Edge または Chrome をお使いください。",
-    "no-voice-selected": "音声が選択されていません。先にアクセントのボタンを選んでください。",
+    "no-voice-selected": "アクセントが選択されていません。先にアクセントのボタンを選んでください。",
     "voice-unavailable": "英語の音声が見つかりません。少し待ってから再度お試しいただくか、Edge をお使いください。"
   };
   if (messages[result]) systemMessage(messages[result]);
@@ -321,7 +466,7 @@ function setupRecognition() {
     if (isRecording) { recognition.stop(); return; }
 
     // 選択中のアクセントに合わせて認識言語を設定
-    recognition.lang = currentVoiceLang || "en-US";
+    recognition.lang = (currentAccent && currentAccent.lang) || "en-US";
     try {
       recognition.start();
       isRecording = true;
@@ -823,14 +968,8 @@ function init() {
     });
   });
 
-  // アクセント
-  document.querySelectorAll("#voice-buttons button").forEach(button => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll("#voice-buttons button").forEach(btn => btn.classList.remove("active"));
-      button.classList.add("active");
-      setVoice(button.dataset.voice, button.dataset.lang);
-    });
-  });
+  // アクセント（使える音声に合わせてボタンを生成）
+  buildAccentButtons();
 
   updateStatusBar();
   if (!speechSupported) {
@@ -845,7 +984,9 @@ function init() {
 if (speechSupported) {
   speechSynthesis.getVoices();
   speechSynthesis.onvoiceschanged = () => {
-    console.log("Voices loaded:", speechSynthesis.getVoices().map(v => `${v.name} (${v.lang})`));
+    console.log("利用できる音声:", speechSynthesis.getVoices().map(v => `${v.name} (${v.lang})`));
+    // 音声は後から読み込まれることがあるため、そのたびにボタンを作り直す
+    if (document.getElementById("voice-buttons")) buildAccentButtons();
   };
 }
 

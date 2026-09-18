@@ -33,15 +33,12 @@
 
   <div class="accent-box">
     <div id="intro-text">
-      You can select the accent for speech synthesis (US, UK, Australia, India, Canada).
+      You can select the accent for speech synthesis (US, UK, Australia, India, Philippines, Canada).
     </div>
-    <div id="voice-buttons">
-      <button type="button" data-voice="Microsoft Aria Online (Natural) - English (United States)" data-lang="en-US">US English</button>
-      <button type="button" data-voice="Microsoft Libby Online (Natural) - English (United Kingdom)" data-lang="en-GB">UK English</button>
-      <button type="button" data-voice="Microsoft Natasha Online (Natural) - English (Australia)" data-lang="en-AU">Australian English</button>
-      <button type="button" data-voice="Microsoft Neerja Online (Natural) - English (India)" data-lang="en-IN">Indian English</button>
-      <button type="button" data-voice="Microsoft Clara Online (Natural) - English (Canada)" data-lang="en-CA">Canadian English</button>
-    </div>
+
+    <!-- アクセントのボタンは script.js が、利用できる音声に合わせて生成します -->
+    <div id="voice-buttons"></div>
+    <div id="voice-status">アクセントを選択してください。</div>
   </div>
 
   <!-- 訓練モード -->
