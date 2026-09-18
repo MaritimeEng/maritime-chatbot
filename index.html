@@ -2,117 +2,118 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Maritime ChatBot</title>
-  <!-- 外部CSSを読み込み -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>海事英語教育支援システム</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="chat-container">
-  <h2>Maritime ChatBot</h2>
+<div class="chat-container">
+  <h2>海事英語教育支援システム</h2>
   <p>
     東京海洋大学　高木研究室<br>
-    船舶間通信やVTSとの通信の練習ができます。<br>
-    学籍番号を入力すると、チャットデータが保存されます。<br>
+    船舶間通信・VTS通信・リスニングの練習ができます。<br>
+    学籍番号を入力すると、練習内容が記録されます。<br>
     データは卒業研究のためのみに使用します。
   </p>
 
   <div class="ship-info">
-   あなたは汐路丸（Shiojimaru）です。<br>
-   コールサインは 7KJH（Seven, Kilo, Juliet, Hotel）です。<br>
-   正確に入力しないと反応しないことがあります。
-   船舶やVTSなどの学習したい通信のボタンをクリックしてから入力、送信してください。聞きたいアクセントのボタンをクリックすると選択されたアクセントで音声が流れます。
-   「Say again」と言われた場合は、自分の送信内容を見直してください。
+    あなたは汐路丸（Shiojimaru）です。<br>
+    コールサインは 7KJH（Seven, Kilo, Juliet, Hotel）です。<br>
+    練習したい訓練モードのボタンを選んでから、入力・送信してください。<br>
+    アクセントのボタンを選ぶと、選択したアクセントで音声が流れます。<br>
+    「Say again」と返ってきた場合は、自分の送信内容を見直してください。
   </div>
 
   <!-- 学籍番号 -->
-  <label>学籍番号: 
-    <input type="text" id="student-id" placeholder="学籍番号を入力">
-  </label>
+  <label for="student-id">学籍番号:</label>
+  <input type="text" id="student-id" placeholder="学籍番号を入力" autocomplete="off">
   <br><br>
 
-  <button class="role-button" id="help-button">使い方 / 解説</button>
+  <button type="button" class="role-button" id="help-button">使い方 / 解説</button>
 
-<div class="accent-box">
-  
-  <!-- 訛り説明 -->
-  <div id="intro-text">
-    You can select the accent for speech synthesis (US, UK, Australia, India, Canada).
+  <div class="accent-box">
+    <div id="intro-text">
+      You can select the accent for speech synthesis (US, UK, Australia, India, Canada).
+    </div>
+    <div id="voice-buttons">
+      <button type="button" data-voice="Microsoft Aria Online (Natural) - English (United States)" data-lang="en-US">US English</button>
+      <button type="button" data-voice="Microsoft Libby Online (Natural) - English (United Kingdom)" data-lang="en-GB">UK English</button>
+      <button type="button" data-voice="Microsoft Natasha Online (Natural) - English (Australia)" data-lang="en-AU">Australian English</button>
+      <button type="button" data-voice="Microsoft Neerja Online (Natural) - English (India)" data-lang="en-IN">Indian English</button>
+      <button type="button" data-voice="Microsoft Clara Online (Natural) - English (Canada)" data-lang="en-CA">Canadian English</button>
+    </div>
   </div>
 
-  <!-- 訛りボタン -->
-  <div id="voice-buttons">
-    <button onclick="setVoice('Microsoft Aria Online (Natural) - English (United States)')">US English</button>
-    <button onclick="setVoice('Microsoft Libby Online (Natural) - English (United Kingdom)')">UK English</button>
-    <button onclick="setVoice('Microsoft Natasha Online (Natural) - English (Australia)')">Australian English</button>
-    <button onclick="setVoice('Microsoft Neerja Online (Natural) - English (India)')">Indian English</button>
-    <button onclick="setVoice('Microsoft Clara Online (Natural) - English (Canada)')">Canadian English</button>
-  </div>
-
-</div>
-
-  <!-- 船舶・VTSボタン -->
+  <!-- 訓練モード -->
   <div id="role-select">
-    <button class="role-button" id="ship-button">船舶</button>
-    <button class="role-button" id="vts-button">VTS</button>
-    <button class="role-button" id="random-button">ランダム</button>
-    <button class="role-button" id="listening-button">Listening Test</button>
+    <button type="button" class="role-button" id="ship-button">船舶</button>
+    <button type="button" class="role-button" id="vts-button">VTS</button>
+    <button type="button" class="role-button" id="random-button">ランダム</button>
+    <button type="button" class="role-button" id="listening-button">Listening Test</button>
   </div>
 
-  <!-- ★ Listening Test の難易度選択 ★ -->
+  <!-- リスニングの難易度 -->
   <div id="listening-level-box" style="display:none;">
-    <button class="level-button" data-level="1">Level 1</button>
-    <button class="level-button" data-level="2">Level 2</button>
-    <button class="level-button" data-level="3">Level 3</button>
+    <button type="button" class="level-button" data-level="1">Level 1</button>
+    <button type="button" class="level-button" data-level="2">Level 2</button>
+    <button type="button" class="level-button" data-level="3">Level 3</button>
   </div>
 
+  <!-- 船舶シナリオ -->
   <div id="ship-scenario-select" style="display:none;">
-    <button class="ship-scenario" data-scenario="meeting">行き会い</button>
-    <button class="ship-scenario" data-scenario="crossing">横切り</button>
-    <button class="ship-scenario" data-scenario="overtaking">追い越し</button>
-    <button class="ship-scenario" data-scenario="other">その他</button>
+    <button type="button" class="ship-scenario" data-scenario="meeting">行き会い</button>
+    <button type="button" class="ship-scenario" data-scenario="crossing">横切り</button>
+    <button type="button" class="ship-scenario" data-scenario="overtaking">追い越し</button>
+    <button type="button" class="ship-scenario" data-scenario="other">その他</button>
   </div>
 
-<!-- VTS サブ選択（最初は非表示） -->
-<div id="vts-scenario-select" style="display:none;">
+  <!-- VTSシナリオ -->
+  <div id="vts-scenario-select" style="display:none;">
+    <h4>通報</h4>
+    <div class="vts-group">
+      <button type="button" class="vts-scenario" data-type="report" data-num="1">通報1</button>
+      <button type="button" class="vts-scenario" data-type="report" data-num="2">通報2</button>
+      <button type="button" class="vts-scenario" data-type="report" data-num="3">通報3</button>
+      <button type="button" class="vts-scenario" data-type="report" data-num="4">通報4</button>
+      <button type="button" class="vts-scenario" data-type="report" data-num="5">通報5</button>
+    </div>
 
-  <h4>通報</h4>
-  <div class="vts-group">
-    <button class="vts-scenario" data-type="report" data-num="1">通報1</button>
-    <button class="vts-scenario" data-type="report" data-num="2">通報2</button>
-    <button class="vts-scenario" data-type="report" data-num="3">通報3</button>
-    <button class="vts-scenario" data-type="report" data-num="4">通報4</button>
-    <button class="vts-scenario" data-type="report" data-num="5">通報5</button>
+    <h4>報告</h4>
+    <div class="vts-group">
+      <button type="button" class="vts-scenario" data-type="notice" data-num="1">報告1</button>
+      <button type="button" class="vts-scenario" data-type="notice" data-num="2">報告2</button>
+      <button type="button" class="vts-scenario" data-type="notice" data-num="3">報告3</button>
+      <button type="button" class="vts-scenario" data-type="notice" data-num="4">報告4</button>
+      <button type="button" class="vts-scenario" data-type="notice" data-num="5">報告5</button>
+    </div>
+
+    <h4>問いかけ</h4>
+    <div class="vts-group">
+      <button type="button" class="vts-scenario" data-type="ask" data-num="1">問いかけ1</button>
+      <button type="button" class="vts-scenario" data-type="ask" data-num="2">問いかけ2</button>
+      <button type="button" class="vts-scenario" data-type="ask" data-num="3">問いかけ3</button>
+      <button type="button" class="vts-scenario" data-type="ask" data-num="4">問いかけ4</button>
+      <button type="button" class="vts-scenario" data-type="ask" data-num="5">問いかけ5</button>
+    </div>
   </div>
 
-  <h4>報告</h4>
-  <div class="vts-group">
-    <button class="vts-scenario" data-type="notice" data-num="1">報告1</button>
-    <button class="vts-scenario" data-type="notice" data-num="2">報告2</button>
-    <button class="vts-scenario" data-type="notice" data-num="3">報告3</button>
-    <button class="vts-scenario" data-type="notice" data-num="4">報告4</button>
-    <button class="vts-scenario" data-type="notice" data-num="5">報告5</button>
-  </div>
+  <!-- VTSシナリオの画像（images/<シナリオ名>.png。なければ非表示） -->
+  <img id="scenario-image" alt="選択中のVTSシナリオの画像" style="display:none;">
 
-  <h4>問いかけ</h4>
-  <div class="vts-group">
-    <button class="vts-scenario" data-type="ask" data-num="1">問いかけ1</button>
-    <button class="vts-scenario" data-type="ask" data-num="2">問いかけ2</button>
-    <button class="vts-scenario" data-type="ask" data-num="3">問いかけ3</button>
-    <button class="vts-scenario" data-type="ask" data-num="4">問いかけ4</button>
-    <button class="vts-scenario" data-type="ask" data-num="5">問いかけ5</button>
-  </div>
+  <!-- 現在の状態と練習実績 -->
+  <div id="status-bar">訓練モードを選択してください</div>
 
-</div>
+  <!-- チャット -->
+  <div class="chat-box" id="chat-box" aria-live="polite"></div>
 
-  <!-- ★★★ チャットボックス（これが消えていた） ★★★ -->
-  <div class="chat-box" id="chat-box"></div>
-
-  <!-- 入力欄 + Send -->
+  <!-- 入力欄 -->
   <div id="chat-controls">
-    <textarea id="message-input" placeholder="Type your messages"></textarea>
-    <button id="send-button" class="send-button">Send</button>  
+    <textarea id="message-input" placeholder="Type your messages" rows="1"></textarea>
+    <div class="control-buttons">
+      <button type="button" id="send-button" class="send-button">Send</button>
+      <button type="button" id="mic-button" class="mic-button">🎤 音声入力</button>
+    </div>
   </div>
-
 </div>
 
 <script src="script.js"></script>

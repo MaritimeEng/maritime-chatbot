@@ -1,40 +1,41 @@
-/* ページ全体の基本設定 */
+/* 入力欄が padding 分はみ出さないようにする */
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #1e2a38; /* 深い青みグレー */
-  color: #e0e6ed;            /* 明るめの文字色 */
+  background-color: #1e2a38;
+  color: #e0e6ed;
   margin: 0;
   padding: 0;
 }
 
-/* チャット全体を中央寄せ */
+a { color: #64b5f6; }
+
 .chat-container {
   width: 80%;
   max-width: 800px;
   margin: 20px auto;
-  background-color: #263544; /* 濃いグレー */
+  background-color: #263544;
   border: none;
   border-radius: 12px;
   padding: 25px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
-/* タイトル */
-h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 10px;
+h2 { text-align: center; font-size: 24px; margin-bottom: 10px; }
+h4 { margin: 12px 0 6px; }
+p  { text-align: center; font-size: 14px; margin-bottom: 20px; }
+
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 2px solid #64b5f6;
+  outline-offset: 2px;
 }
 
-/* 説明文 */
-p {
-  text-align: center;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-
+/* アクセント選択 */
 #voice-buttons button {
-  background-color: #4a5d73; /* 船舶ボタンより少し薄い */
+  background-color: #4a5d73;
   color: #e0e6ed;
   border: none;
   border-radius: 6px;
@@ -43,11 +44,7 @@ p {
   cursor: pointer;
   transition: 0.2s;
 }
-
-#voice-buttons button:hover {
-  background-color: #6b7f96;
-}
-
+#voice-buttons button:hover { background-color: #6b7f96; }
 #voice-buttons button.active {
   background-color: #6b7f96;
   color: #ffffff;
@@ -55,18 +52,51 @@ p {
 }
 
 .accent-box {
-  background-color: #2f3b4a;   /* 暗めの青グレー */
-  border: 2px solid #4a5d73;   /* ボタンと同系色で統一 */
+  background-color: #2f3b4a;
+  border: 2px solid #4a5d73;
   padding: 15px;
   margin: 20px 0;
   border-radius: 10px;
-  color: #e0e6ed;              /* 文字を明るくして視認性UP */
+  color: #e0e6ed;
 }
 
-#listening-level-box {
-  margin-top: 10px;
-  text-align: center;
+#intro-text { margin-bottom: 10px; font-weight: bold; }
+
+.ship-info {
+  border: 2px solid #1e88e5;
+  background-color: #2c3e50;
+  color: #e0e6ed;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  line-height: 1.6;
 }
+
+/* 訓練モード */
+.role-button {
+  min-width: 120px;
+  min-height: 40px;
+  padding: 0 12px;
+  font-size: 16px;
+  margin: 5px;
+  background-color: #3c4f65;
+  color: #e0e6ed;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: 0.2s;
+}
+.role-button:hover { background-color: #5a6f89; }
+.role-button.active {
+  background-color: #5a6f89;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* リスニングのレベル */
+#listening-level-box { margin-top: 10px; text-align: center; }
 
 .level-button {
   background-color: #4a5d73;
@@ -78,94 +108,108 @@ p {
   cursor: pointer;
   transition: 0.2s;
 }
-
-.level-button:hover {
+.level-button:hover { background-color: #6b7f96; }
+.level-button.active {
   background-color: #6b7f96;
-}
-
-#intro-text {
-  margin-bottom: 10px;
+  color: #ffffff;
   font-weight: bold;
-  color: #e0e6ed;              /* 白に近い色で読みやすく */
 }
 
-.ship-info {
-  border: 2px solid #1e88e5;
-  background-color: #2c3e50; /* ダークグレーに変更 */
-  color: #e0e6ed;            /* 明るい文字色に変更 */
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  font-size: 15px;
-  line-height: 1.6;
-}
+/* シナリオ選択 */
+#ship-scenario-select { margin-top: 10px; }
 
-#ship-scenario-select {
-  margin-top: 10px;
-}
-
-.ship-scenario {
+.ship-scenario,
+.vts-scenario {
   padding: 8px 12px;
-  margin-right: 5px;
+  margin: 0 5px 5px 0;
   background-color: #1976d2;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
-
-.ship-scenario:hover {
-  background-color: #0d47a1;
+.ship-scenario:hover,
+.vts-scenario:hover { background-color: #0d47a1; }
+.ship-scenario.active,
+.vts-scenario.active {
+  background-color: #5a6f89;
+  color: #ffffff;
+  font-weight: bold;
 }
 
-/* チャット表示部分 */
+.vts-group { margin-bottom: 10px; }
+
+#scenario-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 10px auto;
+  border-radius: 8px;
+}
+
+/* 現在の状態と練習実績 */
+#status-bar {
+  margin: 12px 0 8px;
+  padding: 8px 12px;
+  background-color: #2f3b4a;
+  border-left: 4px solid #64b5f6;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* チャット */
 .chat-box {
   border: none;
   border-radius: 10px;
   padding: 15px;
   min-height: 200px;
+  max-height: 50vh;
+  overflow-y: auto;
   background-color: #1f2d3a;
   box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
   margin-bottom: 15px;
 }
 
-/* 自分の発言（黒文字＋太字） */
-.user-message {
-  background-color: #2e3e50;
-  color: #e0e6ed;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-/* 相手の発言（青文字＋太字） */
-
+.user-message,
 .reply-message {
-  background-color: #34495e;
-  color: #e0e6ed;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 10px;
   font-weight: bold;
+  overflow-wrap: anywhere;
+  color: #e0e6ed;
 }
 
-/* Umitakamaru の返信（青系） */
+.user-message { background-color: #2e3e50; }
+.reply-message { background-color: #34495e; }
+
 .reply-message.umitaka {
   background-color: #2e3e50;
   border-left: 4px solid #1e88e5;
-  color: #e0e6ed;
 }
-
-/* Tokyo Martis の返信（緑系） */
 .reply-message.vts {
   background-color: #34495e;
   border-left: 4px solid #26a69a;
-  color: #e0e6ed;
 }
+.reply-message.model-answer {
+  background-color: #34495e;
+  border-left: 4px solid #ffb300;
+}
+.reply-message.system {
+  background-color: #33303a;
+  border-left: 4px solid #ff8a80;
+}
+.reply-message.hint {
+  background-color: #2f3b4a;
+  border-left: 4px solid #9ccc65;
+  font-weight: normal;
+}
+.reply-message.error { color: #ff8a80; }
 
-/* 入力欄と送信ボタン */
+/* 入力欄 */
 #message-input {
+  display: block;
   width: 100%;
   min-height: 40px;
   max-height: 200px;
@@ -173,10 +217,18 @@ p {
   resize: none;
   overflow-y: hidden;
   font-size: 16px;
+  font-family: inherit;
   background-color: #1f2d3a;
   color: #e0e6ed;
   border: 1px solid #3c4f65;
   border-radius: 8px;
+}
+
+.control-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 button.send-button {
@@ -187,81 +239,35 @@ button.send-button {
   border-radius: 4px;
   cursor: pointer;
 }
+button.send-button:hover { background-color: #005f99; }
 
-button.send-button:hover {
-  background-color: #005f99;
-}
-
-/* 船舶・VTSボタンの共通スタイル */
-.role-button {
-  width: 120px;
-  height: 40px;
-  font-size: 16px;
-  margin: 5px;
-  background-color: #3c4f65; /* 青みがかった暗いグレー */
+button.mic-button {
+  padding: 8px 16px;
+  background-color: #4a5d73;
   color: #e0e6ed;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  transition: 0.2s;
-}
-
-.role-button:hover {
-  background-color: #5a6f89;
-}
-
-/* 選択中のボタンを濃い色に */
-.role-button.active {
-  background-color: #5a6f89;
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.vts-group {
-  margin-bottom: 10px;
-}
-
-.vts-scenario {
-  padding: 8px 12px;
-  margin-right: 5px;
-  background-color: #1976d2;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
-
-.vts-scenario:hover {
-  background-color: #0d47a1;
+button.mic-button:hover { background-color: #6b7f96; }
+button.mic-button:disabled {
+  background-color: #3a4351;
+  color: #8b96a5;
+  cursor: not-allowed;
 }
-
-.ship-scenario.active,
-.vts-scenario.active {
-  background-color: #5a6f89; /* 選択時の色 */
+button.mic-button.recording {
+  background-color: #c62828;
   color: #ffffff;
-  font-weight: bold;
+  animation: pulse 1.2s ease-in-out infinite;
 }
 
-/* スマホ（幅600px以下）のときだけ適用 */
-@media screen and (max-width: 600px) {
-  body {
-    font-size: 18px;   /* 全体の文字を大きく */
-  }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
 
-  button {
-    font-size: 18px;   /* ボタンの文字も大きく */
-    padding: 12px 20px;
-  }
-
-  #message-input {
-    font-size: 18px;
-  }
-
-  .user-message,
-  .reply-message {
-    font-size: 18px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  button.mic-button.recording { animation: none; }
 }
 
 #student-id {
@@ -272,4 +278,35 @@ button.send-button:hover {
   padding: 8px;
   font-size: 16px;
   width: 100%;
+  margin-top: 4px;
+}
+
+/* 使い方ページ */
+.help-container h1 { text-align: center; }
+.help-container h2 { text-align: left; font-size: 20px; margin-top: 28px; }
+.help-container h3 { font-size: 18px; margin-top: 22px; border-bottom: 1px solid #3c4f65; padding-bottom: 4px; }
+.help-container p  { text-align: left; font-size: 15px; line-height: 1.7; margin-bottom: 12px; }
+.help-container li { line-height: 1.7; }
+
+#scenario-dump ol { padding-left: 20px; }
+#scenario-dump li { margin-bottom: 12px; }
+#scenario-dump .line-you  { color: #90caf9; }
+#scenario-dump .line-them { color: #80cbc4; }
+#scenario-dump .line-alt  { color: #9aa7b5; font-size: 13px; }
+#scenario-dump .pending   { color: #9aa7b5; font-style: italic; }
+
+/* スマートフォン */
+@media screen and (max-width: 600px) {
+  body { font-size: 18px; }
+
+  .chat-container {
+    width: 96%;
+    margin: 8px auto;
+    padding: 15px;
+  }
+
+  button { font-size: 18px; padding: 12px 20px; }
+  #message-input { font-size: 18px; }
+  .user-message, .reply-message { font-size: 18px; }
+  #status-bar { font-size: 15px; }
 }

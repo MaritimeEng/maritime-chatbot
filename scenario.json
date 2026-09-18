@@ -1,5 +1,6 @@
 {
   "ship": {
+    "meeting": [],
     "crossing": [
       {
         "inputs": [
@@ -10,8 +11,8 @@
       },
       {
         "inputs": [
-          "Umitakamaru, This is Shiojimaru. I read you loud and clear. I am 5 points on your starboard side, distance 5 miles, speed 8 knots. What is your intension, over.",
           "Umitakamaru, This is Shiojimaru. I read you loud and clear. I am 5 points on your starboard side, distance 5 miles, speed 8 knots. What is your intention, over.",
+          "Umitakamaru, This is Shiojimaru. I read you loud and clear. I am 5 points on your starboard side, distance 5 miles, speed 8 knots. What is your intension, over.",
           "Umitakamaru, This is Shiojimaru. I am on your starboard side, distance 5 miles, speed 8 knots. What is your intention, over."
         ],
         "response": "Shiojimaru, This is Umitakamaru. You are 5 points on my starboard side, distance 5 miles, speed 8 knots, copy. I will alter course to starboard and pass astern of you, over."
@@ -23,7 +24,9 @@
         ],
         "response": "Umitakamaru out."
       }
-    ]
+    ],
+    "overtaking": [],
+    "other": []
   },
 
   "vts": {
