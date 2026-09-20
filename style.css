@@ -180,7 +180,8 @@ input:focus-visible {
   font-weight: bold;
 }
 
-.vts-group { margin-bottom: 10px; }
+.vts-group,
+.ship-group { margin-bottom: 10px; }
 
 #scenario-image {
   display: block;
@@ -336,6 +337,7 @@ button.mic-button.recording {
 #scenario-dump .line-you  { color: #90caf9; }
 #scenario-dump .line-them { color: #80cbc4; }
 #scenario-dump .line-alt  { color: #9aa7b5; font-size: 13px; }
+#scenario-dump .opening   { margin-bottom: 8px; font-style: italic; }
 #scenario-dump .pending   { color: #9aa7b5; font-style: italic; }
 
 /* スマートフォン */

@@ -1,7 +1,116 @@
 {
   "ship": {
-    "meeting": [],
-    "crossing": [
+    "meeting1": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I read you loud and clear. We are meeting head-on, distance 6 miles. I will alter course to starboard and pass port to port. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Agreed. I will also alter course to starboard and we will pass port to port. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "meeting2": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I read you loud and clear. We are meeting head-on, distance 5 miles. What are your intentions? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. My intention is to alter course to starboard and pass port to port. What are your intentions? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. My intention is also to alter course to starboard and pass port to port. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Agreed. I am altering course to starboard now. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "meeting3": {
+      "opening": "Shiojimaru, Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. We are meeting head-on, distance 5 miles. What are your intentions? Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru, call sign 7KJH. My intention is to alter course to starboard and pass port to port. Over.",
+            "Umitakamaru. This is Shiojimaru. My intention is to alter course to starboard and pass port to port. Over."
+          ],
+          "response": "Shiojimaru. This is Umitakamaru. Agreed. I will also alter course to starboard and pass port to port. Over."
+        },
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+          ],
+          "response": "Umitakamaru out."
+        }
+      ]
+    },
+    "meeting4": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Visibility is poor, about 0.5 miles. You are ahead of me, distance 4 miles. I am reducing speed to 6 knots and I will alter course to starboard. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Understood. I am also reducing speed and altering course to starboard. We will pass port to port. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "meeting5": {
+      "opening": "Shiojimaru, Shiojimaru. This is Umitakamaru, call sign JPAT. You are approaching me head-on, distance 3 miles. Advise you alter course to starboard. Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Advice received. I am altering course to starboard now. Over."
+          ],
+          "response": "Shiojimaru. This is Umitakamaru. Thank you. I am also altering course to starboard. We will pass port to port. Over."
+        },
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+          ],
+          "response": "Umitakamaru out."
+        }
+      ]
+    },
+    "crossing1": [
       {
         "inputs": [
           "Umitakamaru, This is Shiojimaru. My call sign is 7KJH. Seven, Kilo, Juliet, Hotel. How do you read me, over?",
@@ -25,21 +134,581 @@
         "response": "Umitakamaru out."
       }
     ],
-    "overtaking": [],
-    "other": []
+    "crossing2": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I read you loud and clear. You are 3 points on my starboard bow, distance 4 miles. I will alter course to starboard and pass astern of you. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Agreed. I will maintain my present course and speed. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "crossing3": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I read you loud and clear. You are crossing from my port side, distance 5 miles. I will maintain my course and speed. Advise you alter course to starboard and pass astern of me. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Advice received. I will alter course to starboard and pass astern of you. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "crossing4": {
+      "opening": "Shiojimaru, Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. You are 4 points on my starboard side, distance 4 miles. What are your intentions? Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru, call sign 7KJH. My intention is to maintain my present course and speed. Over.",
+            "Umitakamaru. This is Shiojimaru. My intention is to maintain my present course and speed. Over."
+          ],
+          "response": "Shiojimaru. This is Umitakamaru. Understood. I will alter course to starboard and pass astern of you. Over."
+        },
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+          ],
+          "response": "Umitakamaru out."
+        }
+      ]
+    },
+    "crossing5": {
+      "opening": "Shiojimaru, Shiojimaru. This is Umitakamaru, call sign JPAT. We are in a crossing situation, distance 3 miles. Advise you keep clear of me. Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Advice received. I will reduce speed and pass astern of you. Over."
+          ],
+          "response": "Shiojimaru. This is Umitakamaru. Thank you. I will maintain my course and speed. Over."
+        },
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+          ],
+          "response": "Umitakamaru out."
+        }
+      ]
+    },
+    "overtaking1": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I read you loud and clear. I am overtaking you, distance 1 mile astern. Request permission to overtake you on your starboard side. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Permission granted. You may overtake me on my starboard side. I will maintain my course and speed. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "overtaking2": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I read you loud and clear. We are in a narrow channel. I intend to overtake you on your port side. Do you agree? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Agreed. I will reduce speed and maintain my course. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "overtaking3": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I read you loud and clear. You are overtaking me on my port side. I will maintain my course and speed. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Understood. I will keep well clear of you until I am past and clear. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "overtaking4": {
+      "opening": "Shiojimaru, Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I am overtaking you, distance 1 mile astern. Request permission to overtake you on your port side. Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru, call sign 7KJH. Permission granted. You may overtake me on my port side. I will maintain my course and speed. Over.",
+            "Umitakamaru. This is Shiojimaru. Permission granted. You may overtake me on my port side. I will maintain my course and speed. Over."
+          ],
+          "response": "Shiojimaru. This is Umitakamaru. Thank you. I am overtaking you on your port side now. Over."
+        },
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+          ],
+          "response": "Umitakamaru out."
+        }
+      ]
+    },
+    "overtaking5": {
+      "opening": "Shiojimaru, Shiojimaru. This is Umitakamaru, call sign JPAT. I intend to overtake you. What is your present course and speed? Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. My present course is 090 degrees, speed 10 knots. I will maintain my course and speed. Over."
+          ],
+          "response": "Shiojimaru. This is Umitakamaru. Understood. I will overtake you on your starboard side. Over."
+        },
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+          ],
+          "response": "Umitakamaru out."
+        }
+      ]
+    },
+    "other1": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I read you loud and clear. I intend to anchor in the west anchorage, 2 cables to the north of you, at 1200 hours. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Understood. I am at anchor in the same anchorage. Advise you keep well clear of my anchor chain. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "other2": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. I have a problem with my main engine. I am not under command. Advise you keep well clear of me. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Understood. You are not under command. I will keep well clear of you. Do you require assistance? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. No assistance required at this time. Thank you. Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. Roger. I am standing by on VHF Channel 16. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "other3": [
+      {
+        "inputs": [
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru, Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over.",
+          "Umitakamaru. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. How do you read me? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I read you loud and clear. How do you read me? Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Visibility is 0.3 miles. I have you on my radar, bearing 020 degrees, distance 3 miles. What is your present course and speed? Over."
+        ],
+        "response": "Shiojimaru. This is Umitakamaru. My present course is 250 degrees, speed 8 knots. I am proceeding by radar. Over."
+      },
+      {
+        "inputs": [
+          "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+        ],
+        "response": "Umitakamaru out."
+      }
+    ],
+    "other4": {
+      "opening": "Shiojimaru, Shiojimaru. This is Umitakamaru, call sign JPAT, Juliet, Papa, Alfa, Tango. I am engaged in fishing. My nets are extending 2 cables to the north of me. Advise you keep well clear of my nets. Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru, call sign 7KJH. Understood. I will alter course to starboard and keep well clear of your nets. Over.",
+            "Umitakamaru. This is Shiojimaru. Understood. I will alter course to starboard and keep well clear of your nets. Over."
+          ],
+          "response": "Shiojimaru. This is Umitakamaru. Thank you for your cooperation. Over."
+        },
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Thank you for your cooperation. Shiojimaru out."
+          ],
+          "response": "Umitakamaru out."
+        }
+      ]
+    },
+    "other5": {
+      "opening": "Shiojimaru, Shiojimaru. This is Umitakamaru, call sign JPAT. I have a person overboard in position 2 miles north of you. Request assistance in the search. Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Understood. I am proceeding to your position to assist. My ETA is 15 minutes. Over."
+          ],
+          "response": "Shiojimaru. This is Umitakamaru. Thank you. I am searching to the north of my position. Keep a listening watch on VHF Channel 16. Over."
+        },
+        {
+          "inputs": [
+            "Umitakamaru. This is Shiojimaru. Understood. I am keeping a listening watch on VHF Channel 16. Shiojimaru out."
+          ],
+          "response": "Umitakamaru out."
+        }
+      ]
+    }
   },
-
   "vts": {
-    "report1": [],
-    "report2": [],
-    "report3": [],
-    "report4": [],
-    "report5": [],
-    "notice1": [],
-    "notice2": [],
-    "notice3": [],
-    "notice4": [],
-    "notice5": [],
+    "report1": {
+      "opponentName": "Tokyo Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. My position is 2 miles south of Uraga Suido Traffic Route No. 1 buoy. I intend to enter the Uraga Suido Traffic Route at 0900 hours, bound for Tokyo. My draft is 6 metres. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. Entry into the Uraga Suido Traffic Route at 0900 hours, bound for Tokyo, draft 6 metres. Keep a listening watch on VHF Channel 16. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
+    "report2": {
+      "opponentName": "Kanmon Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Kanmon Martis, Kanmon Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Kanmon Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Kanmon Martis, Kanmon Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Kanmon Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Kanmon Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Kanmon Martis. This is Shiojimaru. My position is 3 miles east of Kanmon Passage east entrance. I intend to enter the Kanmon Passage at 1400 hours, bound for Moji. My length is 90 metres and my draft is 5 metres. Over."
+          ],
+          "response": "Shiojimaru. This is Kanmon Martis. Roger. Entry into the Kanmon Passage at 1400 hours, bound for Moji. One outbound vessel is in the passage. Proceed with caution and report when you pass Hayatomo Seto. Over."
+        },
+        {
+          "inputs": [
+            "Kanmon Martis. This is Shiojimaru. Roger. I will proceed with caution and report when I pass Hayatomo Seto. Over."
+          ],
+          "response": "Shiojimaru. This is Kanmon Martis. Roger. Nothing further. Over."
+        },
+        {
+          "inputs": [
+            "Kanmon Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Kanmon Martis out."
+        }
+      ]
+    },
+    "report3": {
+      "opponentName": "Ise Wan Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Ise Wan Martis, Ise Wan Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Ise Wan Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Ise Wan Martis, Ise Wan Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Ise Wan Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Ise Wan Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Ise Wan Martis. This is Shiojimaru. My position is 3 miles south of Irago Suido Traffic Route. I intend to enter the Irago Suido Traffic Route at 1030 hours, bound for Nagoya. Over."
+          ],
+          "response": "Shiojimaru. This is Ise Wan Martis. Roger. Entry into the Irago Suido Traffic Route at 1030 hours, bound for Nagoya. Traffic in the route: two inbound vessels ahead of you. Over."
+        },
+        {
+          "inputs": [
+            "Ise Wan Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Ise Wan Martis out."
+        }
+      ]
+    },
+    "report4": {
+      "opponentName": "Osaka Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Osaka Martis, Osaka Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Osaka Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Osaka Martis, Osaka Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Osaka Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Osaka Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Osaka Martis. This is Shiojimaru. My position is 4 miles east of Akashi Kaikyo Traffic Route. I intend to enter the Akashi Kaikyo Traffic Route westbound at 1600 hours, bound for Kobe. Over."
+          ],
+          "response": "Shiojimaru. This is Osaka Martis. Roger. Entry into the Akashi Kaikyo Traffic Route westbound at 1600 hours, bound for Kobe. The tidal current in the route is 3 knots westbound. Over."
+        },
+        {
+          "inputs": [
+            "Osaka Martis. This is Shiojimaru. Roger. Tidal current 3 knots westbound. Over."
+          ],
+          "response": "Shiojimaru. This is Osaka Martis. Correct. Nothing further. Over."
+        },
+        {
+          "inputs": [
+            "Osaka Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Osaka Martis out."
+        }
+      ]
+    },
+    "report5": {
+      "opponentName": "Bisan Seto Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Bisan Seto Martis, Bisan Seto Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Bisan Seto Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Bisan Seto Martis, Bisan Seto Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Bisan Seto Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Bisan Seto Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Bisan Seto Martis. This is Shiojimaru. My position is 2 miles east of Bisan Seto East Traffic Route. I intend to enter the Bisan Seto East Traffic Route at 0730 hours, bound for Mizushima. Over."
+          ],
+          "response": "Shiojimaru. This is Bisan Seto Martis. Roger. Entry into the Bisan Seto East Traffic Route at 0730 hours, bound for Mizushima. Report when you pass the Bisan Seto North Traffic Route junction. Over."
+        },
+        {
+          "inputs": [
+            "Bisan Seto Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Bisan Seto Martis out."
+        }
+      ]
+    },
+    "notice1": {
+      "opponentName": "Tokyo Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. I am passing the reporting line at 1030 hours. My present course is 000 degrees, speed 12 knots. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. Passing the reporting line at 1030 hours, course 000 degrees, speed 12 knots. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
+    "notice2": {
+      "opponentName": "Tokyo Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. I left the Uraga Suido Traffic Route at 1100 hours. I am now proceeding to Tokyo West Anchorage. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. You left the Uraga Suido Traffic Route at 1100 hours, proceeding to Tokyo West Anchorage. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
+    "notice3": {
+      "opponentName": "Tokyo Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. My ETA at the entrance of the Uraga Suido Traffic Route is changed from 0900 hours to 1000 hours due to heavy weather. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. Your new ETA at the entrance of the Uraga Suido Traffic Route is 1000 hours. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
+    "notice4": {
+      "opponentName": "Tokyo Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. I anchored in Tokyo West Anchorage at 1200 hours. My position is 1 mile south of Tokyo Ko No. 3 buoy. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. You anchored in Tokyo West Anchorage at 1200 hours, 1 mile south of Tokyo Ko No. 3 buoy. Report before you heave up anchor. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
+    "notice5": {
+      "opponentName": "Tokyo Martis",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, call sign 7KJH, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis, Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over.",
+            "Tokyo Martis. This is Shiojimaru, Seven, Kilo, Juliet, Hotel. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Go ahead. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. I have a problem with my steering gear. I am not under command in position 1 mile north of Reporting Point Bravo. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. You are not under command 1 mile north of Reporting Point Bravo. Do you require assistance? Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. No assistance required at this time. I expect to repair the steering gear within 1 hour. I will report when repairs are completed. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. I will warn other vessels in your area. Report when repairs are completed. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
     "ask1": [
       {
         "inputs": [
@@ -50,27 +719,114 @@
         "response": "Shiojimaru, This is Tokyo Martis. Roger, your call sign 7KJH received. Current traffic: one outbound tanker from Yokohama, call sign 7XYZ, seven, X-ray, Yankee, Zulu. Proceeding southbound. Maintain course and report position every 15 minutes, over."
       }
     ],
-    "ask2": [],
-    "ask3": [],
-    "ask4": [],
-    "ask5": []
+    "ask2": {
+      "opponentName": "Tokyo Martis",
+      "opening": "Shiojimaru, Shiojimaru. This is Tokyo Martis. You are deviating from the Uraga Suido Traffic Route. What are your intentions? Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru, call sign 7KJH. I altered course to starboard to keep clear of a fishing vessel. I will return to the traffic route in 10 minutes. Over.",
+            "Tokyo Martis. This is Shiojimaru. I altered course to starboard to keep clear of a fishing vessel. I will return to the traffic route in 10 minutes. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. Report when you have returned to the traffic route. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. I will report when I have returned to the traffic route. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
+    "ask3": {
+      "opponentName": "Tokyo Martis",
+      "opening": "Shiojimaru, Shiojimaru. This is Tokyo Martis. There is a vessel crossing ahead of you, bearing 010 degrees, distance 2 miles. Do you have her in sight? Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Yes, I have her in sight. I will reduce speed and pass astern of her. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. Report when you are past and clear. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. I will report when I am past and clear. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
+    "ask4": {
+      "opponentName": "Tokyo Martis",
+      "opening": "Shiojimaru, Shiojimaru. This is Tokyo Martis. Your present speed in the traffic route is 14 knots. The speed limit is 12 knots. What are your intentions? Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. My intention is to reduce speed to 10 knots. I am reducing speed now. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. Maintain your speed below 12 knots in the traffic route. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. I will maintain my speed below 12 knots. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    },
+    "ask5": {
+      "opponentName": "Tokyo Martis",
+      "opening": "Shiojimaru, Shiojimaru. This is Tokyo Martis. A vessel 1 mile ahead of you is not under command. Advise you alter course to starboard. What are your intentions? Over.",
+      "turns": [
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Advice received. I will alter course to starboard and keep well clear of her. Over."
+          ],
+          "response": "Shiojimaru. This is Tokyo Martis. Roger. Report when you are past and clear of the vessel. Over."
+        },
+        {
+          "inputs": [
+            "Tokyo Martis. This is Shiojimaru. Understood. I will report when I am past and clear. Shiojimaru out."
+          ],
+          "response": "Tokyo Martis out."
+        }
+      ]
+    }
   },
-
   "listening": {
     "level1": [
-      { "sentence": "Shiojimaru, this is Umitakamaru. What is your position?", "image": "image001" },
-      { "sentence": "Tokyo Martis, this is Shiojimaru. Request permission to enter port." },
-      { "sentence": "I will cross ahead of Umitakamaru and proceed to Tokyo port." },
-      { "sentence": "I will pass astern of Umitakamaru and proceed to Tokyo port." }
+      {
+        "sentence": "Shiojimaru, this is Umitakamaru. What is your position?",
+        "image": "image001"
+      },
+      {
+        "sentence": "Tokyo Martis, this is Shiojimaru. Request permission to enter port."
+      },
+      {
+        "sentence": "I will cross ahead of Umitakamaru and proceed to Tokyo port."
+      },
+      {
+        "sentence": "I will pass astern of Umitakamaru and proceed to Tokyo port."
+      }
     ],
     "level2": [
-      { "sentence": "Shiojimaru, This is Umitakamaru. I am altering course to starboard. Maintain safe distance." },
-      { "sentence": "Visibility is poor. Request traffic information and weather update." },
-      { "sentence": "After passing the bridge, I will alter course to starboard and proceed to Nagoya port." }
+      {
+        "sentence": "Shiojimaru, This is Umitakamaru. I am altering course to starboard. Maintain safe distance."
+      },
+      {
+        "sentence": "Visibility is poor. Request traffic information and weather update."
+      },
+      {
+        "sentence": "After passing the bridge, I will alter course to starboard and proceed to Nagoya port."
+      }
     ],
     "level3": [
-      { "sentence": "Due to heavy traffic in the fairway, alter course to port and reduce speed to minimum maneuvering speed." },
-      { "sentence": "Strong winds from the northwest are expected. Advise your intentions and confirm readiness for restricted visibility procedures." }
+      {
+        "sentence": "Due to heavy traffic in the fairway, alter course to port and reduce speed to minimum maneuvering speed."
+      },
+      {
+        "sentence": "Strong winds from the northwest are expected. Advise your intentions and confirm readiness for restricted visibility procedures."
+      }
     ]
   }
 }

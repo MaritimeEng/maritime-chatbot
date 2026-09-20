@@ -49,7 +49,13 @@ const MIN_RATE = 0.5;
 const INPUT_MAX_HEIGHT = 200;   // style.css の #message-input max-height と合わせる
 
 const OPPONENT_LABEL = { "Umitakamaru": "船舶", "Tokyo Martis": "VTS" };
-const SHIP_SCENARIO_LABEL = { meeting: "行き会い", crossing: "横切り", overtaking: "追い越し", other: "その他" };
+const SHIP_TYPE_LABEL = { meeting: "行き会い", crossing: "横切り", overtaking: "追い越し", other: "その他" };
+
+// "meeting3" → "行き会い3"
+function scenarioKeyLabel(key, labels) {
+  const m = /^([a-z]+)(\d+)$/.exec(key || "");
+  return m && labels[m[1]] ? labels[m[1]] + m[2] : (key || "");
+}
 
 // =====================================================
 //  状態
@@ -162,7 +168,7 @@ function clearChat() { document.getElementById("chat-box").innerHTML = ""; }
 function scenarioDisplayName() {
   if (mode === "listening") return `Level ${listeningLevel}`;
   if (currentOpponent === "Umitakamaru" && shipScenario) {
-    return SHIP_SCENARIO_LABEL[shipScenario] || shipScenario;
+    return scenarioKeyLabel(shipScenario, SHIP_TYPE_LABEL);
   }
   if (currentOpponent === "Tokyo Martis" && vtsScenario) return vtsScenario;
   return null;
@@ -182,7 +188,9 @@ function updateStatusBar() {
   } else {
     const name = scenarioDisplayName();
     const scenarioPart = hideScenarioName ? "シナリオ非公開" : (name ? `シナリオ: ${name}` : "シナリオ未選択");
-    text = `相手役: ${currentOpponent}（${OPPONENT_LABEL[currentOpponent]}） / ${scenarioPart}`;
+    const status = getScenarioStatus();
+    const who = (!hideScenarioName && status.displayName) ? status.displayName : currentOpponent;
+    text = `相手役: ${who}（${OPPONENT_LABEL[currentOpponent]}） / ${scenarioPart}`;
   }
 
   const rate = stats.attempts ? Math.round((stats.correct / stats.attempts) * 100) : 0;
@@ -482,22 +490,42 @@ function setupRecognition() {
 //  シナリオ
 // =====================================================
 
+// シナリオは2つの書き方に対応しています。
+//   配列形式          : [ {inputs, response}, ... ]（自船から通信を開始する）
+//   オブジェクト形式  : { opening: "相手からの第一声", opponentName: "Kanmon Martis", turns: [...] }
+function getTurns(entry) {
+  if (Array.isArray(entry)) return entry;
+  if (entry && Array.isArray(entry.turns)) return entry.turns;
+  return null;
+}
+
+function getOpening(entry) {
+  return (entry && !Array.isArray(entry) && typeof entry.opening === "string") ? entry.opening : null;
+}
+
+function getOpponentName(entry) {
+  return (entry && !Array.isArray(entry) && typeof entry.opponentName === "string") ? entry.opponentName : null;
+}
+
 function getScenarioStatus() {
   if (scenarioLoadFailed) return { state: "load-failed" };
   if (!scenarioLoaded) return { state: "loading" };
 
-  let key = null, list = null;
+  let key = null, entry = null;
   if (currentOpponent === "Umitakamaru") {
     key = shipScenario;
-    list = key ? scenario.ship?.[key] : null;
+    entry = key ? scenario.ship?.[key] : null;
   } else if (currentOpponent === "Tokyo Martis") {
     key = vtsScenario;
-    list = key ? scenario.vts?.[key] : null;
+    entry = key ? scenario.vts?.[key] : null;
   }
 
   if (!key) return { state: "unselected" };
-  if (!Array.isArray(list) || list.length === 0) return { state: "empty", key };
-  return { state: "ready", key, list };
+
+  const list = getTurns(entry);
+  const displayName = getOpponentName(entry) || currentOpponent;   // 関門マーチスなど局名が異なる場合に使用
+  if (!Array.isArray(list) || list.length === 0) return { state: "empty", key, displayName };
+  return { state: "ready", key, list, displayName, opening: getOpening(entry) };
 }
 
 function loadingMessage() {
@@ -570,7 +598,20 @@ function findModelAnswer(list) {
 
 function getValidScenarioKeys(group) {
   if (!group || typeof group !== "object") return [];
-  return Object.keys(group).filter(k => Array.isArray(group[k]) && group[k].length > 0);
+  return Object.keys(group).filter(k => {
+    const turns = getTurns(group[k]);
+    return Array.isArray(turns) && turns.length > 0;
+  });
+}
+
+// 相手から開始するシナリオでは、選択と同時に第一声を表示・読み上げする
+function startScenarioOpening() {
+  const status = getScenarioStatus();
+  if (status.state !== "ready" || !status.opening) return;
+
+  const cls = "reply-message " + (currentOpponent === "Umitakamaru" ? "umitaka" : "vts");
+  appendMessage(cls, status.displayName, status.opening);
+  speak(status.opening);
 }
 
 // ランダム訓練：中身のあるシナリオの中から相手役とシナリオを選ぶ
@@ -774,6 +815,7 @@ function handleSend() {
   }
 
   const opponent = currentOpponent;     // 送信時点の状態を保持
+  const displayName = status.displayName;
   const scenarioKey = status.key;
   const studentId = getStudentId();
   const source = consumeRecognition(message);   // 音声入力かどうかを判定
@@ -801,11 +843,11 @@ function handleSend() {
 
     const cls = "reply-message " + (opponent === "Umitakamaru" ? "umitaka" : "vts");
     if (responseText) {
-      appendMessage(cls, opponent, responseText);
+      appendMessage(cls, displayName, responseText);
       lastOpponentMessage = responseText;
       speak(responseText);
     } else {
-      appendMessage(cls, opponent, "Say again.", { error: true });
+      appendMessage(cls, displayName, "Say again.", { error: true });
       speak("Say again.");
       showHint(list, message);
     }
@@ -939,6 +981,7 @@ function init() {
             "相手役",
             `${currentOpponent}（${OPPONENT_LABEL[currentOpponent]}）　※シナリオは非公開です`
           );
+          startScenarioOpening();   // 相手から開始するシナリオならその第一声を流す
           console.log("ランダム選択:", currentOpponent, shipScenario || vtsScenario);
           break;
 
@@ -966,11 +1009,16 @@ function init() {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".ship-scenario").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      shipScenario = btn.dataset.scenario;
+      shipScenario = btn.dataset.scenario || `${btn.dataset.type}${btn.dataset.num}`;
       lastOpponentMessage = null;
-      showScenarioImage(shipScenario);   // images/crossing.png などがあれば表示
+      clearChat();
+      showScenarioImage(shipScenario);   // images/meeting1.png などがあれば表示
       updateStatusBar();
-      if (getScenarioStatus().state === "empty") systemMessage("このシナリオは現在準備中です。");
+      if (getScenarioStatus().state === "empty") {
+        systemMessage("このシナリオは現在準備中です。");
+      } else {
+        startScenarioOpening();
+      }
     });
   });
 
@@ -981,9 +1029,14 @@ function init() {
       btn.classList.add("active");
       vtsScenario = `${btn.dataset.type}${btn.dataset.num}`;
       lastOpponentMessage = null;
+      clearChat();
       showScenarioImage(vtsScenario);
       updateStatusBar();
-      if (getScenarioStatus().state === "empty") systemMessage("このシナリオは現在準備中です。");
+      if (getScenarioStatus().state === "empty") {
+        systemMessage("このシナリオは現在準備中です。");
+      } else {
+        startScenarioOpening();
+      }
     });
   });
 

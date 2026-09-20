@@ -4,9 +4,16 @@
 const SHIP_LABEL = { meeting: "行き会い", crossing: "横切り", overtaking: "追い越し", other: "その他" };
 const VTS_LABEL = { report: "通報", notice: "報告", ask: "問いかけ" };
 
-function vtsLabel(key) {
+function keyLabel(key, labels) {
   const m = key.match(/^([a-z]+)(\d+)$/);
-  return m && VTS_LABEL[m[1]] ? `${VTS_LABEL[m[1]]}${m[2]}` : key;
+  return m && labels[m[1]] ? `${labels[m[1]]}${m[2]}` : key;
+}
+
+// シナリオは配列形式と、{ opening, opponentName, turns } のオブジェクト形式に対応
+function getTurns(entry) {
+  if (Array.isArray(entry)) return entry;
+  if (entry && Array.isArray(entry.turns)) return entry.turns;
+  return null;
 }
 
 function renderGroup(container, title, group, labelFn) {
@@ -23,10 +30,20 @@ function renderGroup(container, title, group, labelFn) {
   }
 
   for (const key of keys) {
-    const list = group[key];
+    const entry = group[key];
+    const list = getTurns(entry);
     const h4 = document.createElement("h4");
     h4.textContent = `${labelFn(key)}（${key}）`;
     container.appendChild(h4);
+
+    const opening = (entry && !Array.isArray(entry) && entry.opening) ? entry.opening : null;
+    if (opening) {
+      const p = document.createElement("div");
+      p.className = "line-them opening";
+      const who = (entry.opponentName) ? entry.opponentName : "相手";
+      p.textContent = `${who}（シナリオ選択と同時に流れます）: ${opening}`;
+      container.appendChild(p);
+    }
 
     if (!Array.isArray(list) || list.length === 0) {
       const p = document.createElement("p");
@@ -88,8 +105,8 @@ fetch("scenario.json")
   .then(data => {
     const container = document.getElementById("scenario-dump");
     container.textContent = "";
-    renderGroup(container, "船舶間通信訓練", data.ship, k => SHIP_LABEL[k] || k);
-    renderGroup(container, "VTS通信訓練", data.vts, vtsLabel);
+    renderGroup(container, "船舶間通信訓練", data.ship, k => keyLabel(k, SHIP_LABEL));
+    renderGroup(container, "VTS通信訓練", data.vts, k => keyLabel(k, VTS_LABEL));
     renderListening(container, data.listening);
   })
   .catch(error => {
