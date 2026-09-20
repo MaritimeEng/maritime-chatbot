@@ -617,18 +617,33 @@ function resetSubUIs() {
   });
   document.querySelectorAll(".level-button, .ship-scenario, .vts-scenario")
     .forEach(b => b.classList.remove("active"));
-  hideVtsImage();
+  hideScenarioImage();
 }
 
-function showVtsImage(key) {
+// 画像ファイル名を解決する
+//   "image001"      → images/image001.png
+//   "image001.jpg"  → images/image001.jpg
+//   "images/a.png" / "https://..." → そのまま
+function imagePath(value) {
+  if (!value) return null;
+  const v = String(value).trim();
+  if (!v) return null;
+  if (/^https?:\/\//.test(v) || v.startsWith("/") || v.startsWith("images/")) return v;
+  return `images/${/\.[a-z0-9]+$/i.test(v) ? v : v + ".png"}`;
+}
+
+// チャット欄の上に状況図を表示する（ファイルがなければ自動的に非表示）
+function showScenarioImage(value) {
   const img = document.getElementById("scenario-image");
-  if (img && key) {
-    img.style.display = "none";  // 読み込みに成功したら load イベントで表示
-    img.src = `images/${key}.png`;
-  }
+  const path = imagePath(value);
+  if (!img) return;
+  if (!path) { hideScenarioImage(); return; }
+
+  img.style.display = "none";  // 読み込みに成功したら load イベントで表示
+  img.src = path;
 }
 
-function hideVtsImage() {
+function hideScenarioImage() {
   const img = document.getElementById("scenario-image");
   if (img) {
     img.style.display = "none";
@@ -651,7 +666,10 @@ function startListening(level) {
 
   clearChat();
   listeningLevel = level;
-  currentListeningSentence = pickRandom(list).sentence;
+  const item = pickRandom(list);
+  currentListeningSentence = item.sentence;
+  // 問題に画像が設定されていれば、チャット欄の上に状況図を表示する
+  showScenarioImage(item.image);
   isListeningTest = true;
   speakingRate = DEFAULT_RATE;
   updateStatusBar();
@@ -950,6 +968,7 @@ function init() {
       btn.classList.add("active");
       shipScenario = btn.dataset.scenario;
       lastOpponentMessage = null;
+      showScenarioImage(shipScenario);   // images/crossing.png などがあれば表示
       updateStatusBar();
       if (getScenarioStatus().state === "empty") systemMessage("このシナリオは現在準備中です。");
     });
@@ -962,7 +981,7 @@ function init() {
       btn.classList.add("active");
       vtsScenario = `${btn.dataset.type}${btn.dataset.num}`;
       lastOpponentMessage = null;
-      showVtsImage(vtsScenario);
+      showScenarioImage(vtsScenario);
       updateStatusBar();
       if (getScenarioStatus().state === "empty") systemMessage("このシナリオは現在準備中です。");
     });
@@ -970,6 +989,24 @@ function init() {
 
   // アクセント（使える音声に合わせてボタンを生成）
   buildAccentButtons();
+
+  // 利用できる音声の一覧を表示（学生の環境で何が使えるか確認するため）
+  const voiceListButton = document.getElementById("voice-list-button");
+  if (voiceListButton) {
+    voiceListButton.addEventListener("click", () => {
+      if (!speechSupported) { systemMessage("このブラウザは音声読み上げに対応していません。"); return; }
+      const voices = speechSynthesis.getVoices();
+      if (voices.length === 0) {
+        systemMessage("音声がまだ読み込まれていません。数秒待ってから再度お試しください。");
+        return;
+      }
+      const english = voices.filter(v => normalizeLang(v.lang).startsWith("en"));
+      const others = voices.filter(v => !normalizeLang(v.lang).startsWith("en"));
+      appendMessage("reply-message hint", "英語の音声", english.map(v => `${v.name}（${v.lang}）`).join(" / ") || "なし");
+      appendMessage("reply-message hint", "その他の言語", `${others.length} 件（詳細はブラウザのコンソールに出力しました）`);
+      console.log("利用できる音声:", voices.map(v => `${v.name} (${v.lang})`));
+    });
+  }
 
   updateStatusBar();
   if (!speechSupported) {

@@ -58,7 +58,7 @@
 
   "listening": {
     "level1": [
-      { "sentence": "Shiojimaru, this is Umitakamaru. What is your position?" },
+      { "sentence": "Shiojimaru, this is Umitakamaru. What is your position?", "image": "image001" },
       { "sentence": "Tokyo Martis, this is Shiojimaru. Request permission to enter port." },
       { "sentence": "I will cross ahead of Umitakamaru and proceed to Tokyo port." },
       { "sentence": "I will pass astern of Umitakamaru and proceed to Tokyo port." }

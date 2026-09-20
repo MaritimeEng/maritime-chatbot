@@ -76,7 +76,7 @@ function renderListening(container, listening) {
     const ul = document.createElement("ul");
     (listening[key] || []).forEach(item => {
       const li = document.createElement("li");
-      li.textContent = item.sentence;
+      li.textContent = item.image ? `${item.sentence}（画像: ${item.image}）` : item.sentence;
       ul.appendChild(li);
     });
     container.appendChild(ul);
