@@ -15,18 +15,18 @@ const CONFIG = {
   // 各質問の entry 番号。「事前入力したURLを取得」で確認できます。
   entries: {
     studentId: "entry.504566204",   // 学籍番号
-    opponent:  "entry.715153589",   // 相手役（Umitakamaru / Tokyo Martis / Listening）
+    opponent:  "entry.1943825119",   // 相手役（Umitakamaru / Tokyo Martis / Listening）
     userInput: "entry.633984331",   // ユーザー入力
     response:  "entry.502434052",   // システム応答
     // ★フォームに「シナリオ名」の質問を追加したら、その entry 番号をここに入れてください。
     //   空のままでも、シナリオ名は「相手役」の欄に "Umitakamaru / crossing" の形で記録されます。
-    scenario:    "",   // 例: "entry.123456789"
+    scenario:    "entry.715153589",   // 例: "entry.123456789"
 
     // ★音声入力の分析用。質問を追加したら entry 番号を入れてください。
     //   recognized  : 音声認識がそのまま返した文（修正前）
     //   inputMethod : typing（手入力） / voice（認識結果をそのまま送信） / voice-edited（修正して送信）
-    recognized:  "",   // 例: "entry.234567890"
-    inputMethod: ""    // 例: "entry.345678901"
+    recognized:  "entry.1891304124",   // 例: "entry.234567890"
+    inputMethod: "entry.795316116"    // 例: "entry.345678901"
   },
 
   logListening: true,          // リスニング訓練も記録するか
