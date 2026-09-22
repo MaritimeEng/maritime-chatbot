@@ -100,6 +100,28 @@ function renderListening(container, listening) {
   }
 }
 
+// 監視モード中は解説ページを表示しない（開発者ページで切り替え）
+(function checkMonitorMode() {
+  const url = (typeof APP_CONFIG !== "undefined" && APP_CONFIG.gasUrl) ? APP_CONFIG.gasUrl : "";
+  if (!url) return;
+  fetch(`${url}?action=settings`, { cache: "no-store" })
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.ok && data.settings && data.settings.monitorMode) {
+        const container = document.querySelector(".help-container");
+        container.textContent = "";
+        const p = document.createElement("p");
+        p.textContent = "現在監視モード中のため、解説ページは表示できません。";
+        const a = document.createElement("a");
+        a.href = "index.html";
+        a.textContent = "← 練習画面に戻る";
+        container.appendChild(p);
+        container.appendChild(a);
+      }
+    })
+    .catch(() => { /* 設定を読めない場合は通常どおり表示 */ });
+})();
+
 fetch("scenario.json")
   .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
   .then(data => {

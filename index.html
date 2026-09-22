@@ -7,13 +7,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- 監視モード中のみ表示（開発者ページで切り替え） -->
+<div id="monitor-banner" style="display:none;" role="status">現在監視モード中です</div>
+
 <div class="chat-container">
   <h2>海事英語教育支援システム</h2>
   <p>
     東京海洋大学　高木研究室<br>
     船舶間通信・VTS通信・リスニングの練習ができます。<br>
     学籍番号を入力すると、練習内容が記録されます。<br>
-    データは卒業研究のためのみに使用します。
+    記録には、入力内容・入力方法・貼り付けの回数と、端末を識別する番号（ブラウザに保存されるID）が含まれます。<br>
+    データは卒業研究および授業の運営のためのみに使用します。
   </p>
 
   <p class="notice">
@@ -53,7 +57,12 @@
     <button type="button" class="role-button" id="vts-button">VTS</button>
     <button type="button" class="role-button" id="random-button">ランダム</button>
     <button type="button" class="role-button" id="listening-button">Listening Test</button>
+    <button type="button" class="role-button" id="anchor-button">投錨・抜錨</button>
+    <button type="button" class="role-button" id="harbor-button">出入港・当直引き継ぎ</button>
   </div>
+
+  <!-- フレーズ練習（practice.js が中身を生成） -->
+  <div id="practice-box" style="display:none;"></div>
 
   <!-- リスニングの難易度 -->
   <div id="listening-level-box" style="display:none;">
@@ -150,6 +159,8 @@
   </div>
 </div>
 
+<script src="config.js"></script>
 <script src="script.js"></script>
+<script src="practice.js"></script>
 </body>
 </html>

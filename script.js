@@ -15,19 +15,30 @@ const CONFIG = {
   // 各質問の entry 番号。「事前入力したURLを取得」で確認できます。
   entries: {
     studentId: "entry.504566204",   // 学籍番号
-    opponent:  "entry.1943825119",   // 相手役（Umitakamaru / Tokyo Martis / Listening）
+    opponent:  "entry.715153589",   // 相手役（Umitakamaru / Tokyo Martis / Listening）
     userInput: "entry.633984331",   // ユーザー入力
     response:  "entry.502434052",   // システム応答
     // ★フォームに「シナリオ名」の質問を追加したら、その entry 番号をここに入れてください。
     //   空のままでも、シナリオ名は「相手役」の欄に "Umitakamaru / crossing" の形で記録されます。
-    scenario:    "entry.715153589",   // 例: "entry.123456789"
+    scenario:    "",   // 例: "entry.123456789"
 
     // ★音声入力の分析用。質問を追加したら entry 番号を入れてください。
     //   recognized  : 音声認識がそのまま返した文（修正前）
     //   inputMethod : typing（手入力） / voice（認識結果をそのまま送信） / voice-edited（修正して送信）
-    recognized:  "entry.1891304124",   // 例: "entry.234567890"
-    inputMethod: "entry.795316116"    // 例: "entry.345678901"
+    recognized:  "",   // 例: "entry.234567890"
+    inputMethod: "",   // 例: "entry.345678901"
+
+    // ★不正利用検知・コピペ監視用。フォームに質問を追加したら entry 番号を入れてください。
+    deviceId:    "",   // 例: "entry.456789012"
+    pasteCount:  ""    // 例: "entry.567890123"
   },
+
+  // 監視モードの設定を読み込む間隔（秒）。開発者ページで切り替えると、この間隔で学生の画面に反映されます
+  settingsPollSeconds: 60,
+
+  // 監視モード中の学籍番号の形式チェック（正規表現）。空なら「未入力でないこと」だけを確認します
+  // 例: 8桁の数字なら "^\\d{8}$"
+  studentIdPattern: "",
 
   logListening: true,          // リスニング訓練も記録するか
   replyDelayMs: 3000,          // 相手が応答するまでの待ち時間（ミリ秒）
@@ -85,6 +96,120 @@ let currentVoice = null;      // 実際に使用する SpeechSynthesisVoice
 let currentVoiceQuality = ""; // "exact" | "lang" | "native-fallback" | "generic" | "none"
 
 const stats = { attempts: 0, correct: 0 };
+
+// 開発者ページで切り替える設定（GAS から読み込む）
+let appSettings = { monitorMode: false, copyPasteBan: false };
+
+// 1回の送信までに貼り付け（またはその試み）が行われた回数
+let pasteCount = 0;
+
+// =====================================================
+//  端末ID（Device ID）
+//  初回利用時に生成してブラウザに保存し、以後は同じ値を使います。
+//  ※ ブラウザの閲覧データを消去した場合や、別のブラウザ・シークレットモードでは別のIDになります。
+// =====================================================
+function getDeviceId() {
+  const KEY = "deviceId";
+  try {
+    let id = localStorage.getItem(KEY);
+    if (!id) {
+      id = (window.crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : "dev-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem(KEY, id);
+    }
+    return id;
+  } catch (e) {
+    return "no-storage";   // localStorage が使えない環境
+  }
+}
+
+// =====================================================
+//  監視モード・コピペ禁止モード（GAS から設定を読み込む）
+// =====================================================
+function gasUrl() {
+  return (typeof APP_CONFIG !== "undefined" && APP_CONFIG.gasUrl) ? APP_CONFIG.gasUrl : "";
+}
+
+async function loadSettings() {
+  const url = gasUrl();
+  if (!url) return;   // GAS 未設定なら通常モードで動作
+  try {
+    const res = await fetch(`${url}?action=settings`, { cache: "no-store" });
+    const data = await res.json();
+    if (data && data.ok && data.settings) {
+      appSettings = { monitorMode: !!data.settings.monitorMode, copyPasteBan: !!data.settings.copyPasteBan };
+      applySettings();
+    }
+  } catch (e) {
+    console.warn("設定を読み込めませんでした（通常モードで動作します）:", e);
+  }
+}
+
+function applySettings() {
+  const banner = document.getElementById("monitor-banner");
+  if (banner) banner.style.display = appSettings.monitorMode ? "block" : "none";
+
+  // 監視モード中は解説ページへのボタンを隠す
+  const help = document.getElementById("help-button");
+  if (help) help.style.display = appSettings.monitorMode ? "none" : "";
+
+  document.body.classList.toggle("monitor-mode", appSettings.monitorMode);
+  document.body.classList.toggle("copy-paste-ban", appSettings.copyPasteBan);
+}
+
+let lastBanNotice = 0;
+function notifyCopyPasteBan() {
+  // 連続で表示されないよう、5秒に1回まで
+  if (Date.now() - lastBanNotice < 5000) return;
+  lastBanNotice = Date.now();
+  systemMessage("現在、コピー・貼り付けは禁止されています。");
+}
+
+// コピー・切り取り・貼り付け・ドラッグ＆ドロップの監視
+function setupCopyPasteGuard() {
+  const input = document.getElementById("message-input");
+
+  document.addEventListener("paste", event => {
+    // 入力欄への貼り付けは、禁止中でも「試みた回数」として数える
+    if (event.target === input) pasteCount++;
+    if (appSettings.copyPasteBan) { event.preventDefault(); notifyCopyPasteBan(); }
+  });
+
+  ["copy", "cut"].forEach(type => {
+    document.addEventListener(type, event => {
+      if (appSettings.copyPasteBan) { event.preventDefault(); notifyCopyPasteBan(); }
+    });
+  });
+
+  document.addEventListener("drop", event => {
+    if (event.target === input) pasteCount++;
+    if (appSettings.copyPasteBan) { event.preventDefault(); notifyCopyPasteBan(); }
+  });
+}
+
+// 送信時に貼り付け回数を取り出してリセットする
+function consumePasteCount() {
+  const n = pasteCount;
+  pasteCount = 0;
+  return n;
+}
+
+// 監視モード中は学籍番号の入力を必須にする
+function ensureStudentId() {
+  if (!appSettings.monitorMode) return true;
+  const id = getStudentId();
+  if (!id) {
+    systemMessage("監視モード中は、学籍番号を入力してから送信してください。");
+    document.getElementById("student-id")?.focus();
+    return false;
+  }
+  if (CONFIG.studentIdPattern && !(new RegExp(CONFIG.studentIdPattern)).test(id)) {
+    systemMessage("学籍番号の形式が正しくありません。入力内容を確認してください。");
+    return false;
+  }
+  return true;
+}
 
 // =====================================================
 //  文字列ユーティリティ
@@ -183,6 +308,8 @@ function updateStatusBar() {
     text = "訓練モードを選択してください";
   } else if (mode === "listening") {
     text = currentListeningSentence ? `リスニング訓練 / Level ${listeningLevel}` : "リスニング訓練 / レベルを選択してください";
+  } else if (mode === "practice") {
+    text = (window.Practice && window.Practice.statusText()) || "フレーズ練習";
   } else if (!currentOpponent) {
     text = "訓練モードを選択してください";
   } else {
@@ -639,6 +766,7 @@ function pickRandomScenario() {
 // =====================================================
 
 function resetTrainingState() {
+  if (window.Practice) window.Practice.reset();
   mode = null;
   currentOpponent = null;
   shipScenario = null;
@@ -652,7 +780,7 @@ function resetTrainingState() {
 }
 
 function resetSubUIs() {
-  ["ship-scenario-select", "vts-scenario-select", "listening-level-box"].forEach(id => {
+  ["ship-scenario-select", "vts-scenario-select", "listening-level-box", "practice-box"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = "none";
   });
@@ -737,6 +865,7 @@ function handleListeningInput(message) {
   }
 
   const source = consumeRecognition(message);
+  const pastes = consumePasteCount();
   appendMessage("user-message", MY_ROLE, message);
   if (source.method === "voice-edited" && CONFIG.showRecognitionDiff) {
     hintMessage(`音声認識の結果（修正前）: ${source.recognized}`);
@@ -763,7 +892,8 @@ function handleListeningInput(message) {
       userInput: message,
       response: isCorrect ? "Correct!" : "Try again.",
       recognized: source.recognized,
-      method: source.method
+      method: source.method,
+      pasteCount: pastes
     });
   }
 }
@@ -777,9 +907,19 @@ function handleSend() {
   const message = input.value.trim();
   if (message === "") return;
 
+  // 監視モード中は学籍番号の入力が必須
+  if (!ensureStudentId()) return;
+
   // リスニングは currentOpponent が null のため、相手役の判定より前に処理する
   if (isListeningTest) {
     handleListeningInput(message);
+    clearInput(input);
+    return;
+  }
+
+  // フレーズ練習（投錨・抜錨 / 出入港・当直引き継ぎ）
+  if (mode === "practice") {
+    if (window.Practice) window.Practice.handleInput(message);
     clearInput(input);
     return;
   }
@@ -808,6 +948,11 @@ function handleSend() {
   // 模範解答
   const n = normalize(message);
   if (n === "what's the answer" || n === "whats the answer") {
+    if (appSettings.monitorMode) {
+      systemMessage("監視モード中は模範解答を表示できません。");
+      clearInput(input);
+      return;
+    }
     const answer = findModelAnswer(list);
     appendMessage("reply-message model-answer", "Model Answer", answer || "No model answer found.");
     clearInput(input);
@@ -819,6 +964,7 @@ function handleSend() {
   const scenarioKey = status.key;
   const studentId = getStudentId();
   const source = consumeRecognition(message);   // 音声入力かどうかを判定
+  const pastes = consumePasteCount();
 
   appendMessage("user-message", MY_ROLE, message);
   if (source.method === "voice-edited" && CONFIG.showRecognitionDiff) {
@@ -834,7 +980,8 @@ function handleSend() {
       userInput: message,
       response: responseText || "Say again.",
       recognized: source.recognized,
-      method: source.method
+      method: source.method,
+      pasteCount: pastes
     });
 
     // 待機中にモードやシナリオが切り替えられていたら表示しない
@@ -858,7 +1005,7 @@ function handleSend() {
 //  学習データの送信（Google Forms）
 // =====================================================
 
-function sendToGoogleForm({ studentId, opponent, scenarioKey, userInput, response, recognized = "", method = "typing" }) {
+function sendToGoogleForm({ studentId, opponent, scenarioKey, userInput, response, recognized = "", method = "typing", pasteCount: pastes = 0 }) {
   // 学籍番号が未入力のときは記録しない（画面の説明文どおりの動作）
   if (!studentId) return;
 
@@ -888,6 +1035,16 @@ function sendToGoogleForm({ studentId, opponent, scenarioKey, userInput, respons
     formData.append(e.inputMethod, method);
   } else if (method !== "typing") {
     warnOnce("inputMethod", "入力方法を記録するには、フォームに質問を追加し CONFIG.entries.inputMethod に entry 番号を設定してください。");
+  }
+
+  // 端末ID・貼り付け回数（質問を追加し、entry 番号を設定した場合のみ）
+  if (e.deviceId && e.deviceId.startsWith("entry.")) {
+    formData.append(e.deviceId, getDeviceId());
+  } else {
+    warnOnce("deviceId", "端末IDを記録するには、フォームに質問を追加し CONFIG.entries.deviceId に entry 番号を設定してください。");
+  }
+  if (e.pasteCount && e.pasteCount.startsWith("entry.")) {
+    formData.append(e.pasteCount, String(pastes));
   }
 
   // no-cors のため、送信の成否は JavaScript からは判定できません。
@@ -933,6 +1090,14 @@ function init() {
 
   // 送信ボタン
   document.getElementById("send-button").addEventListener("click", handleSend);
+
+  // 端末IDの生成（初回のみ）とコピペ監視
+  getDeviceId();
+  setupCopyPasteGuard();
+
+  // 監視モード等の設定を読み込み、定期的に更新する
+  loadSettings();
+  if (gasUrl()) setInterval(loadSettings, CONFIG.settingsPollSeconds * 1000);
 
   // 音声入力
   setupRecognition();
@@ -989,6 +1154,13 @@ function init() {
           mode = "listening";
           clearChat();
           document.getElementById("listening-level-box").style.display = "block";
+          break;
+
+        case "anchor-button":    // 投錨・抜錨
+        case "harbor-button":    // 出入港・当直引き継ぎ
+          mode = "practice";
+          clearChat();
+          if (window.Practice) window.Practice.open(button.id === "anchor-button" ? "anchor" : "harbor");
           break;
       }
       updateStatusBar();

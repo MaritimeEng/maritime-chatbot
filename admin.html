@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 検索エンジンに載せない -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>開発者ページ | 海事英語教育支援システム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin">
+<div class="chat-container admin-container">
+
+  <h2>開発者ページ</h2>
+
+  <!-- ログイン -->
+  <section id="login-section">
+    <p>パスワードを入力してください。</p>
+    <div class="admin-row">
+      <input type="password" id="admin-password" placeholder="パスワード" autocomplete="current-password">
+      <button type="button" id="login-button" class="send-button">ログイン</button>
+    </div>
+    <p id="login-message" class="admin-error"></p>
+  </section>
+
+  <!-- ログイン後 -->
+  <div id="admin-main" style="display:none;">
+    <div class="admin-toolbar">
+      <span id="generated-at"></span>
+      <button type="button" id="refresh-button" class="mini-button">最新の情報に更新</button>
+      <button type="button" id="logout-button" class="mini-button">ログアウト</button>
+    </div>
+
+    <!-- 設定 -->
+    <section class="admin-section">
+      <h3>モード設定</h3>
+      <label class="switch-row">
+        <input type="checkbox" id="monitor-toggle">
+        <span>監視モード</span>
+        <small>（ON: 画面に「現在監視モード中です」を表示／解説ページ非表示／模範解答無効／学籍番号必須）</small>
+      </label>
+      <label class="switch-row">
+        <input type="checkbox" id="copypaste-toggle">
+        <span>コピー＆ペースト禁止モード</span>
+      </label>
+      <div class="admin-row">
+        <button type="button" id="save-settings" class="send-button">設定を保存</button>
+        <span id="settings-message"></span>
+      </div>
+      <p class="admin-note">学生の画面には最大1分程度で反映されます。</p>
+    </section>
+
+    <!-- 使用統計 -->
+    <section class="admin-section">
+      <h3>使用統計</h3>
+      <div id="stat-cards" class="stat-cards"></div>
+      <h4>シナリオ別利用回数</h4>
+      <div class="table-wrap"><table id="scenario-table"></table></div>
+    </section>
+
+    <!-- 不正アクセス検知 -->
+    <section class="admin-section">
+      <h3>不正アクセス検知</h3>
+      <p class="admin-note">警告のみで、利用の停止は行いません。直近30日分が対象です。</p>
+      <div class="table-wrap"><table id="suspicious-table"></table></div>
+    </section>
+
+    <!-- 学籍番号管理 -->
+    <section class="admin-section">
+      <h3>学籍番号管理</h3>
+      <div class="table-wrap"><table id="students-table"></table></div>
+    </section>
+
+    <!-- コピー＆ペースト監視 -->
+    <section class="admin-section">
+      <h3>コピー＆ペースト監視</h3>
+      <div id="paste-overall" class="stat-cards"></div>
+      <div class="table-wrap"><table id="paste-table"></table></div>
+    </section>
+
+    <!-- 学籍番号検索 -->
+    <section class="admin-section">
+      <h3>学籍番号検索</h3>
+      <div class="admin-row">
+        <input type="text" id="search-id" placeholder="学籍番号">
+        <button type="button" id="search-button" class="send-button">検索</button>
+      </div>
+      <div id="search-summary"></div>
+      <div class="table-wrap"><table id="search-table"></table></div>
+    </section>
+
+    <!-- 授業監視 -->
+    <section class="admin-section">
+      <h3>授業監視</h3>
+      <div class="admin-row">
+        <input type="date" id="class-date">
+        <input type="time" id="class-start" value="13:00">
+        <span>〜</span>
+        <input type="time" id="class-end" value="14:30">
+        <button type="button" id="class-button" class="send-button">表示</button>
+      </div>
+      <div id="class-summary"></div>
+      <h4>利用者一覧</h4>
+      <div class="table-wrap"><table id="class-users"></table></div>
+      <h4>未利用者一覧</h4>
+      <div id="class-nonusers"></div>
+    </section>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

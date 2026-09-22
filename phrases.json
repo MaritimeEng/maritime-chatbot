@@ -1,0 +1,13 @@
+{
+  "_note": "サンプルです。揚投錨実習フレーズの本文に差し替えてください。[] は選択肢ごとに別の問題として展開されます。jaAccept は和訳の別解（任意）です。",
+  "anchor": [
+    { "en": "Let go the anchor.", "ja": "錨を入れ。", "jaAccept": ["レッコアンカー。"] },
+    { "en": "x cables [left/right], sir.", "ja": "xケーブル[左/右]です。" },
+    { "en": "Heave up the anchor.", "ja": "錨を巻き上げよ。" }
+  ],
+  "harbor": [
+    { "en": "Stand by engine.", "ja": "機関用意。" },
+    { "en": "Single up to [one/two] lines.", "ja": "係船索を[1/2]本に減らせ。" },
+    { "en": "I relieve you of the watch.", "ja": "当直を引き継ぎます。" }
+  ]
+}
