@@ -1,13 +1,973 @@
 {
-  "_note": "サンプルです。揚投錨実習フレーズの本文に差し替えてください。[] は選択肢ごとに別の問題として展開されます。jaAccept は和訳の別解（任意）です。",
+  "_note": "揚投錨実習フレーズ（Word）から変換。[] の選択肢は問題ごとに展開済み。enAccept / jaAccept は正解として認める別の言い方（省略形・言い換え）。",
   "anchor": [
-    { "en": "Let go the anchor.", "ja": "錨を入れ。", "jaAccept": ["レッコアンカー。"] },
-    { "en": "x cables [left/right], sir.", "ja": "xケーブル[左/右]です。" },
-    { "en": "Heave up the anchor.", "ja": "錨を巻き上げよ。" }
+    {
+      "en": "What is the distance to the anchorage?",
+      "ja": "錨地までの距離は？"
+    },
+    {
+      "en": "What is the distance to the next way point?",
+      "ja": "次の変針点までの距離は？"
+    },
+    {
+      "en": "X miles to the anchorage, Sir.",
+      "ja": "錨地までXマイルです。"
+    },
+    {
+      "en": "X cables to the anchorage, Sir.",
+      "ja": "錨地までXケーブルです。"
+    },
+    {
+      "en": "X miles to the next way point, Sir.",
+      "ja": "次の変針点までXマイルです。"
+    },
+    {
+      "en": "X cables to the next way point, Sir.",
+      "ja": "次の変針点までXケーブルです。"
+    },
+    {
+      "en": "What is our position?",
+      "ja": "位置は？"
+    },
+    {
+      "en": "X cables left of the charted course line, Sir.",
+      "ja": "コースラインの左Xケーブルです。",
+      "enAccept": [
+        "X cables left, Sir."
+      ],
+      "jaAccept": [
+        "左Xケーブルです。"
+      ]
+    },
+    {
+      "en": "X cables right of the charted course line, Sir.",
+      "ja": "コースラインの右Xケーブルです。",
+      "enAccept": [
+        "X cables right, Sir."
+      ],
+      "jaAccept": [
+        "右Xケーブルです。"
+      ]
+    },
+    {
+      "en": "What is the bearing to the anchorage?",
+      "ja": "錨地の方向は？"
+    },
+    {
+      "en": "What is the bearing to the next way point?",
+      "ja": "次の変針点の方向は？"
+    },
+    {
+      "en": "The bearing to the anchorage is X degrees.",
+      "ja": "錨地の方向、X度です。"
+    },
+    {
+      "en": "The bearing to the next way point is X degrees.",
+      "ja": "次の変針点の方向、X度です。"
+    },
+    {
+      "en": "Announce \"Man your stations for anchoring.\"",
+      "ja": "「投錨用意、部署につけ」のマイクかけよ。"
+    },
+    {
+      "en": "Announce \"Man your stations for leaving anchorage.\"",
+      "ja": "「抜錨用意、部署につけ」のマイクかけよ。"
+    },
+    {
+      "en": "Announcement made, Sir.",
+      "ja": "マイクかけました。"
+    },
+    {
+      "en": "Anchoring instruction. Port anchor, X shackles on deck. Charted depth is Y meters.",
+      "ja": "投錨指示。左舷錨。X節デッキ。予定水深Yメートル。",
+      "enAccept": [
+        "Anchoring instruction. Port anchor, X shackles on deck. Charted depth Y meters."
+      ]
+    },
+    {
+      "en": "Anchoring instruction. Port anchor, X shackles in the water. Charted depth is Y meters.",
+      "ja": "投錨指示。左舷錨。X節水。予定水深Yメートル。",
+      "enAccept": [
+        "Anchoring instruction. Port anchor, X shackles in the water. Charted depth Y meters."
+      ]
+    },
+    {
+      "en": "Anchoring instruction. Starboard anchor, X shackles on deck. Charted depth is Y meters.",
+      "ja": "投錨指示。右舷錨。X節デッキ。予定水深Yメートル。",
+      "enAccept": [
+        "Anchoring instruction. Starboard anchor, X shackles on deck. Charted depth Y meters."
+      ]
+    },
+    {
+      "en": "Anchoring instruction. Starboard anchor, X shackles in the water. Charted depth is Y meters.",
+      "ja": "投錨指示。右舷錨。X節水。予定水深Yメートル。",
+      "enAccept": [
+        "Anchoring instruction. Starboard anchor, X shackles in the water. Charted depth Y meters."
+      ]
+    },
+    {
+      "en": "Walk back port anchor half a shackle.",
+      "ja": "左舷錨を半節巻き出せ。",
+      "enAccept": [
+        "Walk out port anchor half a shackle."
+      ]
+    },
+    {
+      "en": "Walk back port anchor one shackle.",
+      "ja": "左舷錨を1節巻き出せ。",
+      "enAccept": [
+        "Walk out port anchor one shackle."
+      ]
+    },
+    {
+      "en": "Walk back port anchor until the water's edge.",
+      "ja": "左舷錨を水面まで巻き出せ。",
+      "enAccept": [
+        "Walk out port anchor until the water's edge."
+      ]
+    },
+    {
+      "en": "Walk back starboard anchor half a shackle.",
+      "ja": "右舷錨を半節巻き出せ。",
+      "enAccept": [
+        "Walk out starboard anchor half a shackle."
+      ]
+    },
+    {
+      "en": "Walk back starboard anchor one shackle.",
+      "ja": "右舷錨を1節巻き出せ。",
+      "enAccept": [
+        "Walk out starboard anchor one shackle."
+      ]
+    },
+    {
+      "en": "Walk back starboard anchor until the water's edge.",
+      "ja": "右舷錨を水面まで巻き出せ。",
+      "enAccept": [
+        "Walk out starboard anchor until the water's edge."
+      ]
+    },
+    {
+      "en": "Walk back both anchors half a shackle.",
+      "ja": "両舷錨を半節巻き出せ。",
+      "enAccept": [
+        "Walk out both anchors half a shackle."
+      ]
+    },
+    {
+      "en": "Walk back both anchors one shackle.",
+      "ja": "両舷錨を1節巻き出せ。",
+      "enAccept": [
+        "Walk out both anchors one shackle."
+      ]
+    },
+    {
+      "en": "Walk back both anchors until the water's edge.",
+      "ja": "両舷錨を水面まで巻き出せ。",
+      "enAccept": [
+        "Walk out both anchors until the water's edge."
+      ]
+    },
+    {
+      "en": "Stand by port anchor for letting go.",
+      "ja": "左舷錨準備。"
+    },
+    {
+      "en": "Stand by starboard anchor for letting go.",
+      "ja": "右舷錨準備。"
+    },
+    {
+      "en": "Stand by both anchors for letting go.",
+      "ja": "両舷錨準備。"
+    },
+    {
+      "en": "Port anchor ready for letting go. Bridge understood. Stand by.",
+      "ja": "左舷錨準備完了、ブリッジ了解。待機せよ。",
+      "enAccept": [
+        "Port anchor ready. Bridge understood. Stand by."
+      ]
+    },
+    {
+      "en": "Starboard anchor ready for letting go. Bridge understood. Stand by.",
+      "ja": "右舷錨準備完了、ブリッジ了解。待機せよ。",
+      "enAccept": [
+        "Starboard anchor ready. Bridge understood. Stand by."
+      ]
+    },
+    {
+      "en": "Both anchors ready for letting go. Bridge understood. Stand by.",
+      "ja": "両舷錨準備完了、ブリッジ了解。待機せよ。",
+      "enAccept": [
+        "Both anchors ready. Bridge understood. Stand by."
+      ]
+    },
+    {
+      "en": "Bridge, this is forward station. Standing by.",
+      "ja": "船橋、こちらおもて、待機します。",
+      "enAccept": [
+        "Bridge, forward station. Standing by."
+      ]
+    },
+    {
+      "en": "Switch on echo sounder. Echo sounder switched on, Sir.",
+      "ja": "エコーサウンダのスイッチ入れろ。エコーサウンダ、スイッチ入れ。"
+    },
+    {
+      "en": "What is the depth? The depth is X meters.",
+      "ja": "水深は？水深はXメートルです。"
+    },
+    {
+      "en": "Report if she does not answer the wheel.",
+      "ja": "舵効かなくなったら知らせ。",
+      "enAccept": [
+        "Let me know if she does not answer the wheel."
+      ]
+    },
+    {
+      "en": "She is not answering the wheel, Sir.",
+      "ja": "舵効きません。",
+      "enAccept": [
+        "The rudder has no effect, Sir.",
+        "I cannot steer, Sir."
+      ]
+    },
+    {
+      "en": "The rudder has no effect, Sir.",
+      "ja": "舵効きません。",
+      "enAccept": [
+        "I cannot steer, Sir.",
+        "She is not answering the wheel, Sir."
+      ]
+    },
+    {
+      "en": "We have enough headway.",
+      "ja": "前進行き脚、十分。",
+      "enAccept": [
+        "There is enough headway."
+      ]
+    },
+    {
+      "en": "We have enough sternway.",
+      "ja": "後進行き脚、十分。",
+      "enAccept": [
+        "There is enough sternway."
+      ]
+    },
+    {
+      "en": "We have slight headway.",
+      "ja": "前進行き脚、わずか。",
+      "enAccept": [
+        "There is slight headway."
+      ]
+    },
+    {
+      "en": "We have slight sternway.",
+      "ja": "後進行き脚、わずか。",
+      "enAccept": [
+        "There is slight sternway."
+      ]
+    },
+    {
+      "en": "We have no headway.",
+      "ja": "前進行き脚、ありません。",
+      "enAccept": [
+        "There is no headway."
+      ]
+    },
+    {
+      "en": "We have no sternway.",
+      "ja": "後進行き脚、ありません。",
+      "enAccept": [
+        "There is no sternway."
+      ]
+    },
+    {
+      "en": "We are dead in the water.",
+      "ja": "完全に停止しています。"
+    },
+    {
+      "en": "Engage clutch. Clutch engaged.",
+      "ja": "クラッチ入れろ。クラッチ入れた。"
+    },
+    {
+      "en": "Disengage clutch. Clutch disengaged.",
+      "ja": "クラッチはずせ。クラッチはずした。"
+    },
+    {
+      "en": "Tighten brake. Brake tightened.",
+      "ja": "ブレーキかけろ。ブレーキかけた。"
+    },
+    {
+      "en": "Loosen brake. Brake loosened.",
+      "ja": "ブレーキ緩めろ。ブレーキ緩めた。"
+    },
+    {
+      "en": "Release stopper. Stopper released.",
+      "ja": "ストッパーはずせ。ストッパーはずした。"
+    },
+    {
+      "en": "Apply stopper. Stopper applied.",
+      "ja": "ストッパーかけろ。ストッパーかけた。"
+    },
+    {
+      "en": "Hold on cable.",
+      "ja": "錨鎖を止めろ。"
+    },
+    {
+      "en": "Shioji-Maru forward station, Bridge. Let go anchor.",
+      "ja": "汐路丸おもて、こちらブリッジ。レッコアンカー。",
+      "enAccept": [
+        "Shiojimaru forward station, Bridge. Let go anchor.",
+        "Shioji Maru forward station, Bridge. Let go anchor."
+      ]
+    },
+    {
+      "en": "Take anchor bearings and fix the anchor position.",
+      "ja": "クロスベアリングで錨位を確定せよ。"
+    },
+    {
+      "en": "Put X shackles in the water and hold on cable.",
+      "ja": "X節水で錨鎖を止めよ。"
+    },
+    {
+      "en": "X shackles in the water. Holding on cable.",
+      "ja": "X節水で錨鎖を止めています。",
+      "jaAccept": [
+        "X節水。"
+      ]
+    },
+    {
+      "en": "Vessel brought up, Sir.",
+      "ja": "ブロートアップ・アンカー。"
+    },
+    {
+      "en": "Make fast port cable. Port cable made fast, Sir.",
+      "ja": "メイクファーストポートケーブル。"
+    },
+    {
+      "en": "Make fast starboard cable. Starboard cable made fast, Sir.",
+      "ja": "メイクファーストスターボードケーブル。"
+    },
+    {
+      "en": "Dismiss forward station. Forward station dismissed, Sir.",
+      "ja": "船首、部署開け。船首部署開きます。"
+    },
+    {
+      "en": "Man your stations for weighing anchor.",
+      "ja": "抜錨用意、部署につけ。",
+      "enAccept": [
+        "Man your stations for leaving anchorage."
+      ]
+    },
+    {
+      "en": "Stand by port anchor for heaving up.",
+      "ja": "左舷錨、巻き上げ用意。"
+    },
+    {
+      "en": "Stand by starboard anchor for heaving up.",
+      "ja": "右舷錨、巻き上げ用意。"
+    },
+    {
+      "en": "Port anchor is ready for heaving up, Sir.",
+      "ja": "左舷錨、巻き上げ準備完了です。",
+      "enAccept": [
+        "Port anchor ready for heaving up, Sir."
+      ]
+    },
+    {
+      "en": "Starboard anchor is ready for heaving up, Sir.",
+      "ja": "右舷錨、巻き上げ準備完了です。",
+      "enAccept": [
+        "Starboard anchor ready for heaving up, Sir."
+      ]
+    },
+    {
+      "en": "Start GS pump. GS pump started.",
+      "ja": "GSポンプ起動。GSポンプ起動しました。"
+    },
+    {
+      "en": "Heave up port anchor.",
+      "ja": "左舷錨、巻き上げ。"
+    },
+    {
+      "en": "Heave up starboard anchor.",
+      "ja": "右舷錨、巻き上げ。"
+    },
+    {
+      "en": "Report the cable direction and weight.",
+      "ja": "錨の方向と張り具合を報告せよ。",
+      "enAccept": [
+        "Report the cable direction and tension.",
+        "Report cable direction and weight.",
+        "Report cable direction and tension."
+      ]
+    },
+    {
+      "en": "The cable is leading X o'clock, becoming slack.",
+      "ja": "X時の方向、ゆるんできています。",
+      "enAccept": [
+        "The cable is leading X o'clock, getting slack.",
+        "The cable is leading X o'clock, slack.",
+        "The cable leading X o'clock, becoming slack.",
+        "The cable leading X o'clock, getting slack.",
+        "The cable leading X o'clock, slack.",
+        "cable is leading X o'clock, becoming slack.",
+        "cable is leading X o'clock, getting slack.",
+        "cable is leading X o'clock, slack.",
+        "cable leading X o'clock, becoming slack.",
+        "cable leading X o'clock, getting slack.",
+        "cable leading X o'clock, slack."
+      ],
+      "jaAccept": [
+        "X時の方向、ゆるんでいます。"
+      ]
+    },
+    {
+      "en": "The cable is leading X o'clock, becoming tight.",
+      "ja": "X時の方向、張ってきています。",
+      "enAccept": [
+        "The cable is leading X o'clock, getting tight.",
+        "The cable is leading X o'clock, tight.",
+        "The cable leading X o'clock, becoming tight.",
+        "The cable leading X o'clock, getting tight.",
+        "The cable leading X o'clock, tight.",
+        "cable is leading X o'clock, becoming tight.",
+        "cable is leading X o'clock, getting tight.",
+        "cable is leading X o'clock, tight.",
+        "cable leading X o'clock, becoming tight.",
+        "cable leading X o'clock, getting tight.",
+        "cable leading X o'clock, tight."
+      ],
+      "jaAccept": [
+        "X時の方向、張っています。"
+      ]
+    },
+    {
+      "en": "How is the cable leading?",
+      "ja": "錨鎖の方向は？"
+    },
+    {
+      "en": "The cable is leading X o'clock.",
+      "ja": "錨鎖の方向はX時です。",
+      "enAccept": [
+        "The cable leading X o'clock.",
+        "cable is leading X o'clock.",
+        "cable leading X o'clock."
+      ]
+    },
+    {
+      "en": "The cable is leading up and down.",
+      "ja": "錨鎖の方向は真下です。",
+      "enAccept": [
+        "The cable leading up and down.",
+        "cable is leading up and down.",
+        "cable leading up and down."
+      ]
+    },
+    {
+      "en": "The cable is leading round the bow.",
+      "ja": "錨鎖は船首を回っています。",
+      "enAccept": [
+        "The cable leading round the bow.",
+        "cable is leading round the bow.",
+        "cable leading round the bow."
+      ]
+    },
+    {
+      "en": "The cable is leading ahead.",
+      "ja": "錨鎖は船首方向に延びています。",
+      "enAccept": [
+        "The cable leading ahead.",
+        "cable is leading ahead.",
+        "cable leading ahead."
+      ]
+    },
+    {
+      "en": "The cable is leading abeam.",
+      "ja": "錨鎖は正横方向に延びています。",
+      "enAccept": [
+        "The cable leading abeam.",
+        "cable is leading abeam.",
+        "cable leading abeam."
+      ]
+    },
+    {
+      "en": "The cable is leading astern.",
+      "ja": "錨鎖は船尾方向に延びています。",
+      "enAccept": [
+        "The cable leading astern.",
+        "cable is leading astern.",
+        "cable leading astern."
+      ]
+    },
+    {
+      "en": "Too much weight is on the cable.",
+      "ja": "錨鎖に重みがかかりすぎです。",
+      "enAccept": [
+        "Too much weight is on cable.",
+        "Too much weight on the cable.",
+        "Too much weight on cable."
+      ]
+    },
+    {
+      "en": "We cannot heave up.",
+      "ja": "巻き上げられません。"
+    },
+    {
+      "en": "Start heaving up. I will use ahead engine.",
+      "ja": "巻き上げ開始。機関前進をかける。"
+    },
+    {
+      "en": "Start heaving up. I will use astern engine.",
+      "ja": "巻き上げ開始。機関後進をかける。"
+    },
+    {
+      "en": "Stop heaving up. I will use ahead engine.",
+      "ja": "巻き上げ停止。機関前進をかける。"
+    },
+    {
+      "en": "Stop heaving up. I will use astern engine.",
+      "ja": "巻き上げ停止。機関後進をかける。"
+    },
+    {
+      "en": "Anchor is aweigh. Anchor sighted and clear.",
+      "ja": "立錨です。錨見え、クリアです。"
+    },
+    {
+      "en": "Anchor sighted and clear. There is a lot of mud on anchor.",
+      "ja": "錨見え、クリアです。錨に多くの泥がついています。",
+      "enAccept": [
+        "Anchor sighted and clear. a lot of mud on anchor."
+      ]
+    },
+    {
+      "en": "Put anchor back in the water and report when anchor is clear of mud. I now start increasing speed.",
+      "ja": "錨を水中に降ろし、泥が取れたら報告。これより増速を開始する。",
+      "enAccept": [
+        "Put anchor in the water and report when anchor is clear of mud. I now start increasing speed."
+      ]
+    },
+    {
+      "en": "Bridge, forward station. Anchor is clear of mud. We are ready to secure anchor, Sir.",
+      "ja": "船橋へ、こちらおもてです。錨から泥が取れました。錨おさめる用意が整いました。"
+    },
+    {
+      "en": "Secure anchor. Anchor secured.",
+      "ja": "錨おさめよ。錨おさめました。"
+    },
+    {
+      "en": "Bridge, forward station. May I have permission to V?",
+      "ja": "船橋へ、こちらおもてです。Vしてもよろしいでしょうか？"
+    },
+    {
+      "en": "Forward station, Bridge. Requesting permission to V.",
+      "ja": "おもて、こちら船橋。Vする許可を求めている。了解。"
+    },
+    {
+      "en": "Captain, forward station is requesting permission to V.",
+      "ja": "キャプテン、おもてがVする許可を求めています。"
+    },
+    {
+      "en": "Forward station is requesting permission to V. Copy. Permission granted.",
+      "ja": "おもてがVする許可を求めている。了解。許可する。",
+      "enAccept": [
+        "Copy. Permission granted."
+      ],
+      "note": "船長の発言"
+    },
+    {
+      "en": "Forward station, Bridge. You have permission to V.",
+      "ja": "おもて、こちら船橋。Vする許可が得られた。"
+    }
   ],
   "harbor": [
-    { "en": "Stand by engine.", "ja": "機関用意。" },
-    { "en": "Single up to [one/two] lines.", "ja": "係船索を[1/2]本に減らせ。" },
-    { "en": "I relieve you of the watch.", "ja": "当直を引き継ぎます。" }
+    {
+      "en": "Announce \"Man your stations for leaving port.\"",
+      "ja": "「出港用意部署につけ」のマイクかけよ。"
+    },
+    {
+      "en": "Announce \"Man your stations for entering port.\"",
+      "ja": "「入港用意部署につけ」のマイクかけよ。"
+    },
+    {
+      "en": "Announcement made, Sir.",
+      "ja": "マイクかけました。"
+    },
+    {
+      "en": "All stations, this is Bridge. How do you read me? Over.",
+      "ja": "各部署、こちら船橋。感度いかが？どうぞ。",
+      "enAccept": [
+        "All stations, Bridge. How do you read me? Over."
+      ]
+    },
+    {
+      "en": "Bridge, this is forward station. I read you loud and clear. How do you read me? Over.",
+      "ja": "船橋、こちらおもて。感度良好です。こちらから感度いかがですか？どうぞ。",
+      "enAccept": [
+        "Bridge, forward station. I read you loud and clear. How do you read me? Over."
+      ]
+    },
+    {
+      "en": "Forward station, this is Bridge. I read you loud and clear. Over.",
+      "ja": "おもて、こちら船橋。感度良好です。どうぞ。",
+      "enAccept": [
+        "Forward station, Bridge. I read you loud and clear. Over."
+      ]
+    },
+    {
+      "en": "Bridge, this is forward station. Manned and ready, Sir.",
+      "ja": "船橋、こちらおもて。配置につきました。",
+      "enAccept": [
+        "Bridge, forward station. Manned and ready, Sir."
+      ]
+    },
+    {
+      "en": "Is propeller clear?",
+      "ja": "プロペラはクリアか？"
+    },
+    {
+      "en": "All clear aft, Sir.",
+      "ja": "ともクリア。",
+      "enAccept": [
+        "clear aft, Sir.",
+        "Aft clear, Sir."
+      ]
+    },
+    {
+      "en": "What is the distance to the dock?",
+      "ja": "おもて、岸壁までの距離知らせ？",
+      "enAccept": [
+        "What is the distance to the berth?"
+      ],
+      "jaAccept": [
+        "岸壁までの距離知らせ？"
+      ]
+    },
+    {
+      "en": "Let me know when the stern is clear of the dock.",
+      "ja": "とも、船尾が岸壁をかわったら知らせ。",
+      "enAccept": [
+        "Let me know when the stern is clear of the berth."
+      ],
+      "jaAccept": [
+        "船尾が岸壁をかわったら知らせ。"
+      ]
+    },
+    {
+      "en": "There is a crossing vessel X points on our port bow.",
+      "ja": "左舷Xポイントに横切り船です。",
+      "enAccept": [
+        "There is crossing vessel X points on our port bow.",
+        "a crossing vessel X points on our port bow.",
+        "crossing vessel X points on our port bow."
+      ]
+    },
+    {
+      "en": "There is a crossing vessel X points on our starboard bow.",
+      "ja": "右舷Xポイントに横切り船です。",
+      "enAccept": [
+        "There is crossing vessel X points on our starboard bow.",
+        "a crossing vessel X points on our starboard bow.",
+        "crossing vessel X points on our starboard bow."
+      ]
+    },
+    {
+      "en": "There is a crossing vessel X degrees on our port bow.",
+      "ja": "左舷X度に横切り船です。",
+      "enAccept": [
+        "There is crossing vessel X degrees on our port bow.",
+        "a crossing vessel X degrees on our port bow.",
+        "crossing vessel X degrees on our port bow."
+      ]
+    },
+    {
+      "en": "There is a crossing vessel X degrees on our starboard bow.",
+      "ja": "右舷X度に横切り船です。",
+      "enAccept": [
+        "There is crossing vessel X degrees on our starboard bow.",
+        "a crossing vessel X degrees on our starboard bow.",
+        "crossing vessel X degrees on our starboard bow."
+      ]
+    },
+    {
+      "en": "There is a meeting vessel X points on our port bow.",
+      "ja": "左舷Xポイントに反航船です。",
+      "enAccept": [
+        "There is meeting vessel X points on our port bow.",
+        "a meeting vessel X points on our port bow.",
+        "meeting vessel X points on our port bow."
+      ]
+    },
+    {
+      "en": "There is a meeting vessel X points on our starboard bow.",
+      "ja": "右舷Xポイントに反航船です。",
+      "enAccept": [
+        "There is meeting vessel X points on our starboard bow.",
+        "a meeting vessel X points on our starboard bow.",
+        "meeting vessel X points on our starboard bow."
+      ]
+    },
+    {
+      "en": "There is a meeting vessel X degrees on our port bow.",
+      "ja": "左舷X度に反航船です。",
+      "enAccept": [
+        "There is meeting vessel X degrees on our port bow.",
+        "a meeting vessel X degrees on our port bow.",
+        "meeting vessel X degrees on our port bow."
+      ]
+    },
+    {
+      "en": "There is a meeting vessel X degrees on our starboard bow.",
+      "ja": "右舷X度に反航船です。",
+      "enAccept": [
+        "There is meeting vessel X degrees on our starboard bow.",
+        "a meeting vessel X degrees on our starboard bow.",
+        "meeting vessel X degrees on our starboard bow."
+      ]
+    },
+    {
+      "en": "There is an overtaking vessel X points on our port quarter.",
+      "ja": "左舷後方よりXポイントに追い越し船です。",
+      "enAccept": [
+        "There is overtaking vessel X points on our port quarter.",
+        "an overtaking vessel X points on our port quarter.",
+        "overtaking vessel X points on our port quarter.",
+        "There is a overtaking vessel X points on our port quarter."
+      ]
+    },
+    {
+      "en": "There is an overtaking vessel X points on our starboard quarter.",
+      "ja": "右舷後方よりXポイントに追い越し船です。",
+      "enAccept": [
+        "There is overtaking vessel X points on our starboard quarter.",
+        "an overtaking vessel X points on our starboard quarter.",
+        "overtaking vessel X points on our starboard quarter.",
+        "There is a overtaking vessel X points on our starboard quarter."
+      ]
+    },
+    {
+      "en": "There is an overtaking vessel X degrees on our port quarter.",
+      "ja": "左舷後方よりX度に追い越し船です。",
+      "enAccept": [
+        "There is overtaking vessel X degrees on our port quarter.",
+        "an overtaking vessel X degrees on our port quarter.",
+        "overtaking vessel X degrees on our port quarter.",
+        "There is a overtaking vessel X degrees on our port quarter."
+      ]
+    },
+    {
+      "en": "There is an overtaking vessel X degrees on our starboard quarter.",
+      "ja": "右舷後方よりX度に追い越し船です。",
+      "enAccept": [
+        "There is overtaking vessel X degrees on our starboard quarter.",
+        "an overtaking vessel X degrees on our starboard quarter.",
+        "overtaking vessel X degrees on our starboard quarter.",
+        "There is a overtaking vessel X degrees on our starboard quarter."
+      ]
+    },
+    {
+      "en": "There is a same-way vessel X points on our port quarter.",
+      "ja": "左舷後方よりXポイントに同航船です。",
+      "enAccept": [
+        "There is same-way vessel X points on our port quarter.",
+        "a same-way vessel X points on our port quarter.",
+        "same-way vessel X points on our port quarter."
+      ]
+    },
+    {
+      "en": "There is a same-way vessel X points on our starboard quarter.",
+      "ja": "右舷後方よりXポイントに同航船です。",
+      "enAccept": [
+        "There is same-way vessel X points on our starboard quarter.",
+        "a same-way vessel X points on our starboard quarter.",
+        "same-way vessel X points on our starboard quarter."
+      ]
+    },
+    {
+      "en": "There is a same-way vessel X degrees on our port quarter.",
+      "ja": "左舷後方よりX度に同航船です。",
+      "enAccept": [
+        "There is same-way vessel X degrees on our port quarter.",
+        "a same-way vessel X degrees on our port quarter.",
+        "same-way vessel X degrees on our port quarter."
+      ]
+    },
+    {
+      "en": "There is a same-way vessel X degrees on our starboard quarter.",
+      "ja": "右舷後方よりX度に同航船です。",
+      "enAccept": [
+        "There is same-way vessel X degrees on our starboard quarter.",
+        "a same-way vessel X degrees on our starboard quarter.",
+        "same-way vessel X degrees on our starboard quarter."
+      ]
+    },
+    {
+      "en": "There is a vessel X points abaft our port beam.",
+      "ja": "本船の左舷正横後Xポイントに船舶。",
+      "enAccept": [
+        "There is vessel X points abaft our port beam.",
+        "a vessel X points abaft our port beam.",
+        "vessel X points abaft our port beam."
+      ]
+    },
+    {
+      "en": "There is a vessel X points abaft our starboard beam.",
+      "ja": "本船の右舷正横後Xポイントに船舶。",
+      "enAccept": [
+        "There is vessel X points abaft our starboard beam.",
+        "a vessel X points abaft our starboard beam.",
+        "vessel X points abaft our starboard beam."
+      ]
+    },
+    {
+      "en": "There is a vessel X degrees abaft our port beam.",
+      "ja": "本船の左舷正横後X度に船舶。",
+      "enAccept": [
+        "There is vessel X degrees abaft our port beam.",
+        "a vessel X degrees abaft our port beam.",
+        "vessel X degrees abaft our port beam."
+      ]
+    },
+    {
+      "en": "There is a vessel X degrees abaft our starboard beam.",
+      "ja": "本船の右舷正横後X度に船舶。",
+      "enAccept": [
+        "There is vessel X degrees abaft our starboard beam.",
+        "a vessel X degrees abaft our starboard beam.",
+        "vessel X degrees abaft our starboard beam."
+      ]
+    },
+    {
+      "en": "X is on our port beam.",
+      "ja": "左舷正横にX。"
+    },
+    {
+      "en": "X is on our starboard beam.",
+      "ja": "右舷正横にX。"
+    },
+    {
+      "en": "We are ahead of X.",
+      "ja": "本船はXの前方です。"
+    },
+    {
+      "en": "We are abeam of X.",
+      "ja": "本船はXの正横です。"
+    },
+    {
+      "en": "We are astern of X.",
+      "ja": "本船はXの後方です。"
+    },
+    {
+      "en": "X is dead ahead of us.",
+      "ja": "Xが正船首にあります。"
+    },
+    {
+      "en": "Vessel astern of us will overtake us on our port side.",
+      "ja": "本船の後方の船舶は本船の左舷側を追い越します。"
+    },
+    {
+      "en": "Vessel astern of us will overtake us on our starboard side.",
+      "ja": "本船の後方の船舶は本船の右舷側を追い越します。"
+    },
+    {
+      "en": "X will cross ahead of us.",
+      "ja": "Xは本船の前を横切ります。"
+    },
+    {
+      "en": "X will pass astern of us.",
+      "ja": "Xは本船のともをかわります。"
+    },
+    {
+      "en": "Vessel ahead of us is on opposite course.",
+      "ja": "本船の前方の船舶は反航船だ。",
+      "enAccept": [
+        "Vessel ahead of us is on reciprocal course."
+      ]
+    },
+    {
+      "en": "X is on the same course.",
+      "ja": "Xは同航船だ。"
+    },
+    {
+      "en": "X is past and clear.",
+      "ja": "Xは航過しました。"
+    },
+    {
+      "en": "Let me brief you before handing over the watch.",
+      "ja": "当直引継ぎを行います。"
+    },
+    {
+      "en": "Our present course and speed is X degrees and Y knots.",
+      "ja": "現在のコースとスピードはX度、Yノット。"
+    },
+    {
+      "en": "Crossing vessel 3 points on our port bow. Its bearing is changing forward. It will cross ahead of us.",
+      "ja": "左舷3ポイントに横切り船。ベアリングおもてに向かって変わっています。本船の前を横切ります。",
+      "enAccept": [
+        "Crossing vessel 3 points on our port bow. Its bearing is changing forward. She will cross ahead of us.",
+        "Crossing vessel 3 points on our port bow. Her bearing is changing forward. It will cross ahead of us.",
+        "Crossing vessel 3 points on our port bow. Her bearing is changing forward. She will cross ahead of us."
+      ]
+    },
+    {
+      "en": "Crossing vessel 3 points on our port bow. Its bearing is changing aft. It will pass astern of us.",
+      "ja": "左舷3ポイントに横切り船。ベアリングともに向かって変わっています。本船の船尾をかわります。",
+      "enAccept": [
+        "Crossing vessel 3 points on our port bow. Its bearing is changing aft. She will pass astern of us.",
+        "Crossing vessel 3 points on our port bow. Her bearing is changing aft. It will pass astern of us.",
+        "Crossing vessel 3 points on our port bow. Her bearing is changing aft. She will pass astern of us."
+      ]
+    },
+    {
+      "en": "Vessel 45 degrees on our starboard bow. Its bearing is 120 degrees, constant. We must give way.",
+      "ja": "右舷45度に船舶。ベアリング120度でかわりません。本船が避航しなければなりません。",
+      "enAccept": [
+        "Vessel 45 degrees on our starboard bow. Her bearing is 120 degrees, constant. We must give way."
+      ]
+    },
+    {
+      "en": "Vessel 45 degrees on our port bow. Its bearing is 120 degrees, constant. We must stand on.",
+      "ja": "左舷45度に船舶。ベアリング120度でかわりません。本船が針路速力を保持しなければなりません。",
+      "enAccept": [
+        "Vessel 45 degrees on our port bow. Her bearing is 120 degrees, constant. We must stand on."
+      ],
+      "jaAccept": [
+        "左舷45度に船舶。ベアリング120度でかわりません。本船が保持しなければなりません。"
+      ]
+    },
+    {
+      "en": "Meeting vessel ahead of us. CPA is one mile. TCPA is 15 minutes.",
+      "ja": "前方に反航船。CPA1マイル。TCPA15分です。",
+      "enAccept": [
+        "Vessel on opposite course ahead of us. CPA is one mile. TCPA is 15 minutes."
+      ]
+    },
+    {
+      "en": "Meeting vessel dead ahead of us. We must alter course to starboard.",
+      "ja": "正船首に反航船。右に変針しなければなりません。"
+    },
+    {
+      "en": "Same-way vessel astern of us. It will overtake us on our starboard side.",
+      "ja": "本船の後方に同航船。本船よりスピードが速く右舷側を追い越すことになります。",
+      "enAccept": [
+        "Same-way vessel astern of us. She will overtake us on our starboard side.",
+        "Vessel on the same course astern of us. It will overtake us on our starboard side.",
+        "Vessel on the same course astern of us. She will overtake us on our starboard side.",
+        "Vessel on same course astern of us. It will overtake us on our starboard side.",
+        "Vessel on same course astern of us. She will overtake us on our starboard side."
+      ]
+    },
+    {
+      "en": "There are no dangerous targets.",
+      "ja": "危険な船舶はありません。"
+    },
+    {
+      "en": "You have the watch.",
+      "ja": "当直を引き継ぎます。"
+    },
+    {
+      "en": "I have the watch.",
+      "ja": "当直を引き継ぎました。"
+    }
   ]
 }

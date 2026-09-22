@@ -102,7 +102,9 @@
     return combos.map(choice => ({
       en: build(ep, choice),
       ja: aligned ? build(jp, choice) : String(item.ja || ""),
-      accept: Array.isArray(item.jaAccept) ? item.jaAccept : []   // 別解として認める和訳（任意）
+      accept: Array.isArray(item.jaAccept) ? item.jaAccept : [],     // 別解として認める和訳（任意）
+      enAccept: Array.isArray(item.enAccept) ? item.enAccept : [],   // 別解として認める英文（省略形・言い換え）
+      note: item.note ? String(item.note) : ""                        // 補足（例: 船長の発言）
     }));
   }
 
@@ -132,12 +134,18 @@
       .trim();
   }
 
+  // 英文は script.js の normalize に加え、引用符の有無も無視する
+  function normalizeEn(text) {
+    return normalize(String(text || "").replace(/["\u201C\u201D]/g, ""));
+  }
+
   function isCorrect(item, type, answer) {
     if (type === "ja") {
       const a = normalizeJa(answer);
       return [item.ja].concat(item.accept).some(x => normalizeJa(x) === a);
     }
-    return normalize(answer) === normalize(item.en);   // script.js の normalize
+    const a = normalizeEn(answer);
+    return [item.en].concat(item.enAccept || []).some(x => normalizeEn(x) === a);
   }
 
   // =====================================================
@@ -313,7 +321,8 @@
     state.answered = false;
     speakingRate = DEFAULT_RATE;   // script.js の読み上げ速度を毎問リセット
 
-    const head = `${questionId(q.letter, q.index)}（${state.pos + 1}/${state.queue.length}）`;
+    const noteText = q.item.note ? `（${q.item.note}）` : "";
+    const head = `${questionId(q.letter, q.index)}（${state.pos + 1}/${state.queue.length}）${noteText}`;
     if (q.type === "ja") {
       appendMessage("reply-message vts", head, q.item.en);
       appendMessage("reply-message", "", "日本語に訳して入力してください。");
