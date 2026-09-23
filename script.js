@@ -55,7 +55,7 @@ const CONFIG = {
 
 const MY_ROLE = "Shiojimaru";
 const MY_CALL_SIGN = "7KJH";
-const DEFAULT_RATE = 1.3;
+const DEFAULT_RATE = 1.0;
 const MIN_RATE = 0.5;
 const INPUT_MAX_HEIGHT = 200;   // style.css の #message-input max-height と合わせる
 
