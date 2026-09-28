@@ -10,6 +10,8 @@
 <!-- 監視モード中のみ表示（開発者ページで切り替え） -->
 <div id="monitor-banner" style="display:none;" role="status">現在監視モード中です</div>
 
+<div id="site-nav"></div>
+
 <div class="chat-container">
   <h2>海事英語教育支援システム</h2>
   <p>
@@ -21,8 +23,8 @@
   </p>
 
   <p class="notice">
-    まずは「使い方 / 解説」ボタンをクリックして、使い方を読んでください。<br>
-    解説ページでは、使用しているすべてのシナリオを公開しています。模範解答を知りたい場合などにお使いください。
+    まずは画面上部の「使い方」を開いて、操作方法を確認してください。<br>
+    「解説」では海事英語とSMCPの要点を、「シナリオ一覧」では出題されるすべてのシナリオとフレーズを公開しています。
   </p>
 
   <div class="ship-info">
@@ -37,8 +39,6 @@
   <label for="student-id">学籍番号:</label>
   <input type="text" id="student-id" placeholder="学籍番号を入力" autocomplete="off">
   <br><br>
-
-  <button type="button" class="role-button" id="help-button">使い方 / 解説</button>
 
   <div class="accent-box">
     <div id="intro-text">
@@ -160,6 +160,7 @@
 </div>
 
 <script src="config.js"></script>
+<script src="nav.js"></script>
 <script src="script.js"></script>
 <script src="practice.js"></script>
 </body>

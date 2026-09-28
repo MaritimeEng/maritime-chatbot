@@ -325,20 +325,151 @@ button.mic-button.recording {
   margin-top: 4px;
 }
 
-/* 使い方ページ */
-.help-container h1 { text-align: center; }
-.help-container h2 { text-align: left; font-size: 20px; margin-top: 28px; }
-.help-container h3 { font-size: 18px; margin-top: 22px; border-bottom: 1px solid #3c4f65; padding-bottom: 4px; }
-.help-container p  { text-align: left; font-size: 15px; line-height: 1.7; margin-bottom: 12px; }
-.help-container li { line-height: 1.7; }
+/* =====================================================
+   共通ナビゲーション
+   ===================================================== */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 10px auto 0;
+  padding: 0 10px;
+}
 
-#scenario-dump ol { padding-left: 20px; }
-#scenario-dump li { margin-bottom: 12px; }
-#scenario-dump .line-you  { color: #90caf9; }
-#scenario-dump .line-them { color: #80cbc4; }
-#scenario-dump .line-alt  { color: #9aa7b5; font-size: 13px; }
-#scenario-dump .opening   { margin-bottom: 8px; font-style: italic; }
-#scenario-dump .pending   { color: #9aa7b5; font-style: italic; }
+.site-nav .nav-item {
+  padding: 8px 14px;
+  background-color: #3c4f65;
+  color: #e0e6ed;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.site-nav a.nav-item:hover { background-color: #5a6f89; }
+
+.site-nav .nav-item.current {
+  background-color: #1976d2;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* =====================================================
+   資料ページ（使い方・解説・シナリオ一覧）
+   ===================================================== */
+.doc-container { max-width: 900px; }
+
+.doc-container h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.doc-container h2 {
+  text-align: left;
+  font-size: 20px;
+  margin-top: 32px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #3c4f65;
+  scroll-margin-top: 12px;   /* 目次から飛んだときに見出しが隠れないように */
+}
+
+.doc-container h3 {
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+.doc-container p,
+.doc-container li {
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.doc-container ul,
+.doc-container ol { padding-left: 22px; }
+
+.doc-container code {
+  padding: 1px 5px;
+  background-color: #1f2d3a;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.doc-note { color: #b8c2cf; font-size: 14px; }
+.doc-footer { margin-top: 28px; color: #b8c2cf; }
+
+/* 英文の例 */
+.en { font-family: "Segoe UI", Arial, sans-serif; color: #90caf9; }
+
+/* 表 */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 18px;
+  font-size: 14px;
+}
+
+.doc-table th,
+.doc-table td {
+  padding: 8px;
+  border: 1px solid #3c4f65;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.7;
+}
+
+.doc-table th { background-color: #2f3b4a; }
+.doc-table td.en { color: #90caf9; }
+
+/* 目次 */
+.toc {
+  margin: 16px 0 8px;
+  padding: 12px 16px;
+  background-color: #2f3b4a;
+  border-left: 4px solid #64b5f6;
+  border-radius: 8px;
+}
+
+.toc-title { font-weight: bold; margin-bottom: 6px; }
+
+.toc-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-list a { font-size: 15px; }
+
+/* シナリオ一覧 */
+.scenario-block {
+  margin-bottom: 18px;
+  padding: 12px;
+  background-color: #2f3b4a;
+  border-radius: 8px;
+}
+
+.scenario-block h3 { margin-top: 0; }
+.scenario-block ol { padding-left: 20px; }
+.scenario-block li { margin-bottom: 12px; }
+
+.line-you  { color: #90caf9; }
+.line-them { color: #80cbc4; }
+.line-alt  { color: #9aa7b5; font-size: 13px; }
+.opening   { margin-bottom: 10px; font-style: italic; }
+.pending   { color: #9aa7b5; font-style: italic; }
+
+.scenario-block details summary { cursor: pointer; }
+
+.phrase-table { table-layout: fixed; }
+.phrase-table th:first-child,
+.phrase-table td:first-child { width: 40px; text-align: center; }
+.phrase-table td { overflow-wrap: anywhere; }
 
 /* スマートフォン */
 @media screen and (max-width: 600px) {
@@ -354,6 +485,18 @@ button.mic-button.recording {
   #message-input { font-size: 18px; }
   .user-message, .reply-message { font-size: 18px; }
   #status-bar { font-size: 15px; }
+
+  /* 資料ページ */
+  .site-nav { gap: 4px; padding: 0 6px; }
+  .site-nav .nav-item { padding: 10px 12px; font-size: 16px; flex: 1 1 40%; text-align: center; }
+  .doc-container h1 { font-size: 21px; }
+  .doc-container h2 { font-size: 19px; }
+  .doc-container p, .doc-container li { font-size: 16px; }
+  .toc-list { flex-direction: column; gap: 6px; }
+  .doc-table { font-size: 15px; }
+  .doc-table th, .doc-table td { padding: 6px; }
+  /* 横に長い表は、はみ出さずに横スクロールできるようにする */
+  .doc-container .doc-table { display: block; overflow-x: auto; white-space: normal; }
 }
 
 /* =====================================================

@@ -55,7 +55,7 @@ const CONFIG = {
 
 const MY_ROLE = "Shiojimaru";
 const MY_CALL_SIGN = "7KJH";
-const DEFAULT_RATE = 1.0;
+const DEFAULT_RATE = 1.3;
 const MIN_RATE = 0.5;
 const INPUT_MAX_HEIGHT = 200;   // style.css の #message-input max-height と合わせる
 
@@ -150,9 +150,10 @@ function applySettings() {
   const banner = document.getElementById("monitor-banner");
   if (banner) banner.style.display = appSettings.monitorMode ? "block" : "none";
 
-  // 監視モード中は解説ページへのボタンを隠す
-  const help = document.getElementById("help-button");
-  if (help) help.style.display = appSettings.monitorMode ? "none" : "";
+  // 監視モード中は、解説ページ・シナリオ一覧ページへのリンクを隠す（nav.js が付けた印を使う）
+  document.querySelectorAll(".nav-hide-in-monitor").forEach(el => {
+    el.style.display = appSettings.monitorMode ? "none" : "";
+  });
 
   document.body.classList.toggle("monitor-mode", appSettings.monitorMode);
   document.body.classList.toggle("copy-paste-ban", appSettings.copyPasteBan);
@@ -1115,8 +1116,6 @@ function init() {
   // 訓練モードのボタン
   document.querySelectorAll(".role-button").forEach(button => {
     button.addEventListener("click", () => {
-      if (button.id === "help-button") { window.location.href = "help.html"; return; }
-
       resetTrainingState();
       resetSubUIs();
       document.querySelectorAll(".role-button").forEach(btn => btn.classList.remove("active"));
