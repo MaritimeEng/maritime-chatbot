@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>解説 | 海事英語教育支援システム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="explanation">
+<div id="site-nav"></div>
+
+<div class="chat-container doc-container">
+  <h1>海事英語の解説</h1>
+
+  <p class="notice">この解説は、本システムで練習する内容の背景を整理したものです。授業で配布する資料や法令の原文と併せてご確認ください。</p>
+
+  <div data-toc class="toc"></div>
+
+  <div class="page-content">
+
+  <h2 id="smcp">SMCP（標準海事通信用語集）とは</h2>
+  <p>IMO標準海事通信用語集（SMCP）は、2001年11月の第22回IMO総会で決議 A.918(22) として採択され、1977年に採択（1985年に改正）された標準海事航海用語集（SMNV）に代わるものです。</p>
+  <p>SMCPは、陸上と船舶の間、船舶どうし、そして船内での安全に関わる口頭の通信を幅広く対象としており、海上での言語の壁による誤解と、それに起因する事故を避けることを目的としています。平易な英語で書かれており、着桟のような日常の場面から緊急時の定型的な応答までを収めています。</p>
+  <p>STCW条約により、総トン数500トン以上の船舶の航海当直をつかさどる職員の資格には、SMCPを理解し使用できる能力が求められます。</p>
+
+  <h3>SMCPが重視する原則</h3>
+  <ul>
+    <li>同じ意味に複数の言い方を使わず、定型表現を用いる</li>
+    <li>誤解を招きやすい短縮形（I'll、don't など）を避ける</li>
+    <li>数字・方位・距離は、単位を付けて明確に伝える</li>
+    <li>相手の指示・情報は復唱し、理解したことを示す</li>
+  </ul>
+
+  <h2 id="marker">メッセージマーカー</h2>
+  <p>SMCPでは、発話の性格をあらかじめ示す語（メッセージマーカー）を文頭に置くことがあります。相手が「これは指示なのか、単なる情報なのか」を取り違えないためのものです。</p>
+  <table class="doc-table">
+    <tr><th>マーカー</th><th>意味</th><th>使う場面</th></tr>
+    <tr><td>Instruction</td><td>指示</td><td>法的権限を持つ者（VTS、管制）からの指示</td></tr>
+    <tr><td>Advice</td><td>勧告</td><td>強制力のない助言。Advise you alter course to starboard.</td></tr>
+    <tr><td>Warning</td><td>警告</td><td>危険の通知</td></tr>
+    <tr><td>Information</td><td>情報</td><td>事実の伝達</td></tr>
+    <tr><td>Question</td><td>質問</td><td>返答を求める</td></tr>
+    <tr><td>Answer</td><td>回答</td><td>質問への返答</td></tr>
+    <tr><td>Request</td><td>要請</td><td>相手に何かを求める</td></tr>
+    <tr><td>Intention</td><td>意図</td><td>自船がこれから取る行動</td></tr>
+  </table>
+
+  <h2 id="procedure">通信の基本手順</h2>
+  <p>本システムの船舶・VTS訓練は、次の流れを基本にしています。</p>
+  <ol>
+    <li><strong>呼び出し</strong>：相手船名を呼び、自船名とコールサインを名乗る<br>
+      <span class="en">Umitakamaru, Umitakamaru. This is Shiojimaru, call sign 7KJH. How do you read me? Over.</span></li>
+    <li><strong>感度確認</strong>：<span class="en">I read you loud and clear.</span></li>
+    <li><strong>状況と意図の伝達</strong>：位置・距離・速力を述べ、意図を示す、または相手の意図を尋ねる</li>
+    <li><strong>合意</strong>：<span class="en">Agreed.</span> / <span class="en">Understood.</span></li>
+    <li><strong>終了</strong>：<span class="en">Thank you for your cooperation. Shiojimaru out.</span></li>
+  </ol>
+
+  <h3>覚えておく語</h3>
+  <table class="doc-table">
+    <tr><th>表現</th><th>意味</th></tr>
+    <tr><td>Over.</td><td>送信終了、応答を求める</td></tr>
+    <tr><td>Out.</td><td>交信終了（応答不要）。Over and out とは言わない</td></tr>
+    <tr><td>Say again.</td><td>もう一度言ってください（Repeat は砲撃要求を意味するため使わない）</td></tr>
+    <tr><td>Roger. / Copy.</td><td>受信した</td></tr>
+    <tr><td>Stand by.</td><td>待機せよ</td></tr>
+    <tr><td>Nothing more.</td><td>これ以上伝えることはない</td></tr>
+  </table>
+  <p>コールサインや船名は、フォネティックコード（7KJH → Seven, Kilo, Juliet, Hotel）で確実に伝えます。VHFでは、呼び出しに16chを使い、通信は作業チャンネルへ移すのが基本です。</p>
+
+  <h2 id="ship">船舶間通信（行き会い・横切り・追い越し）</h2>
+  <p>船舶間の通信は、海上衝突予防法（COLREG）で定められた航法を、互いに確認し合うために行います。通信で航法を変えることはできない点に注意してください。</p>
+  <table class="doc-table">
+    <tr><th>状況</th><th>航法の原則</th><th>代表的な表現</th></tr>
+    <tr><td>行き会い（第14条）</td><td>互いに右転し、左舷対左舷で航過する</td><td class="en">I will alter course to starboard and pass port to port.</td></tr>
+    <tr><td>横切り（第15条）</td><td>相手を右舷側に見る船が避航船。相手の船尾方向を通過する</td><td class="en">I will alter course to starboard and pass astern of you.</td></tr>
+    <tr><td>追い越し（第13条）</td><td>追い越し船が、追い越され船を避ける</td><td class="en">Request permission to overtake you on your starboard side.</td></tr>
+    <tr><td>視界制限状態（第19条）</td><td>安全な速力で航行し、必要なら行きあしを止める</td><td class="en">I am reducing speed to 6 knots.</td></tr>
+  </table>
+  <p>本システムの「その他」では、錨泊予定の通知、運転不自由船（not under command）の通報、レーダー情報の交換、漁労中の船への対応、人員落水の捜索協力を扱います。</p>
+
+  <h3>位置・方位の表し方</h3>
+  <ul>
+    <li><strong>ポイントと度</strong>：1ポイント＝11.25度。<span class="en">5 points on my starboard side</span></li>
+    <li><strong>相対方位</strong>：bow（船首方向）、beam（正横）、quarter（船尾方向）</li>
+    <li><strong>距離</strong>：mile（海里）、cable（ケーブル、1海里の10分の1）</li>
+  </ul>
+
+  <h2 id="vts">VTS通信</h2>
+  <p>VTS（Vessel Traffic Service、船舶通航業務）は、ふくそう海域で航行情報の提供や航行管制を行う陸上の業務です。船舶側は、指定された海域への入域前の通報や、航行中の位置報告を求められます。</p>
+  <p>日本では海上保安庁が全国7か所に海上交通センターを設置しています（東京湾・伊勢湾・名古屋港・大阪湾・備讃瀬戸・来島海峡・関門海峡）。
+  英語表記の頭文字から「マーチス（MARTIS）」と呼ばれますが、名古屋港の施設はこの呼称を用いません。</p>
+
+  <h3>VTS通信の3つの型</h3>
+  <table class="doc-table">
+    <tr><th>型</th><th>内容</th><th>本システムの区分</th></tr>
+    <tr><td>通報</td><td>航路への入航予定、船名・コールサイン・喫水・目的地などを事前に伝える</td><td>通報1〜5</td></tr>
+    <tr><td>報告</td><td>通報ラインの通過、航路の航行終了、ETAの変更、錨泊、故障などを報告する</td><td>報告1〜5</td></tr>
+    <tr><td>問いかけ</td><td>交通情報の要求（船舶側から）と、VTSからの照会・勧告（VTS側から）</td><td>問いかけ1〜5</td></tr>
+  </table>
+  <p>VTSからの通信には Information（情報）、Advice（勧告）、Instruction（指示）の区別があります。勧告は強制力を持ちませんが、従わない場合はその理由と自船の意図を伝えるのが原則です。</p>
+
+  <h2 id="listening">リスニング</h2>
+  <p>実際のVHF通信は、雑音・訛り・早口の影響を受けます。本システムでは、アクセントを切り替えて聞き取りの練習ができます。</p>
+  <ul>
+    <li>聞き取れないときは <span class="en">Say again.</span>、速すぎるときは <span class="en">Slower please.</span> と伝えます。これは実際の通信でも使う表現です。</li>
+    <li>数字（方位、距離、時刻）と船名は、最も聞き違えやすい部分です。復唱して確認します。</li>
+    <li>Level 1 から順に、文が長く、条件が複雑になります。</li>
+  </ul>
+
+  <h2 id="anchor">投錨・抜錨</h2>
+  <p>船橋と船首部署の間で交わす号令・報告です。作業の安全に直結するため、指示は短く、報告は必ず完了形で返します。</p>
+  <table class="doc-table">
+    <tr><th>用語</th><th>意味</th></tr>
+    <tr><td class="en">shackle</td><td>節。錨鎖の長さの単位（1節＝約27.5m）</td></tr>
+    <tr><td class="en">walk back / walk out</td><td>錨を巻き出す</td></tr>
+    <tr><td class="en">let go anchor</td><td>投錨する</td></tr>
+    <tr><td class="en">hold on cable</td><td>錨鎖を止める</td></tr>
+    <tr><td class="en">brought up</td><td>錨が効き、船が止まった状態</td></tr>
+    <tr><td class="en">heave up</td><td>巻き上げる</td></tr>
+    <tr><td class="en">aweigh</td><td>錨が海底を離れた状態（立錨）</td></tr>
+    <tr><td class="en">clear</td><td>錨に異物や他船の鎖がからんでいない状態</td></tr>
+    <tr><td class="en">cable leading X o'clock</td><td>錨鎖が時計の文字盤でX時の方向に延びている</td></tr>
+  </table>
+  <p>錨鎖の方向（leading）と張り具合（slack / tight）の報告は、投錨後の状態把握に欠かせません。本システムでは、これらを和訳・英訳・リスニングの3形式で練習します。</p>
+
+  <h2 id="harbor">出入港・当直引き継ぎ</h2>
+  <p>出入港時は、船橋と船首・船尾の各部署が同時に通信します。冒頭で各部署の感度を確認し、配置完了を報告してから作業に入ります。</p>
+  <h3>交通状況の描写</h3>
+  <p>当直引き継ぎでは、周囲の船舶を次の要素で描写します。</p>
+  <ul>
+    <li><strong>相対位置</strong>：<span class="en">3 points on our port bow</span>、<span class="en">abaft our starboard beam</span></li>
+    <li><strong>関係</strong>：crossing（横切り船）、meeting（反航船）、overtaking（追い越し船）、same-way（同航船）</li>
+    <li><strong>方位変化</strong>：<span class="en">bearing is changing forward / aft</span>、<span class="en">constant</span>（変わらない＝衝突のおそれ）</li>
+    <li><strong>接近状況</strong>：CPA（最接近距離）、TCPA（最接近までの時間）</li>
+    <li><strong>取るべき動作</strong>：<span class="en">We must give way.</span> / <span class="en">We must stand on.</span></li>
+  </ul>
+  <p>引き継ぎは <span class="en">You have the watch.</span>（引き継ぎます）と <span class="en">I have the watch.</span>（引き継ぎました）で、責任の所在を明確にして完了します。</p>
+
+  <h2 id="tips">よくあるつまずき</h2>
+  <ul>
+    <li><strong>Repeat を使ってしまう</strong>：聞き返しは <span class="en">Say again.</span> です。</li>
+    <li><strong>Over and out</strong>：応答を求める Over と、交信終了の Out は同時に使いません。</li>
+    <li><strong>意図と勧告の混同</strong>：自船の行動は <span class="en">I will …</span>、相手への勧告は <span class="en">Advise you …</span> です。</li>
+    <li><strong>避航船・保持船の取り違え</strong>：横切り関係では、相手を右舷側に見る側が避航します。</li>
+    <li><strong>数字の省略</strong>：距離・速力・方位は単位まで述べます（<span class="en">distance 5 miles, speed 8 knots</span>）。</li>
+  </ul>
+
+  <p class="doc-footer">各シナリオの全文は<a href="scenarios.html">シナリオ一覧ページ</a>で確認できます。</p>
+
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="nav.js"></script>
+</body>
+</html>
