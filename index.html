@@ -10,6 +10,9 @@
 <!-- 監視モード中のみ表示（開発者ページで切り替え） -->
 <div id="monitor-banner" style="display:none;" role="status">現在監視モード中です</div>
 
+<!-- 試験中の固定表示（exam.js が中身を書き換えます） -->
+<div id="exam-banner" style="display:none;" role="status"></div>
+
 <div id="site-nav"></div>
 
 <div class="chat-container">
@@ -59,7 +62,11 @@
     <button type="button" class="role-button" id="listening-button">Listening Test</button>
     <button type="button" class="role-button" id="anchor-button">投錨・抜錨</button>
     <button type="button" class="role-button" id="harbor-button">出入港・当直引き継ぎ</button>
+    <button type="button" class="role-button exam-mode-button" id="exam-button">Exam Mode</button>
   </div>
+
+  <!-- 試験モードの画面（exam.js が中身を生成） -->
+  <div id="exam-box" style="display:none;"></div>
 
   <!-- フレーズ練習（practice.js が中身を生成） -->
   <div id="practice-box" style="display:none;"></div>
@@ -163,5 +170,6 @@
 <script src="nav.js"></script>
 <script src="script.js"></script>
 <script src="practice.js"></script>
+<script src="exam.js"></script>
 </body>
 </html>

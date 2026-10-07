@@ -171,6 +171,55 @@ async function loadDashboard() {
   }
 }
 
+// ---------- 試験結果 ----------
+let examData = null;
+
+async function loadExams() {
+  const btn = $("exam-refresh");
+  setBusy(btn, true);
+  try {
+    examData = await api("examDashboard");
+    $("exam-generated-at").textContent = `集計日時: ${examData.generatedAt}`;
+
+    renderTable($("exam-table"),
+      ["試験名", "受験人数", "完了", "中断", "平均点", "最高点", "最低点", "満点", "平均所要時間", "Paste Count"],
+      examData.exams.map(e => [e.examName, e.takers, e.completed, e.aborted,
+        e.averageScore, e.maxScore, e.minScore, e.fullScore, e.averageMinutes + "分", e.pasteTotal]),
+      "試験の記録がありません。");
+
+    // 絞り込みの選択肢を作り直す（選択中の試験は保持）
+    const select = $("exam-filter");
+    const current = select.value;
+    select.textContent = "";
+    const all = document.createElement("option");
+    all.value = ""; all.textContent = "すべて";
+    select.appendChild(all);
+    examData.exams.forEach(e => {
+      const opt = document.createElement("option");
+      opt.value = e.examName; opt.textContent = e.examName;
+      select.appendChild(opt);
+    });
+    select.value = current;
+
+    renderExamQuestions();
+  } catch (e) {
+    if (e.message !== "unauthorized") $("exam-generated-at").textContent = e.message;
+  } finally {
+    setBusy(btn, false);
+  }
+}
+
+function renderExamQuestions() {
+  if (!examData) return;
+  const filter = $("exam-filter").value;
+  const rows = examData.questions.filter(q => !filter || q.examName === filter);
+
+  renderTable($("exam-question-table"),
+    ["試験名", "問題ID", "問題", "正答", "受験数", "正答率", "平均回答時間"],
+    rows.map(q => [q.examName, q.questionId, q.question, q.correct, q.total, q.rate + "%", q.averageSeconds + "秒"]),
+    "解答の記録がありません。");
+}
+
 // ---------- 学籍番号検索 ----------
 async function search() {
   const btn = $("search-button");
@@ -235,7 +284,9 @@ document.addEventListener("DOMContentLoaded", () => {
   $("login-button").addEventListener("click", login);
   $("admin-password").addEventListener("keydown", e => { if (e.key === "Enter") login(); });
   $("logout-button").addEventListener("click", logout);
-  $("refresh-button").addEventListener("click", loadDashboard);
+  $("refresh-button").addEventListener("click", () => { loadDashboard(); if (examData) loadExams(); });
+  $("exam-refresh").addEventListener("click", loadExams);
+  $("exam-filter").addEventListener("change", renderExamQuestions);
   $("save-settings").addEventListener("click", saveSettings);
   $("search-button").addEventListener("click", search);
   $("search-id").addEventListener("keydown", e => { if (e.key === "Enter") search(); });

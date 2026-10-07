@@ -304,6 +304,12 @@ function updateStatusBar() {
   const el = document.getElementById("status-bar");
   if (!el) return;
 
+  // 試験中は試験の状況を表示する（学習モードの成績は出さない）
+  if (window.Exam && window.Exam.isRunning()) {
+    el.textContent = window.Exam.statusText();
+    return;
+  }
+
   let text;
   if (mode === null) {
     text = "訓練モードを選択してください";
@@ -908,6 +914,13 @@ function handleSend() {
   const message = input.value.trim();
   if (message === "") return;
 
+  // 試験モード中は、ほかの処理より先に解答として扱う
+  if (window.Exam && window.Exam.isRunning()) {
+    window.Exam.handleInput(message);
+    clearInput(input);
+    return;
+  }
+
   // 監視モード中は学籍番号の入力が必須
   if (!ensureStudentId()) return;
 
@@ -949,6 +962,11 @@ function handleSend() {
   // 模範解答
   const n = normalize(message);
   if (n === "what's the answer" || n === "whats the answer") {
+    if (window.Exam && window.Exam.isRunning()) {
+      window.Exam.blockLearningFeature();
+      clearInput(input);
+      return;
+    }
     if (appSettings.monitorMode) {
       systemMessage("監視モード中は模範解答を表示できません。");
       clearInput(input);
@@ -1115,7 +1133,16 @@ function init() {
 
   // 訓練モードのボタン
   document.querySelectorAll(".role-button").forEach(button => {
+    if (button.id === "exam-button") return;   // 試験モードは exam.js が扱う
+
     button.addEventListener("click", () => {
+      // 試験中は学習モードに切り替えられない
+      if (window.Exam && window.Exam.isRunning()) {
+        window.Exam.blockLearningFeature();
+        return;
+      }
+      if (window.Exam) window.Exam.close();
+
       resetTrainingState();
       resetSubUIs();
       document.querySelectorAll(".role-button").forEach(btn => btn.classList.remove("active"));

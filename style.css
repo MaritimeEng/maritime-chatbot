@@ -672,3 +672,120 @@ body.copy-paste-ban .chat-box {
 
 .admin th { background-color: #2f3b4a; }
 .admin td.empty { color: #b8c2cf; white-space: normal; }
+
+/* =====================================================
+   試験モード
+   ===================================================== */
+#exam-banner {
+  position: sticky;
+  top: 0;
+  z-index: 110;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 14px;
+  padding-top: calc(10px + env(safe-area-inset-top, 0px));
+  background-color: #1b5e20;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+#exam-banner.urgent { background-color: #b71c1c; }
+
+.exam-banner-title { font-weight: bold; letter-spacing: 0.05em; }
+.exam-banner-item { white-space: nowrap; }
+
+.exam-mode-button {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+.exam-mode-button:hover { background-color: #1b5e20; }
+
+/* 試験中は学習モードの操作を無効に見せる */
+.role-button:disabled {
+  background-color: #39434f;
+  color: #8b96a5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.site-nav a.nav-locked { opacity: 0.55; }
+
+#exam-box {
+  margin-top: 12px;
+  padding: 14px;
+  background-color: #2f3b4a;
+  border-radius: 10px;
+  border-left: 4px solid #66bb6a;
+}
+
+#exam-box h3 { margin-top: 0; }
+#exam-box h4 { margin-bottom: 6px; }
+
+#exam-box ul { text-align: left; padding-left: 22px; line-height: 1.8; }
+
+.exam-card {
+  margin-bottom: 10px;
+  padding: 12px;
+  background-color: #263544;
+  border-radius: 8px;
+}
+
+.exam-card-name { font-size: 17px; font-weight: bold; margin-bottom: 4px; }
+.exam-card-desc { font-size: 14px; color: #b8c2cf; margin-bottom: 4px; }
+.exam-card-meta { font-size: 14px; color: #b8c2cf; margin-bottom: 8px; }
+
+.exam-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.exam-quit {
+  padding: 6px 10px;
+  font-size: 13px;
+  background-color: #7f3b3b;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.exam-quit:hover { background-color: #a04545; }
+
+.exam-note { text-align: left; font-size: 14px; color: #b8c2cf; }
+.exam-error { text-align: left; color: #ff8a80; }
+
+.exam-correct { color: #a5d6a7; font-weight: bold; }
+.exam-wrong   { color: #ff8a80; font-weight: bold; }
+
+#exam-box .doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 14px;
+  font-size: 14px;
+}
+
+#exam-box .doc-table th,
+#exam-box .doc-table td {
+  padding: 6px 8px;
+  border: 1px solid #3c4f65;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+#exam-box .doc-table th { background-color: #2f3b4a; }
+#exam-box .doc-table td.en { color: #90caf9; }
+
+@media screen and (max-width: 600px) {
+  #exam-banner { font-size: 14px; gap: 4px 12px; padding: 8px 10px; }
+  .exam-banner-title { width: 100%; text-align: center; }
+  #exam-box .doc-table { display: block; overflow-x: auto; }
+}
