@@ -91,6 +91,26 @@
       <div class="table-wrap"><table id="search-table"></table></div>
     </section>
 
+    <!-- 試験結果 -->
+    <section class="admin-section">
+      <h3>試験結果</h3>
+      <p class="admin-note">試験モードの記録です（学習モードのログとは別に集計しています）。</p>
+      <div class="admin-row">
+        <button type="button" id="exam-refresh" class="mini-button">試験結果を読み込む</button>
+        <span id="exam-generated-at"></span>
+      </div>
+
+      <h4>試験一覧</h4>
+      <div class="table-wrap"><table id="exam-table"></table></div>
+
+      <h4>問題別正答率（正答率の低い順）</h4>
+      <div class="admin-row">
+        <label for="exam-filter">試験で絞り込む:</label>
+        <select id="exam-filter"><option value="">すべて</option></select>
+      </div>
+      <div class="table-wrap"><table id="exam-question-table"></table></div>
+    </section>
+
     <!-- 授業監視 -->
     <section class="admin-section">
       <h3>授業監視</h3>
